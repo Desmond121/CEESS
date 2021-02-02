@@ -1,9 +1,9 @@
 # This file is used for managing all the forms.
-from PyQt5.QtWidgets import QMainWindow, QWidget
+from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication
 from ui.Ui_Login import Ui_Login
 from ui.Ui_Student import Ui_Student
 from ui.Ui_Teacher import Ui_Teacher
-from data_manager import DBManager
+from dataManager import DBManager
 
 
 class LoginForm(Ui_Login, QWidget):
@@ -11,6 +11,7 @@ class LoginForm(Ui_Login, QWidget):
     def __init__(self):
         super(LoginForm, self).__init__()
         self.setupUi(self)
+        self.sizeAdapt(0.3)
         # Signal slots.
         self.loginButtom.clicked.connect(self.loginAndSwitch)
 

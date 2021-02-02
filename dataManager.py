@@ -17,7 +17,7 @@ class DBManager():
         self._cursor.execute(
             "SELECT USER_TYPE FROM USER WHERE USER_ID ==?;", (uid,))
         result = self._cursor.fetchone()
-        return(result[0])
+        return result[0]
 
     def isPasswordCorrect(self, uid, password):
         self._cursor.execute(
@@ -25,4 +25,4 @@ class DBManager():
         result = self._cursor.fetchone()
         if result is None:
             return False
-        return(bool(result[0] == password))
+        return bool(result[0] == password)
