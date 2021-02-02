@@ -3,11 +3,8 @@ import sqlite3
 
 class DBManager():
     def __init__(self, database):
-        try:
-            self._conn = sqlite3.connect(database)
-            self._cursor = self._conn.cursor()
-        except sqlite3.DatabaseError as dbe:
-            print("数据库链接错误")
+        self._conn = sqlite3.connect(database)
+        self._cursor = self._conn.cursor()
 
     def closeConnect(self):
         self._cursor.close()
