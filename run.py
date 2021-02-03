@@ -3,7 +3,7 @@ Author: Desmond
 This is the running file for this programme.
 """
 import sys
-from PyQt5.QtWidgets import QApplication
+from PySide2.QtWidgets import QApplication
 from forms import LoginForm
 
 if __name__ == "__main__":
