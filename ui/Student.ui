@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Student</class>
- <widget class="QMainWindow" name="Student">
+ <class>StudentMainWindow</class>
+ <widget class="QMainWindow" name="StudentMainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
+    <width>695</width>
     <height>434</height>
    </rect>
   </property>
