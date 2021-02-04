@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
-    <height>190</height>
+    <width>350</width>
+    <height>250</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>350</width>
+    <height>250</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>CESS-登录</string>
@@ -24,7 +36,7 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>幼圆</family>
+       <family>黑体</family>
        <pointsize>18</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -58,7 +70,7 @@
        </property>
        <property name="font">
         <font>
-         <family>幼圆</family>
+         <family>黑体</family>
          <pointsize>15</pointsize>
          <weight>50</weight>
          <bold>false</bold>
@@ -101,7 +113,7 @@
        </property>
        <property name="font">
         <font>
-         <family>幼圆</family>
+         <family>黑体</family>
          <pointsize>15</pointsize>
          <weight>50</weight>
          <bold>false</bold>
@@ -130,7 +142,20 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,2,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,2,1">
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">

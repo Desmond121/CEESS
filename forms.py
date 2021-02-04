@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QMessageBox
-from PyQt5.QtGui import QIcon
 
 from ui.Ui_Login import Ui_LoginDialog
 from ui.Ui_Student import Ui_StudentMainWindow
@@ -15,17 +14,11 @@ class QWidgetCommon(QWidget):
         else:
             self.resize(desktop.width() * rate, desktop.height() * rate)
 
-    def setTheme(self, path):
-        qss = open(path)
-        self.setStyleSheet(qss.read())
-
 
 class LoginForm(Ui_LoginDialog, QWidgetCommon):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.sizeAdapt(0.25, True)
-        self.setWindowIcon(QIcon("./resource/icon/title.ico"))
         self.subForm = None
         # Signal slots.
         self.loginButtom.clicked.connect(self.loginAndSwitch)
@@ -46,15 +39,15 @@ class LoginForm(Ui_LoginDialog, QWidgetCommon):
             QMessageBox.information(self, "CEESS-提示", "用户名或密码错误!")
 
 
-class StudentForm(Ui_StudentMainWindow,QMainWindow, QWidgetCommon):
+class StudentForm(Ui_StudentMainWindow, QMainWindow, QWidgetCommon):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.sizeAdapt(0.5,True)
+        self.sizeAdapt(0.5, False)
         # Signal slots.
 
 
-class TeacherForm(Ui_TeacherMainWindow,QMainWindow, QWidgetCommon):
+class TeacherForm(Ui_TeacherMainWindow, QMainWindow, QWidgetCommon):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
