@@ -21,49 +21,10 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>华光准圆_CNKI</family>
+       <family>幼圆</family>
        <pointsize>18</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -83,7 +44,10 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,3">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,4">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QLabel" name="accLabel">
        <property name="sizePolicy">
@@ -94,7 +58,7 @@
        </property>
        <property name="font">
         <font>
-         <family>华光准圆_CNKI</family>
+         <family>幼圆</family>
          <pointsize>15</pointsize>
          <weight>50</weight>
          <bold>false</bold>
@@ -123,7 +87,10 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,3">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QLabel" name="pswLabel">
        <property name="sizePolicy">
@@ -134,7 +101,7 @@
        </property>
        <property name="font">
         <font>
-         <family>华光准圆_CNKI</family>
+         <family>幼圆</family>
          <pointsize>15</pointsize>
          <weight>50</weight>
          <bold>false</bold>
@@ -181,7 +148,7 @@
       <widget class="QPushButton" name="loginButtom">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>幼圆</family>
          <pointsize>15</pointsize>
         </font>
        </property>

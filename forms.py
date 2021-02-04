@@ -24,9 +24,8 @@ class LoginForm(Ui_LoginDialog, QWidgetCommon):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.sizeAdapt(0.2, True)
+        self.sizeAdapt(0.25, True)
         self.setWindowIcon(QIcon("./resource/icon/title.ico"))
-        self.setTheme("./resource/style/MacOS.qss")
         self.subForm = None
         # Signal slots.
         self.loginButtom.clicked.connect(self.loginAndSwitch)
@@ -42,7 +41,7 @@ class LoginForm(Ui_LoginDialog, QWidgetCommon):
             else:
                 self.subForm = StudentForm()
             self.subForm.show()
-           # self.close()
+            self.close()
         else:
             QMessageBox.information(self, "CEESS-提示", "用户名或密码错误!")
 
