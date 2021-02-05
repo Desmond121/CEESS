@@ -1,5 +1,6 @@
 from PyQt5.QtCore import Qt, QMetaObject, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QToolButton, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QToolButton, QLabel, QSizePolicy, QSpacerItem
 
 _FL_STYLESHEET = "./resources/qss/frameless.qss"
 
@@ -85,7 +86,7 @@ class FramelessWindow(QWidget):
 
         self.lblTitle = QLabel('Title')
         self.lblTitle.setObjectName('lblTitle')
-        self.lblTitle.setAlignment(Qt.AlignCenter)
+        self.lblTitle.setAlignment(Qt.AlignBottom|Qt.AlignLeft)
 
         spButtons = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
@@ -111,8 +112,6 @@ class FramelessWindow(QWidget):
         self.vboxFrame.addWidget(self.windowContent)
 
         self.vboxWindow.addWidget(self.windowFrame)
-
-    
     
         self.hboxTitle.addWidget(self.lblTitle)
         self.hboxTitle.addWidget(self.btnMinimize)

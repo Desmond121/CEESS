@@ -4,6 +4,7 @@ from ui.Ui_Login import Ui_LoginDialog
 from ui.Ui_Student import Ui_StudentMainWindow
 from ui.Ui_Teacher import Ui_TeacherMainWindow
 from dataManager import DBManager
+from frameless import FramelessWindow
 
 
 class QWidgetCommon(QWidget):
@@ -30,9 +31,9 @@ class LoginForm(Ui_LoginDialog, QWidgetCommon):
         if data.isPasswordCorrect(userId, password):
             isTeacher = data.getTypeById(userId)
             if isTeacher:
-                self.subForm = TeacherForm()
+                self.subForm = FramelessWindow(TeacherForm())
             else:
-                self.subForm = StudentForm()
+                self.subForm = FramelessWindow(StudentForm())
             self.subForm.show()
             self.close()
         else:
