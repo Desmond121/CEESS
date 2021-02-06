@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtGui import QPalette, QColor
+from PySide2.QtWidgets import QApplication
+from PySide2.QtGui import QPalette, QColor
 
 _STYLESHEET = "./resources/qss/style.qss"
 

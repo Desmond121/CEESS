@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QMessageBox
+from PySide2.QtWidgets import QMainWindow, QWidget, QApplication, QMessageBox, QDialog
 
-from ui.Ui_Login import Ui_LoginDialog
+from ui.Ui_Login import Ui_LoginMainWindow
 from ui.Ui_Student import Ui_StudentMainWindow
 from ui.Ui_Teacher import Ui_TeacherMainWindow
 from dataManager import DBManager
@@ -16,7 +16,7 @@ class QWidgetCommon(QWidget):
             self.resize(desktop.width() * rate, desktop.height() * rate)
 
 
-class LoginForm(Ui_LoginDialog, QWidgetCommon):
+class LoginForm(Ui_LoginMainWindow, QMainWindow, QWidgetCommon):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

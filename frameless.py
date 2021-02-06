@@ -1,8 +1,8 @@
-from PyQt5.QtCore import Qt, QMetaObject, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
-from PyQt5.QtWidgets import QToolButton, QLabel, QSizePolicy, QSpacerItem
-
+from PySide2.QtCore import Qt, QMetaObject, Signal, Slot
+from PySide2.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QGraphicsDropShadowEffect
+from PySide2.QtWidgets import QToolButton, QLabel, QSizePolicy, QSpacerItem
 _FL_STYLESHEET = "./resources/qss/frameless.qss"
+
 
 class WindowDragger(QWidget):
     """ Window dragger.
@@ -12,7 +12,7 @@ class WindowDragger(QWidget):
             parent (QWidget, optional): Parent widget.
     """
 
-    doubleClicked = pyqtSignal()
+    doubleClicked = Signal()
 
     def __init__(self, window, parent=None):
         QWidget.__init__(self, parent)
@@ -60,6 +60,13 @@ class FramelessWindow(QWidget):
         self.setWindowTitle(w.windowTitle())
         self.setGeometry(w.geometry())
 
+        # Adding shadow for window
+        self.shadowEffect = QGraphicsDropShadowEffect(self)
+        self.shadowEffect.setOffset(0, 0)
+        self.shadowEffect.setBlurRadius(20)
+        self.shadowEffect.setColor(Qt.black)
+        self.setGraphicsEffect(self.shadowEffect)
+
         # Adding attribute to clean up the parent window when the child is closed
         self._w.setAttribute(Qt.WA_DeleteOnClose, True)
         self._w.destroyed.connect(self.__child_was_closed)
@@ -67,7 +74,7 @@ class FramelessWindow(QWidget):
     def setupUi(self):
         # create title bar, content
         self.vboxWindow = QVBoxLayout(self)
-        self.vboxWindow.setContentsMargins(0, 0, 0, 0)
+        self.vboxWindow.setContentsMargins(10, 10, 10, 10)
 
         self.windowFrame = QWidget(self)
         self.windowFrame.setObjectName('windowFrame')
@@ -84,9 +91,12 @@ class FramelessWindow(QWidget):
         self.hboxTitle.setContentsMargins(0, 0, 0, 0)
         self.hboxTitle.setSpacing(0)
 
+        self.spcTitle = QSpacerItem(
+            42, 14, QSizePolicy.Fixed, QSizePolicy.Fixed)
+
         self.lblTitle = QLabel('Title')
         self.lblTitle.setObjectName('lblTitle')
-        self.lblTitle.setAlignment(Qt.AlignBottom|Qt.AlignLeft)
+        self.lblTitle.setAlignment(Qt.AlignVCenter)
 
         spButtons = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
 
@@ -112,7 +122,8 @@ class FramelessWindow(QWidget):
         self.vboxFrame.addWidget(self.windowContent)
 
         self.vboxWindow.addWidget(self.windowFrame)
-    
+
+        self.hboxTitle.addSpacerItem(self.spcTitle)
         self.hboxTitle.addWidget(self.lblTitle)
         self.hboxTitle.addWidget(self.btnMinimize)
         self.hboxTitle.addWidget(self.btnRestore)
@@ -123,7 +134,6 @@ class FramelessWindow(QWidget):
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowCloseButtonHint |
                             Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint)
 
-        
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         # set stylesheet
@@ -209,35 +219,37 @@ class FramelessWindow(QWidget):
 
         QWidget.setWindowFlags(self, Qt_WindowFlags)
 
-    @pyqtSlot()
+    @Slot()
     def on_btnMinimize_clicked(self):
         self.setWindowState(Qt.WindowMinimized)
 
-    @pyqtSlot()
+    @Slot()
     def on_btnRestore_clicked(self):
         if self.btnMaximize.isEnabled() or self.btnRestore.isEnabled():
             self.btnRestore.setVisible(False)
             self.btnRestore.setEnabled(False)
             self.btnMaximize.setVisible(True)
             self.btnMaximize.setEnabled(True)
+            self.vboxWindow.setContentsMargins(10, 10, 10, 10)
 
         self.setWindowState(Qt.WindowNoState)
 
-    @pyqtSlot()
+    @Slot()
     def on_btnMaximize_clicked(self):
         if self.btnMaximize.isEnabled() or self.btnRestore.isEnabled():
             self.btnRestore.setVisible(True)
             self.btnRestore.setEnabled(True)
             self.btnMaximize.setVisible(False)
             self.btnMaximize.setEnabled(False)
+            self.vboxWindow.setContentsMargins(0, 0, 0, 0)
 
         self.setWindowState(Qt.WindowMaximized)
 
-    @pyqtSlot()
+    @Slot()
     def on_btnClose_clicked(self):
         self.close()
 
-    @pyqtSlot()
+    @Slot()
     def on_titleBar_doubleClicked(self):
         if not bool(self.windowState() & Qt.WindowMaximized):
             self.on_btnMaximize_clicked()
