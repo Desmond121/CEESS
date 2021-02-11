@@ -13,12 +13,15 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_StudentMainWindow(object):
-    def setupUi(self, StudentMainWindow):
-        if not StudentMainWindow.objectName():
-            StudentMainWindow.setObjectName(u"StudentMainWindow")
-        StudentMainWindow.resize(695, 434)
-        self.centralwidget = QWidget(StudentMainWindow)
+class Ui_Student(object):
+    def setupUi(self, Student):
+        if not Student.objectName():
+            Student.setObjectName(u"Student")
+        Student.resize(695, 434)
+        font = QFont()
+        font.setFamily(u"AcadEref")
+        Student.setFont(font)
+        self.centralwidget = QWidget(Student)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
@@ -42,9 +45,10 @@ class Ui_StudentMainWindow(object):
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        font = QFont()
-        font.setPointSize(20)
-        self.label.setFont(font)
+        font1 = QFont()
+        font1.setFamily(u"AcadEref")
+        font1.setPointSize(20)
+        self.label.setFont(font1)
 
         self.gridLayout.addWidget(self.label, 0, 5, 1, 1)
 
@@ -101,21 +105,21 @@ class Ui_StudentMainWindow(object):
 
         self.gridLayout.addWidget(self.verticalScrollBar, 0, 7, 1, 1)
 
-        StudentMainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(StudentMainWindow)
+        Student.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(Student)
         self.statusbar.setObjectName(u"statusbar")
-        StudentMainWindow.setStatusBar(self.statusbar)
+        Student.setStatusBar(self.statusbar)
 
-        self.retranslateUi(StudentMainWindow)
+        self.retranslateUi(Student)
 
-        QMetaObject.connectSlotsByName(StudentMainWindow)
+        QMetaObject.connectSlotsByName(Student)
     # setupUi
 
-    def retranslateUi(self, StudentMainWindow):
-        StudentMainWindow.setWindowTitle(QCoreApplication.translate("StudentMainWindow", u"MainWindow", None))
-        self.pushButton.setText(QCoreApplication.translate("StudentMainWindow", u"PushButton", None))
-        self.label.setText(QCoreApplication.translate("StudentMainWindow", u"\u5b66\u751f", None))
-        self.toolButton.setText(QCoreApplication.translate("StudentMainWindow", u"...", None))
-        self.radioButton.setText(QCoreApplication.translate("StudentMainWindow", u"RadioButton", None))
+    def retranslateUi(self, Student):
+        Student.setWindowTitle(QCoreApplication.translate("Student", u"MainWindow", None))
+        self.pushButton.setText(QCoreApplication.translate("Student", u"PushButton", None))
+        self.label.setText(QCoreApplication.translate("Student", u"\u5b66\u751f", None))
+        self.toolButton.setText(QCoreApplication.translate("Student", u"...", None))
+        self.radioButton.setText(QCoreApplication.translate("Student", u"RadioButton", None))
     # retranslateUi
 

@@ -2,6 +2,12 @@
     "cSpell.words": [
         "CEESS",
         "Pyside",
+        "btns",
+        "hbox",
         "qtmodern"
+    ],
+    "python.pythonPath": "D:\\Python\\Python39\\python.exe",
+    "cSpell.ignoreWords": [
+        "gmarull"
     ]
 }

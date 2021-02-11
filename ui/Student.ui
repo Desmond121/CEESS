@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>StudentMainWindow</class>
- <widget class="QMainWindow" name="StudentMainWindow">
+ <class>Student</class>
+ <widget class="QMainWindow" name="Student">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,6 +9,11 @@
     <width>695</width>
     <height>434</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>AcadEref</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -38,6 +43,7 @@
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
+        <family>AcadEref</family>
         <pointsize>20</pointsize>
        </font>
       </property>
