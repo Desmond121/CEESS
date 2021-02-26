@@ -17,98 +17,71 @@ class Ui_Student(object):
     def setupUi(self, Student):
         if not Student.objectName():
             Student.setObjectName(u"Student")
-        Student.resize(695, 434)
-        font = QFont()
-        font.setFamily(u"AcadEref")
-        Student.setFont(font)
+        Student.resize(400, 200)
         self.centralwidget = QWidget(Student)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
+        self.btnSafetyTest = QPushButton(self.centralwidget)
+        self.btnSafetyTest.setObjectName(u"btnSafetyTest")
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btnSafetyTest.sizePolicy().hasHeightForWidth())
+        self.btnSafetyTest.setSizePolicy(sizePolicy)
+        self.btnSafetyTest.setMinimumSize(QSize(120, 80))
+        font = QFont()
+        font.setPointSize(12)
+        self.btnSafetyTest.setFont(font)
 
-        self.gridLayout.addWidget(self.pushButton, 2, 6, 1, 1)
+        self.gridLayout.addWidget(self.btnSafetyTest, 0, 0, 1, 1)
 
-        self.treeWidget = QTreeWidget(self.centralwidget)
-        __qtreewidgetitem = QTreeWidgetItem()
-        __qtreewidgetitem.setText(0, u"1");
-        self.treeWidget.setHeaderItem(__qtreewidgetitem)
-        self.treeWidget.setObjectName(u"treeWidget")
+        self.btnPreparing = QPushButton(self.centralwidget)
+        self.btnPreparing.setObjectName(u"btnPreparing")
+        sizePolicy.setHeightForWidth(self.btnPreparing.sizePolicy().hasHeightForWidth())
+        self.btnPreparing.setSizePolicy(sizePolicy)
+        self.btnPreparing.setMinimumSize(QSize(120, 80))
+        self.btnPreparing.setFont(font)
 
-        self.gridLayout.addWidget(self.treeWidget, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.btnPreparing, 0, 1, 1, 1)
 
-        self.dateTimeEdit = QDateTimeEdit(self.centralwidget)
-        self.dateTimeEdit.setObjectName(u"dateTimeEdit")
+        self.btnSimulator = QPushButton(self.centralwidget)
+        self.btnSimulator.setObjectName(u"btnSimulator")
+        sizePolicy.setHeightForWidth(self.btnSimulator.sizePolicy().hasHeightForWidth())
+        self.btnSimulator.setSizePolicy(sizePolicy)
+        self.btnSimulator.setMinimumSize(QSize(120, 80))
+        self.btnSimulator.setFont(font)
 
-        self.gridLayout.addWidget(self.dateTimeEdit, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.btnSimulator, 0, 2, 1, 1)
 
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        font1 = QFont()
-        font1.setFamily(u"AcadEref")
-        font1.setPointSize(20)
-        self.label.setFont(font1)
+        self.btnDataProcess = QPushButton(self.centralwidget)
+        self.btnDataProcess.setObjectName(u"btnDataProcess")
+        sizePolicy.setHeightForWidth(self.btnDataProcess.sizePolicy().hasHeightForWidth())
+        self.btnDataProcess.setSizePolicy(sizePolicy)
+        self.btnDataProcess.setMinimumSize(QSize(120, 80))
+        self.btnDataProcess.setFont(font)
 
-        self.gridLayout.addWidget(self.label, 0, 5, 1, 1)
+        self.gridLayout.addWidget(self.btnDataProcess, 1, 0, 1, 1)
 
-        self.toolButton = QToolButton(self.centralwidget)
-        self.toolButton.setObjectName(u"toolButton")
+        self.btnExpTest = QPushButton(self.centralwidget)
+        self.btnExpTest.setObjectName(u"btnExpTest")
+        sizePolicy.setHeightForWidth(self.btnExpTest.sizePolicy().hasHeightForWidth())
+        self.btnExpTest.setSizePolicy(sizePolicy)
+        self.btnExpTest.setMinimumSize(QSize(120, 80))
+        self.btnExpTest.setFont(font)
 
-        self.gridLayout.addWidget(self.toolButton, 2, 4, 1, 1)
+        self.gridLayout.addWidget(self.btnExpTest, 1, 1, 1, 1)
 
-        self.listView = QListView(self.centralwidget)
-        self.listView.setObjectName(u"listView")
+        self.btnSetting = QPushButton(self.centralwidget)
+        self.btnSetting.setObjectName(u"btnSetting")
+        sizePolicy.setHeightForWidth(self.btnSetting.sizePolicy().hasHeightForWidth())
+        self.btnSetting.setSizePolicy(sizePolicy)
+        self.btnSetting.setMinimumSize(QSize(120, 80))
+        self.btnSetting.setFont(font)
 
-        self.gridLayout.addWidget(self.listView, 0, 0, 3, 1)
-
-        self.radioButton = QRadioButton(self.centralwidget)
-        self.radioButton.setObjectName(u"radioButton")
-
-        self.gridLayout.addWidget(self.radioButton, 2, 1, 1, 1)
-
-        self.comboBox = QComboBox(self.centralwidget)
-        self.comboBox.setObjectName(u"comboBox")
-
-        self.gridLayout.addWidget(self.comboBox, 0, 2, 1, 1)
-
-        self.buttonBox = QDialogButtonBox(self.centralwidget)
-        self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
-
-        self.gridLayout.addWidget(self.buttonBox, 2, 3, 1, 1)
-
-        self.timeEdit = QTimeEdit(self.centralwidget)
-        self.timeEdit.setObjectName(u"timeEdit")
-
-        self.gridLayout.addWidget(self.timeEdit, 0, 3, 1, 1)
-
-        self.textBrowser = QTextBrowser(self.centralwidget)
-        self.textBrowser.setObjectName(u"textBrowser")
-
-        self.gridLayout.addWidget(self.textBrowser, 0, 4, 1, 1)
-
-        self.verticalSlider = QSlider(self.centralwidget)
-        self.verticalSlider.setObjectName(u"verticalSlider")
-        self.verticalSlider.setOrientation(Qt.Vertical)
-
-        self.gridLayout.addWidget(self.verticalSlider, 0, 6, 1, 1)
-
-        self.lineEdit = QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName(u"lineEdit")
-
-        self.gridLayout.addWidget(self.lineEdit, 1, 4, 1, 1)
-
-        self.verticalScrollBar = QScrollBar(self.centralwidget)
-        self.verticalScrollBar.setObjectName(u"verticalScrollBar")
-        self.verticalScrollBar.setOrientation(Qt.Vertical)
-
-        self.gridLayout.addWidget(self.verticalScrollBar, 0, 7, 1, 1)
+        self.gridLayout.addWidget(self.btnSetting, 1, 2, 1, 1)
 
         Student.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(Student)
-        self.statusbar.setObjectName(u"statusbar")
-        Student.setStatusBar(self.statusbar)
 
         self.retranslateUi(Student)
 
@@ -116,10 +89,12 @@ class Ui_Student(object):
     # setupUi
 
     def retranslateUi(self, Student):
-        Student.setWindowTitle(QCoreApplication.translate("Student", u"MainWindow", None))
-        self.pushButton.setText(QCoreApplication.translate("Student", u"PushButton", None))
-        self.label.setText(QCoreApplication.translate("Student", u"\u5b66\u751f", None))
-        self.toolButton.setText(QCoreApplication.translate("Student", u"...", None))
-        self.radioButton.setText(QCoreApplication.translate("Student", u"RadioButton", None))
+        Student.setWindowTitle(QCoreApplication.translate("Student", u"CEESS-\u5b66\u751f", None))
+        self.btnSafetyTest.setText(QCoreApplication.translate("Student", u"\u5b89\u5168\u6d4b\u8bd5", None))
+        self.btnPreparing.setText(QCoreApplication.translate("Student", u"\u5b9e\u9a8c\u9884\u4e60", None))
+        self.btnSimulator.setText(QCoreApplication.translate("Student", u"\u5b9e\u9a8c\u6a21\u62df", None))
+        self.btnDataProcess.setText(QCoreApplication.translate("Student", u"\u6570\u636e\u5904\u7406", None))
+        self.btnExpTest.setText(QCoreApplication.translate("Student", u"\u5b9e\u9a8c\u6d4b\u8bd5", None))
+        self.btnSetting.setText(QCoreApplication.translate("Student", u"\u7cfb\u7edf\u8bbe\u7f6e", None))
     # retranslateUi
 

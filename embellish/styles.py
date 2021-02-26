@@ -15,11 +15,13 @@ _FONT = "./resources/font/SourceHanSansCN-Medium.ttf"
 
 
 class StyleQApplication(QApplication):
-
     def _applyBaseTheme(self):
-        self.setStyle('Fusion')
+        self.setStyle("fusion")
         styleSheet = open(_STYLESHEET)
         self.setStyleSheet(styleSheet.read())
+
+    def default(self):
+        self._applyBaseTheme()
 
     def dark(self):
         darkPalette = QPalette()
@@ -56,8 +58,8 @@ class StyleQApplication(QApplication):
         darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText,
                              QColor(127, 127, 127))
 
-        self.setPalette(darkPalette)
         self._applyBaseTheme()
+        self.setPalette(darkPalette)
 
     def light(self):
         lightPalette = QPalette()
@@ -94,5 +96,5 @@ class StyleQApplication(QApplication):
         lightPalette.setColor(QPalette.Disabled, QPalette.HighlightedText,
                               QColor(115, 115, 115))
 
-        self.setPalette(lightPalette)
         self._applyBaseTheme()
+        self.setPalette(lightPalette)

@@ -8,14 +8,17 @@
 @version    : 0.0.1
 """
 
+from math import sqrt
 from PySide2 import QtCore, QtGui
-from PySide2.QtCore import QMetaObject, QPoint, Qt, Signal, Slot
-from PySide2.QtGui import QColor
+from PySide2.QtCore import QMetaObject, QPoint, QRect, QRectF, Qt, Signal, Slot
+from PySide2.QtGui import QBrush, QColor, QPainter, QPainterPath
 from PySide2.QtWidgets import (
     QApplication,
     QGraphicsDropShadowEffect,
     QHBoxLayout,
     QLabel,
+    QMessageBox,
+    QSizeGrip,
     QSizePolicy,
     QSpacerItem,
     QToolButton,
@@ -74,14 +77,14 @@ class FramelessWindow(QWidget):
         w (QWidget): Main widget.
         parent (QWidget, optional): Parent widget.
     """
-    def __init__(self, w, canMaximize=True, parent=None):
+    def __init__(self, w, isResizable=True, parent=None):
         QWidget.__init__(self, parent)
 
         self._w = w
         self.setupUi()
 
         contentLayout = QHBoxLayout()
-        contentLayout.setContentsMargins(0, 0, 0, 0)
+        contentLayout.setContentsMargins(10, 10, 10, 10)
         contentLayout.addWidget(w)
 
         self.windowContent.setLayout(contentLayout)
@@ -90,14 +93,20 @@ class FramelessWindow(QWidget):
         self.setGeometry(w.geometry())
 
         # Determine whether to maximize
-        self.setWindowFlag(Qt.WindowMaximizeButtonHint, canMaximize)
+        self.setWindowFlag(Qt.WindowMaximizeButtonHint, isResizable)
+
+        # Determine whether to add resize grip buttom
+        if isResizable:
+            self.sizeGrip = QSizeGrip(self.windowFrame)
+            self.vboxFrame.addWidget(self.sizeGrip, 0,
+                                     Qt.AlignBottom | Qt.AlignRight)
 
         # Adding shadow for window
-        self.shadowEffect = QGraphicsDropShadowEffect(self)
-        self.shadowEffect.setOffset(0, 0)
-        self.shadowEffect.setBlurRadius(10)
-        self.shadowEffect.setColor(QColor(0x141414))
-        self.setGraphicsEffect(self.shadowEffect)
+        shadowEffect = QGraphicsDropShadowEffect(self)
+        shadowEffect.setOffset(0, 0)
+        shadowEffect.setBlurRadius(10)
+        shadowEffect.setColor(QColor(0x141414))
+        self.setGraphicsEffect(shadowEffect)
 
         # Adding attribute to clean up the parent window
         # when the child is closed
@@ -111,7 +120,7 @@ class FramelessWindow(QWidget):
     def setupUi(self):
         # create title bar, content
         self.vboxWindow = QVBoxLayout(self)
-        self.vboxWindow.setContentsMargins(10, 10, 10, 10)
+        self.vboxWindow.setContentsMargins(5, 5, 5, 5)
 
         self.windowFrame = QWidget(self)
         self.windowFrame.setObjectName("windowFrame")
@@ -283,8 +292,8 @@ class FramelessWindow(QWidget):
             self.btnMaximize.setVisible(True)
             self.btnMaximize.setEnabled(True)
 
+        self.vboxWindow.setContentsMargins(10, 10, 10, 10)
         self.setWindowState(Qt.WindowNoState)
-        # self.vboxWindow.setContentsMargins(10, 10, 10, 10)
 
     @Slot()
     def on_btnMaximize_clicked(self):

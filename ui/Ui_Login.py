@@ -50,8 +50,7 @@ class Ui_Login(object):
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.accLabel.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(self.accLabel.sizePolicy().hasHeightForWidth())
         self.accLabel.setSizePolicy(sizePolicy)
         font2 = QFont()
         font2.setFamily(u"\u9ed1\u4f53")
@@ -79,8 +78,7 @@ class Ui_Login(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.pswLabel = QLabel(self.centralwidget)
         self.pswLabel.setObjectName(u"pswLabel")
-        sizePolicy.setHeightForWidth(
-            self.pswLabel.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(self.pswLabel.sizePolicy().hasHeightForWidth())
         self.pswLabel.setSizePolicy(sizePolicy)
         self.pswLabel.setFont(font2)
         self.pswLabel.setAlignment(Qt.AlignCenter)
@@ -100,13 +98,11 @@ class Ui_Login(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding,
-                                            QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding,
-                                              QSizePolicy.Minimum)
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_5)
 
@@ -119,8 +115,7 @@ class Ui_Login(object):
 
         self.horizontalLayout.addWidget(self.loginButtom)
 
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding,
-                                              QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_2)
 
@@ -132,30 +127,17 @@ class Ui_Login(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         Login.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(Login)
-        self.statusbar.setObjectName(u"statusbar")
-        self.statusbar.setSizeGripEnabled(False)
-        Login.setStatusBar(self.statusbar)
 
         self.retranslateUi(Login)
 
         QMetaObject.connectSlotsByName(Login)
-
     # setupUi
 
     def retranslateUi(self, Login):
-        Login.setWindowTitle(
-            QCoreApplication.translate("Login", u"CEESS-\u767b\u5f55", None))
-        self.label.setText(
-            QCoreApplication.translate(
-                "Login",
-                u"CEESS-\u5316\u5de5\u5b9e\u9a8c\u4eff\u771f\u6a21\u62df\u7cfb\u7edf",
-                None))
-        self.accLabel.setText(
-            QCoreApplication.translate("Login", u"\u8d26\u6237", None))
-        self.pswLabel.setText(
-            QCoreApplication.translate("Login", u"\u5bc6\u7801", None))
-        self.loginButtom.setText(
-            QCoreApplication.translate("Login", u"\u767b\u5f55", None))
-
+        Login.setWindowTitle(QCoreApplication.translate("Login", u"CEESS-\u767b\u5f55", None))
+        self.label.setText(QCoreApplication.translate("Login", u"CEESS-\u5316\u5de5\u5b9e\u9a8c\u4eff\u771f\u6a21\u62df\u7cfb\u7edf", None))
+        self.accLabel.setText(QCoreApplication.translate("Login", u"\u8d26\u6237", None))
+        self.pswLabel.setText(QCoreApplication.translate("Login", u"\u5bc6\u7801", None))
+        self.loginButtom.setText(QCoreApplication.translate("Login", u"\u767b\u5f55", None))
     # retranslateUi
+

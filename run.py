@@ -11,6 +11,7 @@ import sys
 
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
+from PySide2.QtWidgets import QApplication
 from utility.windowManager import WinManager
 from embellish.styles import StyleQApplication
 
@@ -22,11 +23,10 @@ if __name__ == "__main__":
 
     # run qt application and setup color theme
     app = StyleQApplication(sys.argv)
-    app.dark()
     # load font family
     QFontDatabase.addApplicationFont(_FONTPATH)
     # run this app
-    ceess = WinManager()
+    ceess = WinManager(app)
     ceess.start()
 
     sys.exit(app.exec_())

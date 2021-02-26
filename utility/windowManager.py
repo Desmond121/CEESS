@@ -7,13 +7,40 @@
 @version    : 0.0.1
 """
 
-from utility.allWindows import Login, Student, Teacher
+from PySide2.QtCore import SIGNAL, Slot, QObject
+from utility.allWindows import Login, Navigator, Test
 from embellish.frameless import FramelessWindow
 
 
 class WinManager():
+    def __init__(self, app):
+        self.application = app
+        app.light()
+
     def start(self):
-        # login = FramelessWindow(Login(), False)
-        # login.show()
-        student = FramelessWindow(Student(), False)
-        student.show()
+        # ! frameless
+        # self.login = FramelessWindow(Login(), False)
+        self.login = Login()
+        self.login.show()
+        self.navigator = None
+
+        # # ! for student window testing
+        # self.mainWindow = FramelessWindow(Navigator(True))
+        # self.mainWindow.show()
+        # self.subWindow = FramelessWindow(Navigator(False))
+        # self.subWindow.show()
+        # self.testing = FramelessWindow(Test())
+        # self.testing.show()
+
+        # signal slot connection
+        # ! frameless
+        # self.login._w.loginType.connect(self.createMainWindow)
+        self.login.loginType.connect(self.createMainWindow)
+
+    @Slot(bool)
+    def createMainWindow(self, isTeacher):
+        # ! frameless
+        # self.navigator = FramelessWindow(Navigator(isTeacher))
+        self.navigator = Navigator(isTeacher)
+        self.navigator.show()
+        self.login.close()

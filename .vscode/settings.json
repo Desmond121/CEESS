@@ -9,5 +9,8 @@
     "python.pythonPath": "D:\\Python\\Python39\\python.exe",
     "cSpell.ignoreWords": [
         "gmarull"
+    ],
+    "python.linting.flake8Args": [
+        "--exclude=*/Ui_*"
     ]
 }
