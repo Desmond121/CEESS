@@ -8,22 +8,22 @@
 @version    : 0.0.1
 """
 
-from embellish.frameless import FramelessWindow
-from PySide2 import QtCore
-from PySide2.QtCore import QSize, Qt, Signal, Slot
-from PySide2.QtGui import QIcon
-from PySide2.QtWebEngineWidgets import QWebEngineView
-from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox, QWidget
 
+from PySide2 import QtWidgets
+from PySide2.QtCore import QFile, Qt, Signal, Slot
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import (QFileDialog, QHeaderView, QMainWindow,
+                               QMessageBox, QTableWidgetItem)
 from ui.Ui_Login import Ui_Login
+from ui.Ui_Setting import Ui_Setting
 from ui.Ui_Student import Ui_Student
 from ui.Ui_Teacher import Ui_Teacher
 from ui.Ui_test import Ui_Test
-from ui.Ui_Setting import Ui_Setting
-from ui.Ui_UserManage import Ui_UserManage
 from ui.Ui_TestManage import Ui_TestManage
+from ui.Ui_UserManage import Ui_UserManage
 
 from utility.dataManager import DBManager
+from utility.excelManager import ExcelManager
 
 _IMG_PATH = "./resources/img/"
 _NAVIGATOR_STYLESHEET = "./resources/qss/navigator.qss"
@@ -38,17 +38,18 @@ class Login(QMainWindow):
         self.ui = Ui_Login()
         self.ui.setupUi(self)
 
-    @Slot()
+    @ Slot()
     def on_loginButtom_clicked(self):
         password = self.ui.pswLineEdit.text()
         userId = self.ui.accLineEdit.text()
 
         data = DBManager("./data/db.sqlite3")
         if data.isPasswordCorrect(userId, password):
-            isTeacher = bool(data.getTypeById(userId))
+            isTeacher = bool(data.getTypeByAccount(userId))
             self.loginType.emit(isTeacher)
         else:
             QMessageBox.information(self, "CEESS-提示", "用户名或密码错误!")
+        data.closeConnect()
 
 
 class Navigator(QMainWindow):
@@ -92,26 +93,26 @@ class Navigator(QMainWindow):
         self.ui.btnExpTest.clicked.connect(self.openExpTest)
         self.ui.btnSetting.clicked.connect(self.openSetting)
 
-    @Slot()
+    @ Slot()
     def openExpTest(self):
         # ! frameless
         # self.Test = FramelessWindow(Test(), True, self)
         self.Test = Test(self)
         self.Test.show()
 
-    @Slot()
+    @ Slot()
     def openSetting(self):
         # ! frameless
         # self.setting = FramelessWindow(Setting(), True, self)
         self.setting = Setting(self)
         self.setting.show()
 
-    @Slot()
+    @ Slot()
     def openUserManage(self):
         self.userManage = UserManage(self)
         self.userManage.show()
 
-    @Slot()
+    @ Slot()
     def openTestManage(self):
         self.testManage = TestManage(self)
         self.testManage.show()
@@ -144,8 +145,122 @@ class UserManage(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_UserManage()
         self.ui.setupUi(self)
-        self.ui.listWidget.addItem("USER_1")
-        self.ui.listWidget.addItem("ADMIN")
+        self.loadInfo()
+
+        # connect signal slot.
+        self.ui.btnDelete.clicked.connect(self.deleteUser)
+        self.ui.btnNew.clicked.connect(self.addNewUser)
+        self.ui.btnImport.clicked.connect(self.importUser)
+        self.ui.btnDownload.clicked.connect(self.downloadTemplate)
+
+    def loadInfo(self):
+        # Get userInfo list, each unit is tuple.
+        db = DBManager()
+        userInfo = db.getAllUserInfo()
+        db.closeConnect()
+
+        # setup the table
+        self.ui.userTableWidget.horizontalHeader().setSectionResizeMode(
+            QHeaderView.Stretch)
+        self.ui.userTableWidget.setRowCount(len(userInfo))
+        for row in range(len(userInfo)):
+            self.ui.userTableWidget.setItem(
+                row, 0, QTableWidgetItem(str(userInfo[row][0])))
+            self.ui.userTableWidget.setItem(
+                row, 1, QTableWidgetItem(str(userInfo[row][1])))
+            if userInfo[row][2] == 1:
+                self.ui.userTableWidget.setItem(
+                    row, 2, QTableWidgetItem("管理员"))
+            else:
+                self.ui.userTableWidget.setItem(
+                    row, 2, QTableWidgetItem("学生"))
+
+    @Slot()
+    def deleteUser(self):
+        items = self.ui.userTableWidget.selectedItems()
+        db = DBManager()
+        # the number of item is multiple of 3
+        # in this loop, we can get 2nd item in each 3 items.
+        # which contain texts of user account
+        for i in range(1, len(items), 3):
+            db.deleteUserByAccount(str(items[i].text()))
+        db.closeConnect()
+        self.loadInfo()
+
+    @Slot()
+    def addNewUser(self):
+        account = self.ui.accEdit.text()
+        name = self.ui.nameEdit.text()
+        isAdmin = int(self.ui.isAdminButtom.isChecked())
+        if (account.isalnum() and len(account) <= 20 and 0 < len(name) <= 20):
+            db = DBManager()
+            if db.isOccupied(account):
+                QMessageBox().warning(self, "CEESS-提醒", "账号已存在！")
+            else:
+                db.addNewUser(account, name, isAdmin)
+                self.ui.accEdit.setText("")
+                self.ui.nameEdit.setText("")
+                self.loadInfo()
+            db.closeConnect()
+        else:
+            QMessageBox().warning(self, "CEESS-提醒", "请检查账号和姓名格式！")
+
+    @Slot()
+    def importUser(self):
+        # get file path from explore.
+        file = QFileDialog.getOpenFileName(
+            self, "上传文件", "./", "Excel Files (*.xls)")
+        filePath = file[0]
+
+        # get user data list.
+        if len(filePath) != 0:
+            excel = ExcelManager(filePath)
+            userData = excel.getUserData()
+
+            # error handling.
+            errorString = "#######错误提示#######\n"
+            errorCount = 0
+
+            # import user data.
+            for i in range(len(userData)):
+                # setup data.
+                name = userData[i][0]
+                account = userData[i][1]
+                if userData[i][2] == "学生":
+                    isAdmin = 0
+                else:
+                    isAdmin = 1
+                # import to table.
+                if (account.isalnum() and len(account) <= 20
+                        and 0 < len(name) <= 20):
+                    db = DBManager()
+                    if db.isOccupied(account):
+                        errorCount += 1
+                        errorString += (str(errorCount) + ".第" +
+                                        str(i+3) + "行，用户名已存在！\n")
+                    else:
+                        db.addNewUser(account, name, isAdmin)
+                        self.loadInfo()
+                    db.closeConnect()
+                else:
+                    errorCount += 1
+                    errorString += (str(errorCount) + ".第" +
+                                    str(i+3) + "行，账户或姓名格式错误！\n")
+
+            # error handling.
+            if errorCount != 0:
+                errorString += "请更正上述错误，其他正确数据已经导入。\n"
+                QMessageBox().warning(self, "CEESS-导入信息", errorString)
+
+    @Slot()
+    def downloadTemplate(self):
+        file = QFile("./resources/template/userImportTemplate.xls")
+        if file.open(QFile.ReadOnly):
+            filePath = QFileDialog.getSaveFileName(
+                self, "CEESS-模板下载", "用户导入模板.xls", "Excel Files (*.xls)")
+            file.copy(filePath[0])
+        else:
+            QMessageBox.warning(self, "CEESS-通知", "模板文件丢失，请重新安装本系统！")
 
 
 class TestManage(QMainWindow):
@@ -156,3 +271,9 @@ class TestManage(QMainWindow):
         self.ui.listWidget.addItem("这是第一题，测试测试测试测试测试...")
         self.ui.listWidget.addItem("这是第二题测试测试测试测试测试测...")
         self.ui.textBrowser.setTextBackgroundColor(Qt.white)
+
+
+# class Simulator(QMainWindow):
+#     def __init__(self, parent=None):
+#         super().__init__(parent)
+#         self.web =

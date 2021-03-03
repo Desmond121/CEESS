@@ -7,9 +7,8 @@
 @version    : 0.0.1
 """
 
-from PySide2.QtCore import SIGNAL, Slot, QObject
-from utility.allWindows import Login, Navigator, Test
-from embellish.frameless import FramelessWindow
+from PySide2.QtCore import Slot
+from utility.allWindows import Login, Navigator, UserManage
 
 
 class WinManager():
@@ -24,7 +23,9 @@ class WinManager():
         self.login.show()
         self.navigator = None
 
-        # # ! for student window testing
+        self.test()
+
+        # ! for student window testing
         # self.mainWindow = FramelessWindow(Navigator(True))
         # self.mainWindow.show()
         # self.subWindow = FramelessWindow(Navigator(False))
@@ -36,6 +37,10 @@ class WinManager():
         # ! frameless
         # self.login._w.loginType.connect(self.createMainWindow)
         self.login.loginType.connect(self.createMainWindow)
+
+    def test(self):
+        self.test = UserManage()
+        self.test.show()
 
     @Slot(bool)
     def createMainWindow(self, isTeacher):

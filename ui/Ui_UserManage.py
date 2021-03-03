@@ -17,15 +17,30 @@ class Ui_UserManage(object):
     def setupUi(self, UserManage):
         if not UserManage.objectName():
             UserManage.setObjectName(u"UserManage")
-        UserManage.resize(581, 468)
+        UserManage.resize(514, 543)
         self.centralwidget = QWidget(UserManage)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.listWidget = QListWidget(self.centralwidget)
-        self.listWidget.setObjectName(u"listWidget")
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.btnImport = QPushButton(self.centralwidget)
+        self.btnImport.setObjectName(u"btnImport")
 
-        self.gridLayout.addWidget(self.listWidget, 0, 0, 1, 2)
+        self.horizontalLayout.addWidget(self.btnImport)
+
+        self.btnDownload = QPushButton(self.centralwidget)
+        self.btnDownload.setObjectName(u"btnDownload")
+
+        self.horizontalLayout.addWidget(self.btnDownload)
+
+        self.btnDelete = QPushButton(self.centralwidget)
+        self.btnDelete.setObjectName(u"btnDelete")
+
+        self.horizontalLayout.addWidget(self.btnDelete)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout, 2, 0, 1, 2)
 
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName(u"groupBox")
@@ -38,10 +53,10 @@ class Ui_UserManage(object):
 
         self.horizontalLayout_3.addWidget(self.label_4)
 
-        self.lineEdit_2 = QLineEdit(self.groupBox)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.accEdit = QLineEdit(self.groupBox)
+        self.accEdit.setObjectName(u"accEdit")
 
-        self.horizontalLayout_3.addWidget(self.lineEdit_2)
+        self.horizontalLayout_3.addWidget(self.accEdit)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -57,10 +72,10 @@ class Ui_UserManage(object):
 
         self.horizontalLayout_2.addWidget(self.label_3)
 
-        self.lineEdit = QLineEdit(self.groupBox)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.nameEdit = QLineEdit(self.groupBox)
+        self.nameEdit.setObjectName(u"nameEdit")
 
-        self.horizontalLayout_2.addWidget(self.lineEdit)
+        self.horizontalLayout_2.addWidget(self.nameEdit)
 
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -71,40 +86,42 @@ class Ui_UserManage(object):
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.radioButton = QRadioButton(self.groupBox)
-        self.radioButton.setObjectName(u"radioButton")
+        self.isAdminButtom = QRadioButton(self.groupBox)
+        self.isAdminButtom.setObjectName(u"isAdminButtom")
 
-        self.horizontalLayout_4.addWidget(self.radioButton)
+        self.horizontalLayout_4.addWidget(self.isAdminButtom)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer_3)
 
-        self.pushButton_2 = QPushButton(self.groupBox)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.btnNew = QPushButton(self.groupBox)
+        self.btnNew.setObjectName(u"btnNew")
 
-        self.horizontalLayout_4.addWidget(self.pushButton_2)
+        self.horizontalLayout_4.addWidget(self.btnNew)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_4)
 
 
-        self.gridLayout.addWidget(self.groupBox, 6, 0, 1, 2)
+        self.gridLayout.addWidget(self.groupBox, 5, 0, 1, 2)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pushButton_3 = QPushButton(self.centralwidget)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.userTableWidget = QTableWidget(self.centralwidget)
+        if (self.userTableWidget.columnCount() < 3):
+            self.userTableWidget.setColumnCount(3)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.userTableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.userTableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.userTableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        self.userTableWidget.setObjectName(u"userTableWidget")
+        self.userTableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.userTableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.userTableWidget.setSortingEnabled(True)
+        self.userTableWidget.horizontalHeader().setCascadingSectionResizes(True)
 
-        self.horizontalLayout.addWidget(self.pushButton_3)
-
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-
-        self.horizontalLayout.addWidget(self.pushButton)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout, 3, 0, 1, 2)
+        self.gridLayout.addWidget(self.userTableWidget, 1, 0, 1, 1)
 
         UserManage.setCentralWidget(self.centralwidget)
 
@@ -114,13 +131,20 @@ class Ui_UserManage(object):
     # setupUi
 
     def retranslateUi(self, UserManage):
-        UserManage.setWindowTitle(QCoreApplication.translate("UserManage", u"MainWindow", None))
+        UserManage.setWindowTitle(QCoreApplication.translate("UserManage", u"CEESS-\u8d26\u53f7\u7ba1\u7406", None))
+        self.btnImport.setText(QCoreApplication.translate("UserManage", u"Excel\u5bfc\u5165", None))
+        self.btnDownload.setText(QCoreApplication.translate("UserManage", u"\u4e0b\u8f7d\u5bfc\u5165\u6a21\u677f", None))
+        self.btnDelete.setText(QCoreApplication.translate("UserManage", u"\u5220\u9664", None))
         self.groupBox.setTitle(QCoreApplication.translate("UserManage", u"\u65b0\u589e\u8d26\u53f7", None))
         self.label_4.setText(QCoreApplication.translate("UserManage", u"\u8d26\u53f7", None))
         self.label_3.setText(QCoreApplication.translate("UserManage", u"\u59d3\u540d", None))
-        self.radioButton.setText(QCoreApplication.translate("UserManage", u"\u7ba1\u7406\u5458", None))
-        self.pushButton_2.setText(QCoreApplication.translate("UserManage", u"\u65b0\u589e", None))
-        self.pushButton_3.setText(QCoreApplication.translate("UserManage", u"Excel\u5bfc\u5165", None))
-        self.pushButton.setText(QCoreApplication.translate("UserManage", u"\u5220\u9664", None))
+        self.isAdminButtom.setText(QCoreApplication.translate("UserManage", u"\u7ba1\u7406\u5458", None))
+        self.btnNew.setText(QCoreApplication.translate("UserManage", u"\u65b0\u589e", None))
+        ___qtablewidgetitem = self.userTableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("UserManage", u"\u59d3\u540d", None));
+        ___qtablewidgetitem1 = self.userTableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("UserManage", u"\u8d26\u53f7", None));
+        ___qtablewidgetitem2 = self.userTableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("UserManage", u"\u7c7b\u578b", None));
     # retranslateUi
 

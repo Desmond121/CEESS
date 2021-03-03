@@ -8,16 +8,13 @@
 @version    : 0.0.1
 """
 
-from math import sqrt
-from PySide2 import QtCore, QtGui
-from PySide2.QtCore import QMetaObject, QPoint, QRect, QRectF, Qt, Signal, Slot
-from PySide2.QtGui import QBrush, QColor, QPainter, QPainterPath
+from PySide2.QtCore import QMetaObject, QPoint, Qt, Signal, Slot
+from PySide2.QtGui import QColor
 from PySide2.QtWidgets import (
     QApplication,
     QGraphicsDropShadowEffect,
     QHBoxLayout,
     QLabel,
-    QMessageBox,
     QSizeGrip,
     QSizePolicy,
     QSpacerItem,
@@ -77,6 +74,7 @@ class FramelessWindow(QWidget):
         w (QWidget): Main widget.
         parent (QWidget, optional): Parent widget.
     """
+
     def __init__(self, w, isResizable=True, parent=None):
         QWidget.__init__(self, parent)
 

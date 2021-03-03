@@ -8,10 +8,11 @@
 """
 
 from PySide2.QtWidgets import QApplication
-from PySide2.QtGui import QPalette, QColor
+from PySide2.QtGui import QIcon, QPalette, QColor
 
 _STYLESHEET = "./resources/qss/style.qss"
 _FONT = "./resources/font/SourceHanSansCN-Medium.ttf"
+_ICON = "./resources/img/icon.svg"
 
 
 class StyleQApplication(QApplication):
@@ -19,6 +20,7 @@ class StyleQApplication(QApplication):
         self.setStyle("fusion")
         styleSheet = open(_STYLESHEET)
         self.setStyleSheet(styleSheet.read())
+        self.setWindowIcon(QIcon(_ICON))
 
     def default(self):
         self._applyBaseTheme()

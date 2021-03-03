@@ -6,19 +6,41 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
-    <height>468</height>
+    <width>514</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CEESS-账号管理</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
-     <widget class="QListWidget" name="listWidget"/>
+    <item row="2" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="btnImport">
+        <property name="text">
+         <string>Excel导入</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnDownload">
+        <property name="text">
+         <string>下载导入模板</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnDelete">
+        <property name="text">
+         <string>删除</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="6" column="0" colspan="2">
+    <item row="5" column="0" colspan="2">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>新增账号</string>
@@ -34,7 +56,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="accEdit"/>
          </item>
          <item>
           <spacer name="horizontalSpacer">
@@ -61,7 +83,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="nameEdit"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_2">
@@ -81,7 +103,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QRadioButton" name="radioButton">
+          <widget class="QRadioButton" name="isAdminButtom">
            <property name="text">
             <string>管理员</string>
            </property>
@@ -101,7 +123,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btnNew">
            <property name="text">
             <string>新增</string>
            </property>
@@ -112,23 +134,36 @@
       </layout>
      </widget>
     </item>
-    <item row="3" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>Excel导入</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>删除</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+    <item row="1" column="0">
+     <widget class="QTableWidget" name="userTableWidget">
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>姓名</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>账号</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>类型</string>
+       </property>
+      </column>
+     </widget>
     </item>
    </layout>
   </widget>

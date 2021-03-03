@@ -4,7 +4,12 @@
         "Pyside",
         "btns",
         "hbox",
-        "qtmodern"
+        "isalnum",
+        "isnumeric",
+        "nrows",
+        "qtmodern",
+        "xlrd",
+        "xlwings"
     ],
     "python.pythonPath": "D:\\Python\\Python39\\python.exe",
     "cSpell.ignoreWords": [

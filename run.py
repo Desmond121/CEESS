@@ -11,7 +11,6 @@ import sys
 
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
-from PySide2.QtWidgets import QApplication
 from utility.windowManager import WinManager
 from embellish.styles import StyleQApplication
 
