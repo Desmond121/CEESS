@@ -11,8 +11,9 @@ import sys
 
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
-from utility.windowManager import WinManager
+
 from embellish.styles import StyleQApplication
+from utility.WindowsManager import WindowsManager
 
 _FONTPATH = "./resources/font/SourceHanSansCN-Regular.ttf"
 
@@ -25,7 +26,7 @@ if __name__ == "__main__":
     # load font family
     QFontDatabase.addApplicationFont(_FONTPATH)
     # run this app
-    ceess = WinManager(app)
+    ceess = WindowsManager(app)
     ceess.start()
 
     sys.exit(app.exec_())

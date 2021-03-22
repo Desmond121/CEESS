@@ -11,7 +11,7 @@
         "xlrd",
         "xlwings"
     ],
-    "python.pythonPath": "D:\\Python\\Python39\\python.exe",
+    "python.pythonPath": "D:\\Dev\\Python39\\python.exe",
     "cSpell.ignoreWords": [
         "gmarull"
     ],

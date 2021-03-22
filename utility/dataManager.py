@@ -12,7 +12,7 @@ import sqlite3
 _DEFAULT_DATABASE = "./data/db.sqlite3"
 
 
-class DBManager():
+class DataManager():
     def __init__(self, database=_DEFAULT_DATABASE):
         self._conn = sqlite3.connect(database)
         self._cursor = self._conn.cursor()
@@ -41,8 +41,8 @@ class DBManager():
         return self._cursor.fetchall()
 
     def deleteUserByAccount(self, account):
-        self._cursor.execute(
-            "delete from USER where USER_ACCOUNT = ?;", [account])
+        self._cursor.execute("delete from USER where USER_ACCOUNT = ?;",
+                             [account])
         self._conn.commit()
 
     def addNewUser(self, account, name, isAdmin):
