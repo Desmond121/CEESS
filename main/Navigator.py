@@ -8,7 +8,7 @@
 """
 
 from embellish.styles import _ICON
-from PySide2.QtCore import Qt, Slot
+from PySide2.QtCore import Qt, SLOT, Signal, Slot
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QMainWindow
 from ui.generate.Ui_Student import Ui_Student
@@ -25,8 +25,14 @@ _NAVIGATOR_STYLESHEET = "./resources/qss/navigator.qss"
 
 
 class Navigator(QMainWindow):
-    def __init__(self, isTeacher=False):
+    userId = None  # record the user.
+    app = None
+    signOutSignal = Signal()
+
+    def __init__(self, userId, app, isTeacher=False):
         super().__init__()
+        self.userId = userId  # record the user.
+        self.app = app  # record the application.
         if isTeacher:
             self.setupTeacher()
         else:
@@ -41,6 +47,7 @@ class Navigator(QMainWindow):
 
         # Add svg banner icon
         self.ui.svgBanner.load(_ICON)
+        # set svg in shape of square.
         self.ui.svgBanner.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
 
         # Add icon for buttons
@@ -52,6 +59,7 @@ class Navigator(QMainWindow):
         # Connect buttons with slot
         self.ui.btnUserManage.clicked.connect(self.openUserManage)
         self.ui.btnTestManage.clicked.connect(self.openTestManage)
+        self.ui.btnSetting.clicked.connect(self.openSetting)
 
     def setupStudent(self):
         self.ui = Ui_Student()
@@ -78,8 +86,13 @@ class Navigator(QMainWindow):
 
     @Slot()
     def openSetting(self):
-        self.setting = Setting(self)
+        self.setting = Setting(self.userId, self)
         self.setting.show()
+        # signal for switch display mode.
+        self.setting.switchDisplaySignal.connect(self.app.switchTheme)
+
+        # signal for signing out.
+        self.setting.signOutSignal.connect(self.signOutSignal.emit)
 
     @Slot()
     def openSimulator(self):

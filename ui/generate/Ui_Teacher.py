@@ -90,6 +90,9 @@ class Ui_Teacher(object):
         self.horizontalLayout.addLayout(self.verticalLayout_2)
 
         Teacher.setCentralWidget(self.centralwidget)
+        QWidget.setTabOrder(self.btnUserManage, self.btnTestManage)
+        QWidget.setTabOrder(self.btnTestManage, self.btnScoreAnalyse)
+        QWidget.setTabOrder(self.btnScoreAnalyse, self.btnSetting)
 
         self.retranslateUi(Teacher)
 

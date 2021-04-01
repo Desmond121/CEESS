@@ -15,7 +15,7 @@ from PySide2.QtWidgets import QLineEdit
 
 class Login(QMainWindow):
     # signal
-    loginType = Signal(bool)
+    loginType = Signal(tuple)
 
     def __init__(self):
         super().__init__()
@@ -26,12 +26,14 @@ class Login(QMainWindow):
     @Slot()
     def on_loginButtom_clicked(self):
         password = self.ui.pswLineEdit.text()
-        userId = self.ui.accLineEdit.text()
+        userAccount = self.ui.accLineEdit.text()
 
         data = DataManager("./data/db.sqlite3")
-        if data.isPasswordCorrect(userId, password):
-            isTeacher = bool(data.getTypeByAccount(userId))
-            self.loginType.emit(isTeacher)
+        if data.isPasswordCorrectByAccount(userAccount, password):
+            result = data.getTypeAndIdByAccount(userAccount)
+            # emit the signal to DataManager class
+            # for creating Navigator window.
+            self.loginType.emit(result)
         else:
             QMessageBox.information(self, "CEESS-提示", "用户名或密码错误!")
             self.ui.accLineEdit.setFocus()

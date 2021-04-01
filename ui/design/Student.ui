@@ -140,6 +140,12 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>btnLearn</tabstop>
+  <tabstop>btnSimulator</tabstop>
+  <tabstop>btnSafetyTest</tabstop>
+  <tabstop>btnSetting</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

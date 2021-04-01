@@ -1,6 +1,6 @@
 """
 @file       : styles.py
-@description: Two skins for this app.
+@description: Embedding skins and fonts into the QApplication class.
 @date       : 2021/02/10 17:39:17
 @author     : Desmond
 @e-mail     : dmz990121@outlook.com
@@ -16,14 +16,18 @@ _ICON = "./resources/img/icon.svg"
 
 
 class StyleQApplication(QApplication):
-    def _applyBaseTheme(self):
+    isDark = False
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.setStyle("fusion")
+        self.setWindowIcon(QIcon(_ICON))
+        self.applyBaseTheme()
+        self.light()
+
+    def applyBaseTheme(self):
         styleSheet = open(_STYLESHEET)
         self.setStyleSheet(styleSheet.read())
-        self.setWindowIcon(QIcon(_ICON))
-
-    def default(self):
-        self._applyBaseTheme()
 
     def dark(self):
         darkPalette = QPalette()
@@ -60,8 +64,8 @@ class StyleQApplication(QApplication):
         darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText,
                              QColor(127, 127, 127))
 
-        self._applyBaseTheme()
         self.setPalette(darkPalette)
+        self.isDark = True
 
     def light(self):
         lightPalette = QPalette()
@@ -98,5 +102,14 @@ class StyleQApplication(QApplication):
         lightPalette.setColor(QPalette.Disabled, QPalette.HighlightedText,
                               QColor(115, 115, 115))
 
-        self._applyBaseTheme()
         self.setPalette(lightPalette)
+        self.isDark = False
+
+    def switchTheme(self):
+        if self.isDark:
+            self.light()
+            self.applyBaseTheme()
+
+        else:
+            self.dark()
+            self.applyBaseTheme()

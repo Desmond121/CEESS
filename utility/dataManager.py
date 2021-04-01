@@ -21,15 +21,41 @@ class DataManager():
         self._cursor.close()
         self._conn.close()
 
-    def getTypeByAccount(self, account):
+    def getNameById(self, userId):
         self._cursor.execute(
-            "select USER_TYPE from USER where USER_ACCOUNT ==?;", [account])
+            "select USER_NAME from USER \
+                where UID == ? limit 1;", [userId])
         result = self._cursor.fetchone()
-        return result[0]
+        return str(result[0])
 
-    def isPasswordCorrect(self, account, password):
+    def getAccountById(self, userId):
         self._cursor.execute(
-            "select PASSWORD from USER where USER_ACCOUNT == ?;", [account])
+            "select USER_ACCOUNT from USER \
+                where UID == ? limit 1;", [userId])
+        result = self._cursor.fetchone()
+        return str(result[0])
+
+    def getTypeAndIdByAccount(self, account):
+        self._cursor.execute(
+            "select USER_TYPE, UID from USER \
+                where USER_ACCOUNT ==? limit 1;", [account])
+        result = self._cursor.fetchone()
+        # result is a tuple whose content is in form of (USER_TYPE,UID)
+        return result
+
+    def isPasswordCorrectByAccount(self, account, password):
+        self._cursor.execute(
+            "select PASSWORD from USER \
+                where USER_ACCOUNT == ? limit 1;", [account])
+        result = self._cursor.fetchone()
+        if result is None:
+            return False
+        return bool(result[0] == password)
+
+    def isPasswordCorrectById(self, UID, password):
+        self._cursor.execute(
+            "select PASSWORD from USER \
+                where UID == ? limit 1;", [UID])
         result = self._cursor.fetchone()
         if result is None:
             return False
@@ -37,7 +63,7 @@ class DataManager():
 
     def getAllUserInfo(self):
         self._cursor.execute(
-            "select USER_NAME, USER_ACCOUNT, USER_TYPE from USER;")
+            "select USER_NAME, USER_ACCOUNT, USER_TYPE from USER limit 1;")
         return self._cursor.fetchall()
 
     def deleteUserByAccount(self, account):
@@ -53,5 +79,16 @@ class DataManager():
 
     def isOccupied(self, account):
         self._cursor.execute(
-            "select USER_ACCOUNT from USER where USER_ACCOUNT == ?", [account])
+            "select USER_ACCOUNT from USER \
+                where USER_ACCOUNT == ? limit 1", [account])
         return bool(len(self._cursor.fetchall()))
+
+    def changePasswordById(self, UID, newPassword):
+        self._cursor.execute("update USER set PASSWORD = ? where UID = ?",
+                             [newPassword, UID])
+        self._conn.commit()
+
+    def changeNameById(self, UID, newName):
+        self._cursor.execute("update USER set USER_NAME = ? where UID = ?",
+                             [newName, UID])
+        self._conn.commit()

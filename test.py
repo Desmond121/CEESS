@@ -21,7 +21,7 @@ def runStudent():
     # load font family
     QFontDatabase.addApplicationFont(_FONTPATH)
     # run this app
-    student = Navigator()
+    student = Navigator("abc", app, False)
     student.show()
     sys.exit(app.exec_())
 
@@ -36,7 +36,7 @@ def runTeacher():
     # load font family
     QFontDatabase.addApplicationFont(_FONTPATH)
     # run this app
-    teacher = Navigator(True)
+    teacher = Navigator("abc", app, True)
     teacher.show()
     sys.exit(app.exec_())
 

@@ -7,15 +7,14 @@
 @version    : 0.0.1
 """
 
-from PySide2.QtCore import Slot
+from PySide2.QtCore import Signal, Slot
 from main.Navigator import Navigator
 from main.Login import Login
 
 
 class WindowsManager():
     def __init__(self, app):
-        self.application = app
-        app.light()
+        self.app = app
 
     def start(self):
         self.login = Login()
@@ -23,8 +22,18 @@ class WindowsManager():
         self.navigator = None
         self.login.loginType.connect(self.createMainWindow)
 
-    @Slot(bool)
-    def createMainWindow(self, isTeacher):
-        self.navigator = Navigator(isTeacher)
+    @Slot(tuple)
+    def createMainWindow(self, result):
+        isTeacher = result[0]
+        userId = result[1]
+        self.navigator = Navigator(userId, self.app, isTeacher)
         self.navigator.show()
         self.login.close()
+
+        # signal for signing out.
+        # todo
+        def signOut():
+            self.navigator.close()
+            self.start()
+        
+        self.navigator.signOutSignal.connect(signOut)

@@ -149,6 +149,12 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>btnUserManage</tabstop>
+  <tabstop>btnTestManage</tabstop>
+  <tabstop>btnScoreAnalyse</tabstop>
+  <tabstop>btnSetting</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

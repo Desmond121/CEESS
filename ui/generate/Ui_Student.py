@@ -86,6 +86,9 @@ class Ui_Student(object):
         self.horizontalLayout.addLayout(self.verticalLayout_2)
 
         Student.setCentralWidget(self.centralwidget)
+        QWidget.setTabOrder(self.btnLearn, self.btnSimulator)
+        QWidget.setTabOrder(self.btnSimulator, self.btnSafetyTest)
+        QWidget.setTabOrder(self.btnSafetyTest, self.btnSetting)
 
         self.retranslateUi(Student)
 
