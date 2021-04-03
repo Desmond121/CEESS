@@ -12,89 +12,129 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+from PySide2.QtSvg import QSvgWidget
+
 
 class Ui_Login(object):
     def setupUi(self, Login):
         if not Login.objectName():
             Login.setObjectName(u"Login")
-        Login.resize(415, 244)
+        Login.resize(260, 329)
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Login.sizePolicy().hasHeightForWidth())
+        Login.setSizePolicy(sizePolicy)
         font = QFont()
         font.setFamily(u"AcadEref")
         Login.setFont(font)
         self.centralwidget = QWidget(Login)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.verticalLayout = QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setSpacing(0)
+        self.gridLayout.setObjectName(u"gridLayout")
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
         font1 = QFont()
         font1.setFamily(u"\u601d\u6e90\u9ed1\u4f53 CN Medium")
-        font1.setPointSize(18)
-        font1.setBold(False)
+        font1.setPointSize(15)
+        font1.setBold(True)
         font1.setItalic(False)
         font1.setUnderline(False)
-        font1.setWeight(50)
+        font1.setWeight(75)
         font1.setStrikeOut(False)
         font1.setKerning(True)
         font1.setStyleStrategy(QFont.PreferAntialias)
         self.label.setFont(font1)
         self.label.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.label)
+        self.gridLayout.addWidget(self.label, 2, 0, 1, 1)
+
+        self.titleSvg = QSvgWidget(self.centralwidget)
+        self.titleSvg.setObjectName(u"titleSvg")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.titleSvg.sizePolicy().hasHeightForWidth())
+        self.titleSvg.setSizePolicy(sizePolicy1)
+        self.titleSvg.setMinimumSize(QSize(240, 60))
+        self.titleSvg.setMaximumSize(QSize(240, 60))
+        font2 = QFont()
+        font2.setFamily(u"Courier New")
+        self.titleSvg.setFont(font2)
+
+        self.gridLayout.addWidget(self.titleSvg, 0, 0, 1, 1)
+
+
+        self.verticalLayout_2.addLayout(self.gridLayout)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.accLabel = QLabel(self.centralwidget)
-        self.accLabel.setObjectName(u"accLabel")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.accLabel.sizePolicy().hasHeightForWidth())
-        self.accLabel.setSizePolicy(sizePolicy)
-        font2 = QFont()
-        font2.setFamily(u"\u9ed1\u4f53")
-        font2.setPointSize(15)
-        font2.setBold(False)
-        font2.setWeight(50)
-        self.accLabel.setFont(font2)
-        self.accLabel.setAlignment(Qt.AlignCenter)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_2.addWidget(self.accLabel)
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
 
         self.accLineEdit = QLineEdit(self.centralwidget)
         self.accLineEdit.setObjectName(u"accLineEdit")
-        self.accLineEdit.setFont(font2)
+        sizePolicy.setHeightForWidth(self.accLineEdit.sizePolicy().hasHeightForWidth())
+        self.accLineEdit.setSizePolicy(sizePolicy)
+        self.accLineEdit.setMinimumSize(QSize(0, 0))
+        font3 = QFont()
+        font3.setFamily(u"\u9ed1\u4f53")
+        font3.setPointSize(13)
+        font3.setBold(False)
+        font3.setWeight(50)
+        self.accLineEdit.setFont(font3)
 
         self.horizontalLayout_2.addWidget(self.accLineEdit)
 
-        self.horizontalLayout_2.setStretch(0, 1)
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_3)
+
         self.horizontalLayout_2.setStretch(1, 4)
 
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 1, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_2)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.pswLabel = QLabel(self.centralwidget)
-        self.pswLabel.setObjectName(u"pswLabel")
-        sizePolicy.setHeightForWidth(self.pswLabel.sizePolicy().hasHeightForWidth())
-        self.pswLabel.setSizePolicy(sizePolicy)
-        self.pswLabel.setFont(font2)
-        self.pswLabel.setAlignment(Qt.AlignCenter)
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_3.addWidget(self.pswLabel)
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_4)
 
         self.pswLineEdit = QLineEdit(self.centralwidget)
         self.pswLineEdit.setObjectName(u"pswLineEdit")
-        self.pswLineEdit.setFont(font2)
+        sizePolicy.setHeightForWidth(self.pswLineEdit.sizePolicy().hasHeightForWidth())
+        self.pswLineEdit.setSizePolicy(sizePolicy)
+        self.pswLineEdit.setFont(font3)
 
         self.horizontalLayout_3.addWidget(self.pswLineEdit)
 
-        self.horizontalLayout_3.setStretch(0, 1)
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_5)
+
         self.horizontalLayout_3.setStretch(1, 4)
 
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_3)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_3)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -102,29 +142,32 @@ class Ui_Login(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.horizontalSpacer_5)
-
         self.loginButtom = QPushButton(self.centralwidget)
         self.loginButtom.setObjectName(u"loginButtom")
-        font3 = QFont()
-        font3.setFamily(u"\u9ed1\u4f53")
-        font3.setPointSize(15)
-        self.loginButtom.setFont(font3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.loginButtom.sizePolicy().hasHeightForWidth())
+        self.loginButtom.setSizePolicy(sizePolicy2)
+        self.loginButtom.setMaximumSize(QSize(80, 30))
+        font4 = QFont()
+        font4.setFamily(u"\u9ed1\u4f53")
+        font4.setPointSize(15)
+        self.loginButtom.setFont(font4)
 
         self.horizontalLayout.addWidget(self.loginButtom)
 
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout.addItem(self.horizontalSpacer_2)
+        self.horizontalLayout.addItem(self.horizontalSpacer_6)
 
-        self.horizontalLayout.setStretch(0, 1)
-        self.horizontalLayout.setStretch(1, 1)
-        self.horizontalLayout.setStretch(2, 2)
-        self.horizontalLayout.setStretch(3, 1)
+        self.horizontalLayout.setStretch(1, 2)
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 10, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_4)
 
         Login.setCentralWidget(self.centralwidget)
 
@@ -135,9 +178,9 @@ class Ui_Login(object):
 
     def retranslateUi(self, Login):
         Login.setWindowTitle(QCoreApplication.translate("Login", u"CEESS-\u767b\u5f55", None))
-        self.label.setText(QCoreApplication.translate("Login", u"CEESS-\u5316\u5de5\u5b9e\u9a8c\u4eff\u771f\u6a21\u62df\u7cfb\u7edf", None))
-        self.accLabel.setText(QCoreApplication.translate("Login", u"\u8d26\u6237", None))
-        self.pswLabel.setText(QCoreApplication.translate("Login", u"\u5bc6\u7801", None))
+        self.label.setText(QCoreApplication.translate("Login", u"\u5316\u5de5\u5b9e\u9a8c\u4eff\u771f\u6a21\u62df\u7cfb\u7edf", None))
+        self.accLineEdit.setPlaceholderText(QCoreApplication.translate("Login", u"\u8bf7\u8f93\u5165\u8d26\u6237", None))
+        self.pswLineEdit.setPlaceholderText(QCoreApplication.translate("Login", u"\u8bf7\u8f93\u5165\u5bc6\u7801", None))
         self.loginButtom.setText(QCoreApplication.translate("Login", u"\u767b\u5f55", None))
     # retranslateUi
 

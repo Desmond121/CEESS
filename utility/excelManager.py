@@ -7,7 +7,6 @@
 @version    : 0.0.1
 """
 
-from os import close
 import xlrd
 
 

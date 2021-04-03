@@ -6,10 +6,14 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
-from PySide2.QtCore import Signal, Slot
-from PySide2.QtWidgets import QLineEdit, QMainWindow, QMessageBox
+from PySide2.QtCore import Qt, Signal, Slot
+from PySide2.QtGui import QBrush, QFont, QIcon, QPainter, QPalette, QPixmap
+from PySide2.QtSvg import QSvgRenderer
+from PySide2.QtWidgets import QLineEdit, QMainWindow, QMessageBox, QWidgetAction
 from ui.generate.Ui_Login import Ui_Login
 from utility.DataManager import DataManager
+
+_IMG_PATH = "./resources/img/"
 
 
 class Login(QMainWindow):
@@ -21,6 +25,22 @@ class Login(QMainWindow):
         self.ui = Ui_Login()
         self.ui.setupUi(self)
         self.ui.pswLineEdit.setEchoMode(QLineEdit.Password)
+        # set visible action for lineEdit
+        action = self.ui.pswLineEdit.addAction(
+            QIcon(_IMG_PATH + "eye.svg"),
+            QLineEdit.ActionPosition.TrailingPosition)
+        action.setCheckable(True)
+        action.toggled.connect(self.test)
+        # set the title svg.
+        self.ui.titleSvg.load(_IMG_PATH + "title.svg")
+        self.ui.titleSvg.setStyleSheet("font-family: Courier New")
+
+    @Slot(bool)
+    def test(self, isChecked):
+        if isChecked:
+            self.ui.pswLineEdit.setEchoMode(QLineEdit.Normal)
+        else:
+            self.ui.pswLineEdit.setEchoMode(QLineEdit.Password)
 
     @Slot()
     def on_loginButtom_clicked(self):
