@@ -7,7 +7,7 @@
 @version    : 0.0.1
 """
 
-from PySide2.QtCore import Signal, Slot
+from PySide2.QtCore import Slot
 from main.Navigator import Navigator
 from main.Login import Login
 
@@ -35,5 +35,5 @@ class WindowsManager():
         def signOut():
             self.navigator.close()
             self.start()
-        
+
         self.navigator.signOutSignal.connect(signOut)

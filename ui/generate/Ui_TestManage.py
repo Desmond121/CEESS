@@ -17,46 +17,121 @@ class Ui_TestManage(object):
     def setupUi(self, TestManage):
         if not TestManage.objectName():
             TestManage.setObjectName(u"TestManage")
-        TestManage.resize(509, 474)
+        TestManage.resize(612, 390)
         self.centralwidget = QWidget(TestManage)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.listWidget = QListWidget(self.centralwidget)
-        self.listWidget.setObjectName(u"listWidget")
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy)
+        font = QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
 
-        self.horizontalLayout.addWidget(self.listWidget)
+        self.horizontalLayout_4.addWidget(self.label_2)
+
+        self.trueFalseLCD = QLCDNumber(self.centralwidget)
+        self.trueFalseLCD.setObjectName(u"trueFalseLCD")
+        font1 = QFont()
+        font1.setPointSize(9)
+        self.trueFalseLCD.setFont(font1)
+        self.trueFalseLCD.setDigitCount(4)
+        self.trueFalseLCD.setSegmentStyle(QLCDNumber.Flat)
+
+        self.horizontalLayout_4.addWidget(self.trueFalseLCD)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_4, 0, 1, 1, 1)
+
+        self.trueFalseList = QListWidget(self.centralwidget)
+        self.trueFalseList.setObjectName(u"trueFalseList")
+        self.trueFalseList.setSelectionMode(QAbstractItemView.ExtendedSelection)
+
+        self.gridLayout.addWidget(self.trueFalseList, 1, 1, 1, 1)
+
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        self.label.setFont(font)
+
+        self.horizontalLayout_3.addWidget(self.label)
+
+        self.choiceLCD = QLCDNumber(self.centralwidget)
+        self.choiceLCD.setObjectName(u"choiceLCD")
+        self.choiceLCD.setDigitCount(4)
+        self.choiceLCD.setSegmentStyle(QLCDNumber.Flat)
+
+        self.horizontalLayout_3.addWidget(self.choiceLCD)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
+
+        self.choiceList = QListWidget(self.centralwidget)
+        self.choiceList.setObjectName(u"choiceList")
+        self.choiceList.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.choiceList.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+        self.gridLayout.addWidget(self.choiceList, 1, 0, 1, 1)
+
+        self.btnDeleteChoice = QPushButton(self.centralwidget)
+        self.btnDeleteChoice.setObjectName(u"btnDeleteChoice")
+
+        self.gridLayout.addWidget(self.btnDeleteChoice, 2, 0, 1, 1)
+
+        self.btnDeletetrueFalse = QPushButton(self.centralwidget)
+        self.btnDeletetrueFalse.setObjectName(u"btnDeletetrueFalse")
+
+        self.gridLayout.addWidget(self.btnDeletetrueFalse, 2, 1, 1, 1)
+
+
+        self.horizontalLayout_5.addLayout(self.gridLayout)
 
         self.textBrowser = QTextBrowser(self.centralwidget)
         self.textBrowser.setObjectName(u"textBrowser")
 
-        self.horizontalLayout.addWidget(self.textBrowser)
+        self.horizontalLayout_5.addWidget(self.textBrowser)
 
+        self.horizontalLayout_5.setStretch(0, 1)
+        self.horizontalLayout_5.setStretch(1, 1)
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-
-        self.horizontalLayout_2.addWidget(self.pushButton)
-
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.btnDownload = QPushButton(self.centralwidget)
+        self.btnDownload.setObjectName(u"btnDownload")
 
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
+        self.horizontalLayout_2.addWidget(self.btnDownload)
 
-        self.radioButton = QRadioButton(self.centralwidget)
-        self.radioButton.setObjectName(u"radioButton")
+        self.btnImport = QPushButton(self.centralwidget)
+        self.btnImport.setObjectName(u"btnImport")
 
-        self.horizontalLayout_2.addWidget(self.radioButton)
+        self.horizontalLayout_2.addWidget(self.btnImport)
+
+        self.btnIsOverride = QRadioButton(self.centralwidget)
+        self.btnIsOverride.setObjectName(u"btnIsOverride")
+
+        self.horizontalLayout_2.addWidget(self.btnIsOverride)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -70,20 +145,17 @@ class Ui_TestManage(object):
 
     def retranslateUi(self, TestManage):
         TestManage.setWindowTitle(QCoreApplication.translate("TestManage", u"MainWindow", None))
+        self.label_2.setText(QCoreApplication.translate("TestManage", u"\u5224\u65ad\u9898", None))
+        self.label.setText(QCoreApplication.translate("TestManage", u"\u9009\u62e9\u9898", None))
+        self.btnDeleteChoice.setText(QCoreApplication.translate("TestManage", u"\u5220\u9664", None))
+        self.btnDeletetrueFalse.setText(QCoreApplication.translate("TestManage", u"\u5220\u9664", None))
         self.textBrowser.setHtml(QCoreApplication.translate("TestManage", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Cascadia Code','Consolas','Courier New','monospace'; font-size:14px; font-weight:296; color:#000000;\">\u8fd9\u662f\u7b2c\u4e00\u9898\uff0c\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5\u6d4b\u8bd5</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-i"
-                        "ndent:0px;\"><span style=\" font-family:'Cascadia Code','Consolas','Courier New','monospace'; font-size:14px; font-weight:296; color:#000000;\">A.\u9009\u9879\u9009\u9879</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Cascadia Code','Consolas','Courier New','monospace'; font-size:14px; color:#000000;\">B.</span><span style=\" font-family:'Cascadia Code','Consolas','Courier New','monospace'; font-size:14px; font-weight:296; color:#000000;\">\u9009\u9879\u9009\u9879</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Cascadia Code','Consolas','Courier New','monospace'; font-size:14px; font-weight:296; color:#000000;\">C.\u9009\u9879\u9009\u9879</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><sp"
-                        "an style=\" font-family:'Cascadia Code','Consolas','Courier New','monospace'; font-size:14px; font-weight:296; color:#000000;\">D.\u9009\u9879\u9009\u9879</span></p></body></html>", None))
-        self.pushButton.setText(QCoreApplication.translate("TestManage", u"\u5220\u9664", None))
-        self.pushButton_2.setText(QCoreApplication.translate("TestManage", u"\u6279\u91cf\u5bfc\u5165", None))
-        self.radioButton.setText(QCoreApplication.translate("TestManage", u"\u5bfc\u5165\u65f6\u8986\u76d6", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+        self.btnDownload.setText(QCoreApplication.translate("TestManage", u"\u4e0b\u8f7d\u6a21\u677f", None))
+        self.btnImport.setText(QCoreApplication.translate("TestManage", u"\u6279\u91cf\u5bfc\u5165", None))
+        self.btnIsOverride.setText(QCoreApplication.translate("TestManage", u"\u5bfc\u5165\u65f6\u8986\u76d6", None))
     # retranslateUi
 

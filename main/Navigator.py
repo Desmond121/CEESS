@@ -8,7 +8,7 @@
 """
 
 from embellish.styles import _ICON
-from PySide2.QtCore import Qt, SLOT, Signal, Slot
+from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QMainWindow
 from ui.generate.Ui_Student import Ui_Student

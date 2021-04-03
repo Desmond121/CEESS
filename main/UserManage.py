@@ -46,7 +46,7 @@ class UserManage(QMainWindow):
         db = DataManager()
         # the number of item is multiple of 3
         # in this loop, we can get 2nd item in each 3 items.
-        # which contain texts of user account
+        # which contain text of user account
         for i in range(1, len(items), 3):
             db.deleteUserByAccount(str(items[i].text()))
         db.closeConnect()
@@ -59,7 +59,7 @@ class UserManage(QMainWindow):
         isAdmin = int(self.ui.isAdminButtom.isChecked())
         if (account.isalnum() and len(account) <= 20 and 0 < len(name) <= 20):
             db = DataManager()
-            if db.isOccupied(account):
+            if db.isAccountOccupied(account):
                 QMessageBox().warning(self, "CEESS-提醒", "账号已存在！")
             else:
                 db.addNewUser(account, name, isAdmin)
@@ -99,7 +99,7 @@ class UserManage(QMainWindow):
                 if (account.isalnum() and len(account) <= 20
                         and 0 < len(name) <= 20):
                     db = DataManager()
-                    if db.isOccupied(account):
+                    if db.isAccountOccupied(account):
                         errorCount += 1
                         errorString += (str(errorCount) + ".第" + str(i + 3) +
                                         "行，用户名已存在！\n")
@@ -124,6 +124,7 @@ class UserManage(QMainWindow):
             filePath = QFileDialog.getSaveFileName(self, "CEESS-模板下载",
                                                    "用户导入模板.xls",
                                                    "Excel Files (*.xls)")
-            file.copy(filePath[0])
+            if len(filePath[0]) != 0:
+                file.copy(filePath[0])
         else:
-            QMessageBox.warning(self, "CEESS-通知", "模板文件丢失，请重新安装本系统！")
+            QMessageBox.warning(self, "CEESS-通知", "模板文件丢失，请检查软件的完整性或重新安装本系统！")

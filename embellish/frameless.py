@@ -74,7 +74,6 @@ class FramelessWindow(QWidget):
         w (QWidget): Main widget.
         parent (QWidget, optional): Parent widget.
     """
-
     def __init__(self, w, isResizable=True, parent=None):
         QWidget.__init__(self, parent)
 

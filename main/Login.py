@@ -7,10 +7,9 @@
 @version    : 0.0.1
 """
 from PySide2.QtCore import Signal, Slot
-from PySide2.QtWidgets import QMainWindow, QMessageBox
+from PySide2.QtWidgets import QLineEdit, QMainWindow, QMessageBox
 from ui.generate.Ui_Login import Ui_Login
 from utility.DataManager import DataManager
-from PySide2.QtWidgets import QLineEdit
 
 
 class Login(QMainWindow):

@@ -35,6 +35,29 @@ class DataManager():
         result = self._cursor.fetchone()
         return str(result[0])
 
+    def isPasswordCorrectById(self, UID, password):
+        self._cursor.execute(
+            "select PASSWORD from USER \
+                where UID == ? limit 1;", [UID])
+        result = self._cursor.fetchone()
+        if result is None:
+            return False
+        return bool(result[0] == password)
+
+    def changePasswordById(self, UID, newPassword):
+        self._cursor.execute("update USER set PASSWORD = ? where UID = ?",
+                             [newPassword, UID])
+        self._conn.commit()
+
+    def changeNameById(self, UID, newName):
+        self._cursor.execute("update USER set USER_NAME = ? where UID = ?",
+                             [newName, UID])
+        self._conn.commit()
+
+    def deleteQuestionById(self, questionId):
+        self._cursor.execute("delete from TEST where ID = ?;", [questionId])
+        self._conn.commit()
+
     def getTypeAndIdByAccount(self, account):
         self._cursor.execute(
             "select USER_TYPE, UID from USER \
@@ -52,19 +75,20 @@ class DataManager():
             return False
         return bool(result[0] == password)
 
-    def isPasswordCorrectById(self, UID, password):
-        self._cursor.execute(
-            "select PASSWORD from USER \
-                where UID == ? limit 1;", [UID])
-        result = self._cursor.fetchone()
-        if result is None:
-            return False
-        return bool(result[0] == password)
-
     def getAllUserInfo(self):
         self._cursor.execute(
-            "select USER_NAME, USER_ACCOUNT, USER_TYPE from USER limit 1;")
+            "select USER_NAME, USER_ACCOUNT, USER_TYPE from USER;")
         return self._cursor.fetchall()
+
+    def getAllQuestion(self, type):
+        self._cursor.execute("select * from TEST where TYPE = ?;", [type])
+        return self._cursor.fetchall()
+
+    def deleteAllQuestion(self):
+        self._cursor.execute("delete from TEST;")
+        self._cursor.execute(
+            "update sqlite_sequence SET seq = 0 WHERE name = 'TEST';")
+        self._conn.commit()
 
     def deleteUserByAccount(self, account):
         self._cursor.execute("delete from USER where USER_ACCOUNT = ?;",
@@ -77,18 +101,18 @@ class DataManager():
                 values (?, ?, ?);", [account, name, isAdmin])
         self._conn.commit()
 
-    def isOccupied(self, account):
+    def addNewQuestion(self, body, choiceA, choiceB, choiceC, choiceD, type,
+                       answer):
+        self._cursor.execute(
+            "insert into TEST (QUESTION, A, B, C, D, TYPE, ANSWER) \
+                values (?, ?, ?, ?, ?, ?, ?);",
+            [body, choiceA, choiceB, choiceC, choiceD, type, answer])
+        self._conn.commit()
+        self._cursor.execute("select max(ID) from TEST;")
+        return self._cursor.fetchone()
+
+    def isAccountOccupied(self, account):
         self._cursor.execute(
             "select USER_ACCOUNT from USER \
                 where USER_ACCOUNT == ? limit 1", [account])
         return bool(len(self._cursor.fetchall()))
-
-    def changePasswordById(self, UID, newPassword):
-        self._cursor.execute("update USER set PASSWORD = ? where UID = ?",
-                             [newPassword, UID])
-        self._conn.commit()
-
-    def changeNameById(self, UID, newName):
-        self._cursor.execute("update USER set USER_NAME = ? where UID = ?",
-                             [newName, UID])
-        self._conn.commit()

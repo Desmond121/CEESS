@@ -6,10 +6,10 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
-from utility.DataManager import DataManager
 from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtWidgets import QInputDialog, QLineEdit, QMainWindow, QMessageBox
 from ui.generate.Ui_Setting import Ui_Setting
+from utility.DataManager import DataManager
 
 
 class Setting(QMainWindow):
@@ -62,7 +62,7 @@ class Setting(QMainWindow):
 
     @Slot()
     def on_rename_clicked(self):
-        newName = originalPsw = QInputDialog.getText(
+        newName = QInputDialog.getText(
             self, "CEESS-修改姓名", "请输入姓名", QLineEdit.Normal, "",
             Qt.WindowSystemMenuHint | Qt.WindowTitleHint)
         if newName[1]:

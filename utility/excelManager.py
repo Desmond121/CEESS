@@ -7,6 +7,7 @@
 @version    : 0.0.1
 """
 
+from os import close
 import xlrd
 
 
@@ -21,3 +22,10 @@ class ExcelManager():
             user = self.sheet.row_values(row, 0, 3)
             userList.append(user)
         return userList
+
+    def getQuestionList(self):
+        questionList = list()
+        for row in range(1, self.sheet.nrows):
+            question = self.sheet.row_values(row, 0, 7)
+            questionList.append(question)
+        return questionList
