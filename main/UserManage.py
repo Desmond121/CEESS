@@ -1,4 +1,5 @@
-from PySide2.QtCore import QFile, Slot
+import sqlite3
+from PySide2.QtCore import QFile, Qt, Slot
 from PySide2.QtWidgets import (QFileDialog, QHeaderView, QMainWindow,
                                QMessageBox, QTableWidgetItem)
 from ui.generate.Ui_UserManage import Ui_UserManage
@@ -9,13 +10,13 @@ from utility.ExcelManager import ExcelManager
 class UserManage(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_UserManage()
         self.ui.setupUi(self)
         self.loadInfo()
-
         # connect signal slot.
         self.ui.btnDelete.clicked.connect(self.deleteUser)
-        self.ui.btnNew.clicked.connect(self.addNewUser)
+        self.ui.btnNew.clicked.connect(self.addOneUser)
         self.ui.btnImport.clicked.connect(self.importUser)
         self.ui.btnDownload.clicked.connect(self.downloadTemplate)
 
@@ -53,19 +54,20 @@ class UserManage(QMainWindow):
         self.loadInfo()
 
     @Slot()
-    def addNewUser(self):
+    def addOneUser(self):
         account = self.ui.accEdit.text()
         name = self.ui.nameEdit.text()
         isAdmin = int(self.ui.isAdminButtom.isChecked())
         if (account.isalnum() and len(account) <= 20 and 0 < len(name) <= 20):
             db = DataManager()
-            if db.isAccountOccupied(account):
-                QMessageBox().warning(self, "CEESS-提醒", "账号已存在！")
-            else:
+            try:
                 db.addNewUser(account, name, isAdmin)
                 self.ui.accEdit.setText("")
                 self.ui.nameEdit.setText("")
                 self.loadInfo()
+            except sqlite3.IntegrityError:
+                QMessageBox().warning(self, "CEESS-警告",
+                                      "导入数据库错误，请检查是否用户名是否已存在。")
             db.closeConnect()
         else:
             QMessageBox().warning(self, "CEESS-提醒", "请检查账号和姓名格式！")
@@ -99,13 +101,13 @@ class UserManage(QMainWindow):
                 if (account.isalnum() and len(account) <= 20
                         and 0 < len(name) <= 20):
                     db = DataManager()
-                    if db.isAccountOccupied(account):
-                        errorCount += 1
-                        errorString += (str(errorCount) + ".第" + str(i + 3) +
-                                        "行，用户名已存在！\n")
-                    else:
+                    try:
                         db.addNewUser(account, name, isAdmin)
                         self.loadInfo()
+                    except sqlite3.IntegrityError:
+                        errorCount += 1
+                        errorString += (str(errorCount) + ".第" + str(i + 3) +
+                                        "行，导入失败，可能是因为用户名已存在！\n")
                     db.closeConnect()
                 else:
                     errorCount += 1
@@ -128,3 +130,11 @@ class UserManage(QMainWindow):
                 file.copy(filePath[0])
         else:
             QMessageBox.warning(self, "CEESS-通知", "模板文件丢失，请检查软件的完整性或重新安装本系统！")
+
+    @Slot()
+    def on_accEdit_returnPressed(self):
+        self.ui.nameEdit.setFocus()
+
+    @Slot()
+    def on_nameEdit_returnPressed(self):
+        self.addOneUser()

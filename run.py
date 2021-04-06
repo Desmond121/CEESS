@@ -10,7 +10,7 @@
 import sys
 
 from PySide2 import QtCore
-from PySide2.QtGui import QFontDatabase
+from PySide2.QtGui import QFontDatabase, Qt
 
 from embellish.styles import StyleQApplication
 from utility.WindowsManager import WindowsManager
@@ -20,7 +20,6 @@ _FONTPATH = "./resources/font/SourceHanSansCN-Regular.ttf"
 if __name__ == "__main__":
     # global pre-setting
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-
     # run qt application and setup color theme
     app = StyleQApplication(sys.argv)
     # load font family

@@ -19,6 +19,7 @@ class Setting(QMainWindow):
 
     def __init__(self, userId, parent=None):
         super().__init__(parent)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_Setting()
         self.ui.setupUi(self)
 

@@ -7,9 +7,8 @@
 @version    : 0.0.1
 """
 from PySide2.QtCore import Qt, Signal, Slot
-from PySide2.QtGui import QBrush, QFont, QIcon, QPainter, QPalette, QPixmap
-from PySide2.QtSvg import QSvgRenderer
-from PySide2.QtWidgets import QLineEdit, QMainWindow, QMessageBox, QWidgetAction
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QLineEdit, QMainWindow, QMessageBox
 from ui.generate.Ui_Login import Ui_Login
 from utility.DataManager import DataManager
 
@@ -22,6 +21,7 @@ class Login(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_Login()
         self.ui.setupUi(self)
         self.ui.pswLineEdit.setEchoMode(QLineEdit.Password)

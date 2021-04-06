@@ -15,6 +15,8 @@ _DEFAULT_DATABASE = "./data/db.sqlite3"
 class DataManager():
     def __init__(self, database=_DEFAULT_DATABASE):
         self._conn = sqlite3.connect(database)
+        self._conn.execute(
+            "PRAGMA foreign_keys = 1")  # open foreign key support
         self._cursor = self._conn.cursor()
 
     def closeConnect(self):
@@ -45,17 +47,18 @@ class DataManager():
         return bool(result[0] == password)
 
     def changePasswordById(self, UID, newPassword):
-        self._cursor.execute("update USER set PASSWORD = ? where UID = ?",
+        self._cursor.execute("update USER set PASSWORD = ? where UID = ?;",
                              [newPassword, UID])
         self._conn.commit()
 
     def changeNameById(self, UID, newName):
-        self._cursor.execute("update USER set USER_NAME = ? where UID = ?",
+        self._cursor.execute("update USER set USER_NAME = ? where UID = ?;",
                              [newName, UID])
         self._conn.commit()
 
     def deleteQuestionById(self, questionId):
-        self._cursor.execute("delete from TEST where ID = ?;", [questionId])
+        self._cursor.execute("delete from QUESTION_BANK where QID = ?;",
+                             [questionId])
         self._conn.commit()
 
     def getTypeAndIdByAccount(self, account):
@@ -81,13 +84,20 @@ class DataManager():
         return self._cursor.fetchall()
 
     def getAllQuestion(self, type):
-        self._cursor.execute("select * from TEST where TYPE = ?;", [type])
+        self._cursor.execute("select * from QUESTION_BANK where TYPE = ?;",
+                             [type])
+        return self._cursor.fetchall()
+
+    def getRandomQuestion(self, type, amount):
+        self._cursor.execute(
+            "select * from QUESTION_BANK where TYPE = ? order by random() \
+                limit ?;", [type, amount])
         return self._cursor.fetchall()
 
     def deleteAllQuestion(self):
-        self._cursor.execute("delete from TEST;")
+        self._cursor.execute("delete from QUESTION_BANK;")
         self._cursor.execute(
-            "update sqlite_sequence SET seq = 0 WHERE name = 'TEST';")
+            "update sqlite_sequence SET seq = 0 WHERE name = 'QUESTION_BANK';")
         self._conn.commit()
 
     def deleteUserByAccount(self, account):
@@ -104,15 +114,29 @@ class DataManager():
     def addNewQuestion(self, body, choiceA, choiceB, choiceC, choiceD, type,
                        answer):
         self._cursor.execute(
-            "insert into TEST (QUESTION, A, B, C, D, TYPE, ANSWER) \
+            "insert into QUESTION_BANK (BODY, A, B, C, D, TYPE, ANSWER) \
                 values (?, ?, ?, ?, ?, ?, ?);",
             [body, choiceA, choiceB, choiceC, choiceD, type, answer])
         self._conn.commit()
-        self._cursor.execute("select max(ID) from TEST;")
+        self._cursor.execute("select max(QID) from QUESTION_BANK;")
         return self._cursor.fetchone()
 
-    def isAccountOccupied(self, account):
+    def addGrade(self, uid, tid, grade):
+        # check whether existing
         self._cursor.execute(
-            "select USER_ACCOUNT from USER \
-                where USER_ACCOUNT == ? limit 1", [account])
-        return bool(len(self._cursor.fetchall()))
+            "select SCORE from GRADE where (UID,TID) = (?, ?);", [uid, tid])
+        result = self._cursor.fetchone()
+        if result is None:
+            self._cursor.execute(
+                "insert into GRADE (UID, TID, SCORE) values (?, ?, ?);",
+                [uid, tid, grade])
+            self._conn.commit()
+            return -1
+        else:
+            return result[0]  # the existing grade
+
+    def updateGrade(self, uid, tid, grade):
+        self._cursor.execute(
+            "update GRADE set SCORE = ? where (UID, TID) = (?, ?);",
+            [grade, uid, tid])
+        self._conn.commit()

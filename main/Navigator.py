@@ -31,6 +31,7 @@ class Navigator(QMainWindow):
 
     def __init__(self, userId, app, isTeacher=False):
         super().__init__()
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.userId = userId  # record the user.
         self.app = app  # record the application.
         if isTeacher:
@@ -71,17 +72,17 @@ class Navigator(QMainWindow):
 
         # Add icon for buttons
         self.ui.btnLearn.setIcon(QIcon(_IMG_PATH + "btnLearn.svg"))
-        self.ui.btnSafetyTest.setIcon(QIcon(_IMG_PATH + "btnSafetyTest.svg"))
+        self.ui.btnTest.setIcon(QIcon(_IMG_PATH + "btnSafetyTest.svg"))
         self.ui.btnSetting.setIcon(QIcon(_IMG_PATH + "btnSetting.svg"))
         self.ui.btnSimulator.setIcon(QIcon(_IMG_PATH + "btnSimulator.svg"))
 
         # Connect buttons with slot
         self.ui.btnSetting.clicked.connect(self.openSetting)
-        self.ui.btnSimulator.clicked.connect(self.openSimulator)
+        self.ui.btnTest.clicked.connect(self.openTest)
 
     @Slot()
-    def openExpTest(self):
-        self.Test = Test(self)
+    def openTest(self):
+        self.Test = Test(self.userId, self)
         self.Test.show()
 
     @Slot()

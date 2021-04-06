@@ -40,14 +40,14 @@ class Ui_Student(object):
 
         self.verticalLayout.addWidget(self.btnLearn)
 
-        self.btnSafetyTest = QPushButton(self.centralwidget)
-        self.btnSafetyTest.setObjectName(u"btnSafetyTest")
-        sizePolicy.setHeightForWidth(self.btnSafetyTest.sizePolicy().hasHeightForWidth())
-        self.btnSafetyTest.setSizePolicy(sizePolicy)
-        self.btnSafetyTest.setMinimumSize(QSize(120, 80))
-        self.btnSafetyTest.setFont(font)
+        self.btnTest = QPushButton(self.centralwidget)
+        self.btnTest.setObjectName(u"btnTest")
+        sizePolicy.setHeightForWidth(self.btnTest.sizePolicy().hasHeightForWidth())
+        self.btnTest.setSizePolicy(sizePolicy)
+        self.btnTest.setMinimumSize(QSize(120, 80))
+        self.btnTest.setFont(font)
 
-        self.verticalLayout.addWidget(self.btnSafetyTest)
+        self.verticalLayout.addWidget(self.btnTest)
 
 
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -87,8 +87,8 @@ class Ui_Student(object):
 
         Student.setCentralWidget(self.centralwidget)
         QWidget.setTabOrder(self.btnLearn, self.btnSimulator)
-        QWidget.setTabOrder(self.btnSimulator, self.btnSafetyTest)
-        QWidget.setTabOrder(self.btnSafetyTest, self.btnSetting)
+        QWidget.setTabOrder(self.btnSimulator, self.btnTest)
+        QWidget.setTabOrder(self.btnTest, self.btnSetting)
 
         self.retranslateUi(Student)
 
@@ -98,7 +98,7 @@ class Ui_Student(object):
     def retranslateUi(self, Student):
         Student.setWindowTitle(QCoreApplication.translate("Student", u"CEESS-\u5b66\u751f", None))
         self.btnLearn.setText(QCoreApplication.translate("Student", u"\u5b89\u5168\u5b66\u4e60", None))
-        self.btnSafetyTest.setText(QCoreApplication.translate("Student", u"\u5b89\u5168\u6d4b\u8bd5", None))
+        self.btnTest.setText(QCoreApplication.translate("Student", u"\u5b89\u5168\u6d4b\u8bd5", None))
         self.btnSimulator.setText(QCoreApplication.translate("Student", u"\u5b89\u5168\u6a21\u62df", None))
         self.btnSetting.setText(QCoreApplication.translate("Student", u"\u7cfb\u7edf\u8bbe\u7f6e", None))
     # retranslateUi

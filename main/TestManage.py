@@ -9,40 +9,45 @@
 # todo: multi-thread support to prevent window stuck
 # todo: when importing huge data flow.
 
-from PySide2.QtCore import QFile, Slot
+from PySide2.QtCore import QFile, Qt, Slot
 from PySide2.QtWidgets import (QFileDialog, QListWidget, QMainWindow,
                                QMessageBox)
 from ui.generate.Ui_TestManage import Ui_TestManage
 from utility.DataManager import DataManager
 from utility.ExcelManager import ExcelManager
 
+_CHOICE_TYPE = 0
+_TRUE_FALSE_TYPE = 1
+
 
 class TestManage(QMainWindow):
     choiceBank = None  # question bank for single choice question.
-    choiceSize = 0
     trueFalseBank = None  # question bank for TF question.
-    trueFalseSize = 0
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_TestManage()
         self.ui.setupUi(self)
         # load all questions from database
         db = DataManager()
         # load single choice questions first.
-        self.choiceBank = db.getAllQuestion(0)
-        self.choiceSize = len(self.choiceBank)
-        for i in range(self.choiceSize):
+        self.choiceBank = db.getAllQuestion(_CHOICE_TYPE)
+        choiceSize = len(self.choiceBank)
+        for i in range(choiceSize):
             # bank[i][1] is the number i question's body.
             self.ui.choiceList.addItem(self.choiceBank[i][1][:10])
 
         # then load all TF question.
-        self.trueFalseBank = db.getAllQuestion(1)
-        self.trueFalseSize = len(self.trueFalseBank)
-        for i in range(self.trueFalseSize):
+        self.trueFalseBank = db.getAllQuestion(_TRUE_FALSE_TYPE)
+        trueFalseSize = len(self.trueFalseBank)
+        for i in range(trueFalseSize):
             # bank[i][1] is the number i question's body.
             self.ui.trueFalseList.addItem(self.trueFalseBank[i][1])
         db.closeConnect()
+        # display the number of questions
+        self.ui.choiceLCD.display(choiceSize)
+        self.ui.trueFalseLCD.display(trueFalseSize)
 
     def deleteSelectedQuestion(self, questionList: QListWidget,
                                questionBank: list):
@@ -82,7 +87,7 @@ class TestManage(QMainWindow):
         db.closeConnect()
         question = (questionId, body, choiceA, choiceB, choiceC, choiceD, type,
                     answer)
-        if type == 0:
+        if type == _CHOICE_TYPE:
             # update the question bank.
             self.choiceBank.append(question)
             # update the choice list widget.
@@ -144,6 +149,10 @@ class TestManage(QMainWindow):
                     errorString += (str(errorCount) + ".第" + str(i + 2) +
                                     "行，题目类型只能为0或1，分别为选择或判断！\n")
 
+            # update the number of questions.
+            self.ui.choiceLCD.display(len(self.choiceBank))
+            self.ui.trueFalseLCD.display(len(self.trueFalseBank))
+
     @Slot()
     def on_choiceList_itemClicked(self):
         index = self.ui.choiceList.currentRow()  # question index.
@@ -177,10 +186,12 @@ class TestManage(QMainWindow):
     @Slot()
     def on_btnDeletetrueFalse_clicked(self):
         self.deleteSelectedQuestion(self.ui.trueFalseList, self.trueFalseBank)
+        self.ui.trueFalseLCD.display(len(self.trueFalseBank))
 
     @Slot()
     def on_btnDeleteChoice_clicked(self):
         self.deleteSelectedQuestion(self.ui.choiceList, self.choiceBank)
+        self.ui.choiceLCD.display(len(self.choiceBank))
 
     @Slot()
     def on_btnDownload_clicked(self):

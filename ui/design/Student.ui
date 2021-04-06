@@ -42,7 +42,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnSafetyTest">
+       <widget class="QPushButton" name="btnTest">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -143,7 +143,7 @@
  <tabstops>
   <tabstop>btnLearn</tabstop>
   <tabstop>btnSimulator</tabstop>
-  <tabstop>btnSafetyTest</tabstop>
+  <tabstop>btnTest</tabstop>
   <tabstop>btnSetting</tabstop>
  </tabstops>
  <resources/>
