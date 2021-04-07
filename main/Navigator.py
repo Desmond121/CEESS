@@ -7,7 +7,8 @@
 @version    : 0.0.1
 """
 
-from embellish.styles import _ICON
+from main.Learn import Learn
+from utility.styles import _ICON
 from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QMainWindow
@@ -52,10 +53,11 @@ class Navigator(QMainWindow):
         self.ui.svgBanner.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
 
         # Add icon for buttons
-        self.ui.btnUserManage.setIcon(QIcon(_IMG_PATH + "btnUserManage"))
-        self.ui.btnScoreAnalyse.setIcon(QIcon(_IMG_PATH + "btnScoreAnalyse"))
-        self.ui.btnSetting.setIcon(QIcon(_IMG_PATH + "btnSetting"))
-        self.ui.btnTestManage.setIcon(QIcon(_IMG_PATH + "btnTestManage"))
+        self.ui.btnUserManage.setIcon(QIcon(_IMG_PATH + "btnUserManage.svg"))
+        self.ui.btnScoreAnalyse.setIcon(
+            QIcon(_IMG_PATH + "btnScoreAnalyse.svg"))
+        self.ui.btnSetting.setIcon(QIcon(_IMG_PATH + "btnSetting.svg"))
+        self.ui.btnTestManage.setIcon(QIcon(_IMG_PATH + "btnTestManage.svg"))
 
         # Connect buttons with slot
         self.ui.btnUserManage.clicked.connect(self.openUserManage)
@@ -79,6 +81,8 @@ class Navigator(QMainWindow):
         # Connect buttons with slot
         self.ui.btnSetting.clicked.connect(self.openSetting)
         self.ui.btnTest.clicked.connect(self.openTest)
+        self.ui.btnSimulator.clicked.connect(self.openSimulator)
+        self.ui.btnLearn.clicked.connect(self.openLearn)
 
     @Slot()
     def openTest(self):
@@ -109,3 +113,8 @@ class Navigator(QMainWindow):
     def openTestManage(self):
         self.testManage = TestManage(self)
         self.testManage.show()
+
+    @Slot()
+    def openLearn(self):
+        self.learn = Learn(self)
+        self.learn.show()

@@ -12,7 +12,7 @@ from PySide2.QtGui import QIcon, QPalette, QColor
 
 _STYLESHEET = "./resources/qss/style.qss"
 _FONT = "./resources/font/SourceHanSansCN-Medium.ttf"
-_ICON = "./resources/img/icon.svg"
+_ICON = "./resources/img/icon"
 
 
 class StyleQApplication(QApplication):

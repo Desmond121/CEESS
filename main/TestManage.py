@@ -29,6 +29,7 @@ class TestManage(QMainWindow):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_TestManage()
         self.ui.setupUi(self)
+
         # load all questions from database
         db = DataManager()
         # load single choice questions first.
@@ -195,7 +196,7 @@ class TestManage(QMainWindow):
 
     @Slot()
     def on_btnDownload_clicked(self):
-        file = QFile("./resources/template/testImportTemplate.xls")
+        file = QFile("./resources/download/testImportTemplate")
         if file.open(QFile.ReadOnly):
             filePath = QFileDialog.getSaveFileName(self, "CEESS-模板下载",
                                                    "用户导入模板.xls",

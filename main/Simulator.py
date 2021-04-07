@@ -7,6 +7,7 @@
 @version    : 0.0.1
 """
 from PySide2.QtCore import QUrl, Qt
+from PySide2.QtWebEngineWidgets import QWebEngineSettings
 from PySide2.QtWidgets import QMainWindow
 from ui.generate.Ui_Simulator import Ui_Simulator
 
@@ -17,5 +18,6 @@ class Simulator(QMainWindow):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_Simulator()
         self.ui.setupUi(self)
-        self.ui.web.load(QUrl("D:/Dev/Repo/CEESS/web/example/index.html"))
+        self.ui.web.setAttribute(QWebEngineSettings.PluginsEnabled, True)
+        self.ui.web.load(QUrl("D:/Repo/CEESS/resources/pdf/example.pdf"))
         self.ui.web.show()

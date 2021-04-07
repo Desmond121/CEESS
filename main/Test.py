@@ -7,10 +7,6 @@
 @version    : 0.0.1
 """
 
-# todo: finish "summit" botton.
-# todo: finish a deadline clock.
-# todo: finish a grading module.
-
 import time
 
 from PySide2.QtCore import QTimer, Slot
@@ -47,9 +43,11 @@ class Test(QMainWindow):
         self.questionBank = None  # question bank for single choice question.
         self.qIndex = 0  # the index of current question.
 
-        # setup icon for true false button.
+        # setup icons.
         self.ui.btnTrue.setIcon(QIcon(_IMG_PATH + "btnTrue.svg"))
         self.ui.btnFalse.setIcon(QIcon(_IMG_PATH + "btnFalse.svg"))
+        self.ui.btnStart.setIcon(QIcon(_IMG_PATH + "start.svg"))
+        self.ui.btnSubmit.setIcon(QIcon(_IMG_PATH + "submit.svg"))
 
         # display start page.
         self.ui.pages.setCurrentIndex(0)
@@ -223,7 +221,7 @@ class Test(QMainWindow):
         self.on_btnNext_clicked()
 
     @Slot()
-    def on_btnSummit_clicked(self):
+    def on_btnSubmit_clicked(self):
         unfinished = self.finishingCheck()
         if (len(unfinished) != 0):
             info = "下述题目未完成：\n"

@@ -231,10 +231,10 @@ class Ui_Test(object):
 
         self.horizontalLayout_7.addItem(self.horizontalSpacer_7)
 
-        self.btnSummit = QPushButton(self.testPage)
-        self.btnSummit.setObjectName(u"btnSummit")
+        self.btnSubmit = QPushButton(self.testPage)
+        self.btnSubmit.setObjectName(u"btnSubmit")
 
-        self.horizontalLayout_7.addWidget(self.btnSummit)
+        self.horizontalLayout_7.addWidget(self.btnSubmit)
 
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_7)
@@ -337,7 +337,7 @@ class Ui_Test(object):
         self.btnFalse.setText("")
         self.btnPrev.setText(QCoreApplication.translate("Test", u"\u4e0a\u4e00\u9898", None))
         self.btnNext.setText(QCoreApplication.translate("Test", u"\u4e0b\u4e00\u9898", None))
-        self.btnSummit.setText(QCoreApplication.translate("Test", u"\u63d0\u4ea4", None))
+        self.btnSubmit.setText(QCoreApplication.translate("Test", u"\u63d0\u4ea4", None))
         self.label.setText(QCoreApplication.translate("Test", u"\u6210\u7ee9\uff1a", None))
         self.lblGrade.setText("")
         self.label_2.setText(QCoreApplication.translate("Test", u"\u59d3\u540d\uff1a", None))

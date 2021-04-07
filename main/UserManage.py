@@ -121,7 +121,7 @@ class UserManage(QMainWindow):
 
     @Slot()
     def downloadTemplate(self):
-        file = QFile("./resources/template/userImportTemplate.xls")
+        file = QFile("./resources/download/userImportTemplate")
         if file.open(QFile.ReadOnly):
             filePath = QFileDialog.getSaveFileName(self, "CEESS-模板下载",
                                                    "用户导入模板.xls",
@@ -129,7 +129,7 @@ class UserManage(QMainWindow):
             if len(filePath[0]) != 0:
                 file.copy(filePath[0])
         else:
-            QMessageBox.warning(self, "CEESS-通知", "模板文件丢失，请检查软件的完整性或重新安装本系统！")
+            QMessageBox.warning(self, "CEESS-通知", "模板文件丢失，请重装本系统或联系管理员！")
 
     @Slot()
     def on_accEdit_returnPressed(self):

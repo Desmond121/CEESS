@@ -1,12 +1,10 @@
-from os import truncate
-from main.Navigator import Navigator
 import sys
 
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
 
-from embellish.styles import StyleQApplication
-from utility.WindowsManager import WindowsManager
+from main.Navigator import Navigator
+from utility.styles import StyleQApplication
 
 _FONTPATH = "./resources/font/SourceHanSansCN-Regular.ttf"
 
