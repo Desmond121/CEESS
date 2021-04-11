@@ -1,4 +1,3 @@
-import sqlite3
 from PySide2.QtCore import QFile, Qt, Slot
 from PySide2.QtWidgets import (QFileDialog, QHeaderView, QMainWindow,
                                QMessageBox, QTableWidgetItem)
@@ -13,67 +12,72 @@ class UserManage(QMainWindow):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.ui = Ui_UserManage()
         self.ui.setupUi(self)
+        self.ui.userTableWidget.horizontalHeader().setSectionResizeMode(
+            QHeaderView.Stretch)
         self.loadInfo()
-        # connect signal slot.
-        self.ui.btnDelete.clicked.connect(self.deleteUser)
-        self.ui.btnNew.clicked.connect(self.addOneUser)
-        self.ui.btnImport.clicked.connect(self.importUser)
-        self.ui.btnDownload.clicked.connect(self.downloadTemplate)
 
     def loadInfo(self):
         # Get userInfo list, each unit is tuple.
         db = DataManager()
-        userInfo = db.getAllUserInfo()
+        self.userInfoDict = db.getAllUserInfoDict()
         db.closeConnect()
 
         # setup the table
-        self.ui.userTableWidget.horizontalHeader().setSectionResizeMode(
-            QHeaderView.Stretch)
-        self.ui.userTableWidget.setRowCount(len(userInfo))
-        for row in range(len(userInfo)):
-            self.ui.userTableWidget.setItem(
-                row, 0, QTableWidgetItem(str(userInfo[row][0])))
-            self.ui.userTableWidget.setItem(
-                row, 1, QTableWidgetItem(str(userInfo[row][1])))
-            if userInfo[row][2] == 1:
-                self.ui.userTableWidget.setItem(row, 2,
-                                                QTableWidgetItem("管理员"))
+        self.ui.userTableWidget.setRowCount(len(self.userInfoDict))
+
+        row = 0
+        for userAccount, userInfo in self.userInfoDict.items():
+            self.ui.userTableWidget.setItem(row, 0,
+                                            QTableWidgetItem(str(userAccount)))
+            self.ui.userTableWidget.setItem(row, 1,
+                                            QTableWidgetItem(str(userInfo[0])))
+            if userInfo[1] == 1:
+                self.ui.userTableWidget.setItem(row, 2, QTableWidgetItem("管理"))
             else:
                 self.ui.userTableWidget.setItem(row, 2, QTableWidgetItem("学生"))
+            row += 1
+
+        self.ui.userTableWidget.clearSelection()
 
     @Slot()
-    def deleteUser(self):
+    def on_btnDelete_clicked(self):
         items = self.ui.userTableWidget.selectedItems()
-        db = DataManager()
+        deleteUserIds = list()
         # the number of item is multiple of 3
-        # in this loop, we can get 2nd item in each 3 items.
+        # in this loop, we can get 1nd item in each 3 items.
         # which contain text of user account
-        for i in range(1, len(items), 3):
-            db.deleteUserByAccount(str(items[i].text()))
+        for i in range(0, len(items), 3):
+            # get account of whom was chosen to be deleted
+            account = items[i].text()
+            userId = self.userInfoDict.pop(account)[2]
+            deleteUserIds.append((userId, ))  # the element is a tuple
+
+        db = DataManager()
+        db.deleteUserByIdList(deleteUserIds)
         db.closeConnect()
         self.loadInfo()
 
     @Slot()
-    def addOneUser(self):
+    def on_btnNew_clicked(self):
         account = self.ui.accEdit.text()
         name = self.ui.nameEdit.text()
         isAdmin = int(self.ui.isAdminButtom.isChecked())
-        if (account.isalnum() and len(account) <= 20 and 0 < len(name) <= 20):
-            db = DataManager()
-            try:
-                db.addNewUser(account, name, isAdmin)
-                self.ui.accEdit.setText("")
-                self.ui.nameEdit.setText("")
-                self.loadInfo()
-            except sqlite3.IntegrityError:
-                QMessageBox().warning(self, "CEESS-警告",
-                                      "导入数据库错误，请检查是否用户名是否已存在。")
-            db.closeConnect()
+
+        if (not account.isalnum()) or (len(account) > 20):
+            QMessageBox().warning(self, "CEESS-提醒", "账号只能由数字和字母组成，长度小于20位。")
+        elif len(name) > 20:
+            QMessageBox().warning(self, "CEESS-提醒", "姓名长度只能小于20位。")
+        elif account in self.userInfoDict:
+            QMessageBox().warning(self, "CEESS-提醒",
+                                  "已存在该账号：\"" + account + "\"")
         else:
-            QMessageBox().warning(self, "CEESS-提醒", "请检查账号和姓名格式！")
+            db = DataManager()
+            db.addNewUserByList([(account, name, isAdmin)])
+            db.closeConnect()
+            self.loadInfo()
 
     @Slot()
-    def importUser(self):
+    def on_btnImport_clicked(self):
         # get file path from explore.
         file = QFileDialog.getOpenFileName(self, "上传文件", "./",
                                            "Excel Files (*.xls)")
@@ -82,45 +86,58 @@ class UserManage(QMainWindow):
         # get user data list.
         if len(filePath) != 0:
             excel = ExcelManager(filePath)
-            userData = excel.getUserData()
+            userData = excel.getUserList()
 
             # error handling.
             errorString = "#######错误提示#######\n"
             errorCount = 0
 
             # import user data.
+            userInfoList = list()
+            newUserName = set()
+            # the newUserNameSet are design to check whether there is any
+            #  duplicate userName in excel file.
             for i in range(len(userData)):
                 # setup data.
-                name = userData[i][0]
-                account = userData[i][1]
+                name = str(userData[i][0])
+                account = str(userData[i][1])
+
                 if userData[i][2] == "学生":
                     isAdmin = 0
                 else:
                     isAdmin = 1
-                # import to table.
-                if (account.isalnum() and len(account) <= 20
-                        and 0 < len(name) <= 20):
-                    db = DataManager()
-                    try:
-                        db.addNewUser(account, name, isAdmin)
-                        self.loadInfo()
-                    except sqlite3.IntegrityError:
-                        errorCount += 1
-                        errorString += (str(errorCount) + ".第" + str(i + 3) +
-                                        "行，导入失败，可能是因为用户名已存在！\n")
-                    db.closeConnect()
-                else:
+                # check format and duplication
+
+                if (not account.isalnum()) or (len(account) > 20):
                     errorCount += 1
                     errorString += (str(errorCount) + ".第" + str(i + 3) +
-                                    "行，账户或姓名格式错误！\n")
+                                    "行，账号只能由数字和字母组成，长度小于20位。\n")
+                elif len(name) > 20:
+                    errorCount += 1
+                    errorString += (str(errorCount) + ".第" + str(i + 3) +
+                                    "行，姓名长度只能小于20位。\n")
+                elif ((account in self.userInfoDict)
+                      or (account in newUserName)):
+                    errorCount += 1
+                    errorString += (str(errorCount) + ".第" + str(i + 3) +
+                                    "行，已存在此账号：\"" + account + "\"\n")
+                else:
+                    userInfoList.append((account, name, isAdmin))
+                    newUserName.add(account)
 
             # error handling.
-            if errorCount != 0:
-                errorString += "请更正上述错误，其他正确数据已经导入。\n"
+            if errorCount == 0:
+                db = DataManager()
+                db.addNewUserByList(userInfoList)
+                db.closeConnect()
+                self.loadInfo()
+                QMessageBox().information(self, "CEESS-导入信息", "导入成功！")
+            else:
+                errorString += "请更正上述错误再尝试导入。\n"
                 QMessageBox().warning(self, "CEESS-导入信息", errorString)
 
     @Slot()
-    def downloadTemplate(self):
+    def on_btnDownload_clicked(self):
         file = QFile("./resources/download/userImportTemplate")
         if file.open(QFile.ReadOnly):
             filePath = QFileDialog.getSaveFileName(self, "CEESS-模板下载",
@@ -137,4 +154,4 @@ class UserManage(QMainWindow):
 
     @Slot()
     def on_nameEdit_returnPressed(self):
-        self.addOneUser()
+        self.on_btnNew_clicked()

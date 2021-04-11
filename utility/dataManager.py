@@ -9,134 +9,200 @@
 
 import sqlite3
 
-_DEFAULT_DATABASE = "./data/db.sqlite3"
+import pymysql
+
+# select a database type
+_SQLITE = 0
+_MYSQL = 1
+_DATABASE_TYPE = _SQLITE
+
+_SQLITE_DATABASE = "./data/db.sqlite3"
+_MYSQL_IP = "101.132.143.156"
+_MYSQL_PORT = 33060
+_MYSQL_NAME = "CEESS"
+_MYSQL_PASSWORD = "1234567890"
+_MYSQL_DATABASE = "CEESS"
 
 
 class DataManager():
-    def __init__(self, database=_DEFAULT_DATABASE):
-        self._conn = sqlite3.connect(database)
-        self._conn.execute(
-            "PRAGMA foreign_keys = 1")  # open foreign key support
-        self._cursor = self._conn.cursor()
+    def __init__(self, database=_SQLITE_DATABASE):
+        if _DATABASE_TYPE == 1:
+            self._conn = pymysql.connect(host=_MYSQL_IP,
+                                         port=_MYSQL_PORT,
+                                         user=_MYSQL_NAME,
+                                         password=_MYSQL_PASSWORD,
+                                         database=_MYSQL_DATABASE)
+            self._cursor = self._conn.cursor()
+
+        else:
+            self._conn = sqlite3.connect(database)
+            self._conn.execute(
+                "PRAGMA foreign_keys = 1")  # open foreign key support
+            self._cursor = self._conn.cursor()
 
     def closeConnect(self):
         self._cursor.close()
         self._conn.close()
 
+    # operation on table "USER"
     def getNameById(self, userId):
-        self._cursor.execute(
-            "select USER_NAME from USER \
-                where UID == ? limit 1;", [userId])
+        sql = "select USER_NAME from USER where UID = %s limit 1;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [userId])
         result = self._cursor.fetchone()
         return str(result[0])
 
     def getAccountById(self, userId):
-        self._cursor.execute(
-            "select USER_ACCOUNT from USER \
-                where UID == ? limit 1;", [userId])
+        sql = "select USER_ACCOUNT from USER where UID = %s limit 1;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [userId])
         result = self._cursor.fetchone()
         return str(result[0])
 
     def isPasswordCorrectById(self, UID, password):
-        self._cursor.execute(
-            "select PASSWORD from USER \
-                where UID == ? limit 1;", [UID])
+        sql = "select PASSWORD from USER where UID = %s limit 1;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [UID])
         result = self._cursor.fetchone()
         if result is None:
             return False
         return bool(result[0] == password)
 
     def changePasswordById(self, UID, newPassword):
-        self._cursor.execute("update USER set PASSWORD = ? where UID = ?;",
-                             [newPassword, UID])
+        sql = "update USER set PASSWORD = %s where UID = %s;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [newPassword, UID])
         self._conn.commit()
 
     def changeNameById(self, UID, newName):
-        self._cursor.execute("update USER set USER_NAME = ? where UID = ?;",
-                             [newName, UID])
-        self._conn.commit()
-
-    def deleteQuestionById(self, questionId):
-        self._cursor.execute("delete from QUESTION_BANK where QID = ?;",
-                             [questionId])
+        sql = "update USER set USER_NAME = %s where UID = %s;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [newName, UID])
         self._conn.commit()
 
     def getTypeAndIdByAccount(self, account):
-        self._cursor.execute(
-            "select USER_TYPE, UID from USER \
-                where USER_ACCOUNT ==? limit 1;", [account])
+        sql = "select USER_TYPE, UID from USER \
+            where USER_ACCOUNT = %s limit 1;"
+
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [account])
         result = self._cursor.fetchone()
         # result is a tuple whose content is in form of (USER_TYPE,UID)
         return result
 
     def isPasswordCorrectByAccount(self, account, password):
-        self._cursor.execute(
-            "select PASSWORD from USER \
-                where USER_ACCOUNT == ? limit 1;", [account])
+        sql = "select PASSWORD from USER where USER_ACCOUNT = %s limit 1;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [account])
         result = self._cursor.fetchone()
         if result is None:
             return False
         return bool(result[0] == password)
 
-    def getAllUserInfo(self):
-        self._cursor.execute(
-            "select USER_NAME, USER_ACCOUNT, USER_TYPE from USER;")
-        return self._cursor.fetchall()
+    def getAllUserInfoDict(self):
+        sql = "select USER_ACCOUNT, USER_NAME, USER_TYPE, UID from USER;"
+        self._cursor.execute(sql)
+        users = self._cursor.fetchall()
+        userInfoDict = dict()
+        for user in users:
+            userInfoDict.setdefault(user[0], (user[1], user[2], user[3]))
+        # userInfoDict: {"userAccount":(name, type, id), "xxx":(...)}
+        return userInfoDict
 
+    def addNewUserByList(self, userInfoList: list):
+        """userInfoList = [(account, name, isAdmin), (...)]"""
+
+        sql = "insert into USER (USER_ACCOUNT, USER_NAME, USER_TYPE) \
+                values (%s, %s, %s);"
+
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+
+        self._cursor.executemany(sql, userInfoList)
+        self._conn.commit()
+
+    def deleteUserByIdList(self, idList: list):
+        sql = "delete from USER where UID = %s;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.executemany(sql, idList)
+        self._conn.commit()
+
+    # operation on table "QUESTION_BANK"
     def getAllQuestion(self, type):
-        self._cursor.execute("select * from QUESTION_BANK where TYPE = ?;",
-                             [type])
-        return self._cursor.fetchall()
+        sql = "select * from QUESTION_BANK where TYPE = %s;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [type])
+        return list(self._cursor.fetchall())
 
     def getRandomQuestion(self, type, amount):
-        self._cursor.execute(
-            "select * from QUESTION_BANK where TYPE = ? order by random() \
-                limit ?;", [type, amount])
-        return self._cursor.fetchall()
+        sql = "select * from QUESTION_BANK where TYPE = %s order by rand() \
+                limit %s;"
+
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?").replace("rand", "random")
+
+        self._cursor.execute(sql, [type, amount])
+        return list(self._cursor.fetchall())
 
     def deleteAllQuestion(self):
-        self._cursor.execute("delete from QUESTION_BANK;")
-        self._cursor.execute(
-            "update sqlite_sequence SET seq = 0 WHERE name = 'QUESTION_BANK';")
+        if _DATABASE_TYPE == _SQLITE:
+            self._cursor.execute("delete from QUESTION_BANK;")
+            self._cursor.execute("update sqlite_sequence SET seq = 0 \
+                    WHERE name = 'QUESTION_BANK';")
+            self._conn.commit()
+        else:
+            self._cursor.execute("truncate table QUESTION_BANK;")
+            self._conn.commit()
+
+    def addQuestionFromList(self, questionList: list):
+        sql = "insert into QUESTION_BANK (BODY, A, B, C, D, TYPE, ANSWER) \
+            values (%s, %s, %s, %s, %s, %s, %s);"
+
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+
+        self._cursor.executemany(sql, questionList)
         self._conn.commit()
 
-    def deleteUserByAccount(self, account):
-        self._cursor.execute("delete from USER where USER_ACCOUNT = ?;",
-                             [account])
+    def deleteQuestionById(self, idList: list):
+        sql = "delete from QUESTION_BANK where QID = %s;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.executemany(sql, idList)
         self._conn.commit()
 
-    def addNewUser(self, account, name, isAdmin):
-        self._cursor.execute(
-            "insert into USER (USER_ACCOUNT, USER_NAME, USER_TYPE) \
-                values (?, ?, ?);", [account, name, isAdmin])
-        self._conn.commit()
-
-    def addNewQuestion(self, body, choiceA, choiceB, choiceC, choiceD, type,
-                       answer):
-        self._cursor.execute(
-            "insert into QUESTION_BANK (BODY, A, B, C, D, TYPE, ANSWER) \
-                values (?, ?, ?, ?, ?, ?, ?);",
-            [body, choiceA, choiceB, choiceC, choiceD, type, answer])
-        self._conn.commit()
-        self._cursor.execute("select max(QID) from QUESTION_BANK;")
-        return self._cursor.fetchone()
-
-    def addGrade(self, uid, tid, grade):
-        # check whether existing
-        self._cursor.execute(
-            "select SCORE from GRADE where (UID,TID) = (?, ?);", [uid, tid])
+    # operation on table "GRADE"
+    def gradeDuplicateCheck(self, uid, tid):
+        sql = "select SCORE from GRADE where (UID, TID) = (%s, %s);"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [uid, tid])
         result = self._cursor.fetchone()
         if result is None:
-            self._cursor.execute(
-                "insert into GRADE (UID, TID, SCORE) values (?, ?, ?);",
-                [uid, tid, grade])
-            self._conn.commit()
             return -1
         else:
-            return result[0]  # the existing grade
+            return result[0]
 
-    def updateGrade(self, uid, tid, grade):
-        self._cursor.execute(
-            "update GRADE set SCORE = ? where (UID, TID) = (?, ?);",
-            [grade, uid, tid])
+    def insertGrade(self, uid, tid, grade):
+        # check whether existing
+        sql = "insert into GRADE (UID, TID, SCORE) values (%s, %s, %s);"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [uid, tid, grade])
+        self._conn.commit()
+
+    def updateGrade(self, uid, tid, newGrade):
+        sql = "update GRADE set SCORE = %s where (UID, TID) = (%s, %s);"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [newGrade, uid, tid])
         self._conn.commit()

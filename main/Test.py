@@ -18,8 +18,8 @@ from utility.DataManager import DataManager
 _IMG_PATH = "./resources/img/"
 _CHOICE_TYPE = 0
 _TRUE_FALSE_TYPE = 1
-_CHOICE_AMOUNT = 20  # default amount of single choice questions.
-_TRUE_FALSE_AMOUNT = 20  # default amount of true or false questions.
+_CHOICE_AMOUNT = 2  # default amount of single choice questions.
+_TRUE_FALSE_AMOUNT = 2  # default amount of true or false questions.
 _TEST_TIME = 1800  # seconds of default testing time
 _TEST_TYPE_ID = 1
 # in datasheet TEST_TYPE, 1 means "安全测试" which is this module
@@ -102,18 +102,18 @@ class Test(QMainWindow):
         grade = float(self.ui.lblGrade.text())
         db = DataManager()
         # if existing, = EXISTING_SCORE, else = -1
-        exist = db.addGrade(self.userId, _TEST_TYPE_ID, grade)
+        exist = db.gradeDuplicateCheck(self.userId, _TEST_TYPE_ID)
 
-        if exist < 0:
+        if exist == -1:
+            db.insertGrade(self.userId, _TEST_TYPE_ID, grade)
             QMessageBox().information(self, "CEESS-通知", "成绩上传成功！")
         else:
-            info = "当前测试成绩已存在：\n" + str(exist) + " 分\n" + "是否更新成绩？"
+            info = "当前测试成绩已存在：\n" + str(round(exist, 2)) + " 分\n" + "是否更新成绩？"
             result = QMessageBox().warning(self, "CEESS-警告", info,
                                            QMessageBox.Yes | QMessageBox.No)
             if result == QMessageBox.Yes:
                 db.updateGrade(self.userId, _TEST_TYPE_ID, grade)
                 QMessageBox().information(self, "CEESS-通知", "成绩上传成功！")
-
         db.closeConnect()
 
     @Slot()
@@ -231,7 +231,7 @@ class Test(QMainWindow):
         else:
             self.timer.stop()
             score = self.answerCheck()
-            self.ui.lblGrade.setText(str(score))
+            self.ui.lblGrade.setText(str(round(score, 2)))
             self.ui.lblNameFinished.setText(self.userName)
             self.ui.pages.setCurrentIndex(2)
 

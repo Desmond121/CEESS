@@ -6,7 +6,7 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
-from PySide2.QtCore import QUrl, Qt
+from PySide2.QtCore import Qt, QUrl
 from PySide2.QtWebEngineWidgets import QWebEngineSettings
 from PySide2.QtWidgets import QMainWindow
 from ui.generate.Ui_Simulator import Ui_Simulator

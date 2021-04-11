@@ -15,7 +15,7 @@ class ExcelManager():
         self.book = xlrd.open_workbook(filePath)
         self.sheet = self.book.sheet_by_index(0)
 
-    def getUserData(self):
+    def getUserList(self):
         userList = list()
         for row in range(2, self.sheet.nrows):
             user = self.sheet.row_values(row, 0, 3)

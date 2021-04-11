@@ -141,9 +141,9 @@ class Ui_UserManage(object):
         self.isAdminButtom.setText(QCoreApplication.translate("UserManage", u"\u7ba1\u7406\u5458", None))
         self.btnNew.setText(QCoreApplication.translate("UserManage", u"\u65b0\u589e", None))
         ___qtablewidgetitem = self.userTableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("UserManage", u"\u59d3\u540d", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("UserManage", u"\u8d26\u53f7", None));
         ___qtablewidgetitem1 = self.userTableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("UserManage", u"\u8d26\u53f7", None));
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("UserManage", u"\u59d3\u540d", None));
         ___qtablewidgetitem2 = self.userTableWidget.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("UserManage", u"\u7c7b\u578b", None));
     # retranslateUi

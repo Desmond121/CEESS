@@ -7,11 +7,10 @@
 @version    : 0.0.1
 """
 
+from PySide2.QtGui import QColor, QIcon, QPalette
 from PySide2.QtWidgets import QApplication
-from PySide2.QtGui import QIcon, QPalette, QColor
 
 _STYLESHEET = "./resources/qss/style.qss"
-_FONT = "./resources/font/SourceHanSansCN-Medium.ttf"
 _ICON = "./resources/img/icon.svg"
 
 

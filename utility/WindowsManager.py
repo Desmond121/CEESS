@@ -7,9 +7,9 @@
 @version    : 0.0.1
 """
 
-from PySide2.QtCore import Slot
-from main.Navigator import Navigator
 from main.Login import Login
+from main.Navigator import Navigator
+from PySide2.QtCore import Slot
 
 
 class WindowsManager():

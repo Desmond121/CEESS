@@ -9,7 +9,6 @@
 """
 
 import os
-from os.path import abspath
 
 from PySide2.QtCore import QFile, QUrl, Slot
 from PySide2.QtGui import QIcon

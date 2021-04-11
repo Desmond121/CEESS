@@ -6,7 +6,7 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
-# todo: multi-thread support to prevent window stuck
+# todo: optimize import module to prevent window stuck
 # todo: when importing huge data flow.
 
 from PySide2.QtCore import QFile, Qt, Slot
@@ -30,6 +30,9 @@ class TestManage(QMainWindow):
         self.ui = Ui_TestManage()
         self.ui.setupUi(self)
 
+        self.loadQuestion()
+
+    def loadQuestion(self):
         # load all questions from database
         db = DataManager()
         # load single choice questions first.
@@ -50,22 +53,36 @@ class TestManage(QMainWindow):
         self.ui.choiceLCD.display(choiceSize)
         self.ui.trueFalseLCD.display(trueFalseSize)
 
+    # todo
     def deleteSelectedQuestion(self, questionList: QListWidget,
                                questionBank: list):
+        # selected = questionList.selectedIndexes()
+        # idList = list()
+        # for item in selected:
+        #     idList.append(questionBank[item.row()][0])
+        # db = DataManager()
+        # db.deleteQuestionById(idList)
+        # db.closeConnect()
+
+        # self.loadQuestion()
         selected = questionList.selectedIndexes()
+        deleteIdList = list()
         removeCount = 0  # counting how many items have been removed.
-        db = DataManager()  # connect to database
+
         for item in selected:
             # if one of the item is removed, index of item which is behind
             # will be smaller by 1
             row = item.row()
             questionList.takeItem(row - removeCount)
             deletedItem = questionBank.pop(row - removeCount)
-            questionId = deletedItem[0]
+            # a list of tuple contain only one element
+            deleteIdList.append((deletedItem[0], ))
             removeCount += 1
-            db.deleteQuestionById(questionId)
+        db = DataManager()  # connect to database
+        db.deleteQuestionById(deleteIdList)
         db.closeConnect()  # disconnect to database
 
+    # todo
     def deleteAllQuestion(self):
         # delete questions in database
         db = DataManager()
@@ -78,81 +95,77 @@ class TestManage(QMainWindow):
         self.ui.trueFalseList.clear()
         self.ui.choiceList.clear()
 
-    def importQuestion(self, body, choiceA, choiceB, choiceC, choiceD, type,
-                       answer):
-        db = DataManager()
-        # import question into database and get its
-        # self-increase id.
-        questionId = db.addNewQuestion(body, choiceA, choiceB, choiceC,
-                                       choiceD, type, answer)
-        db.closeConnect()
-        question = (questionId, body, choiceA, choiceB, choiceC, choiceD, type,
-                    answer)
-        if type == _CHOICE_TYPE:
-            # update the question bank.
-            self.choiceBank.append(question)
-            # update the choice list widget.
-            self.ui.choiceList.addItem(body)
-        else:
-            self.trueFalseBank.append(question)
-            self.ui.trueFalseList.addItem(body)
-
-    def importQuestionsFromExcel(self):
+    # todo
+    def importQuestionsFromExcel(self, isOverride: bool):
         file = QFileDialog().getOpenFileName(self, "上传文件", "./",
                                              "Excel Files (*.xls)")
         filePath = file[0]
-
-        # get import quesion list
         if len(filePath) != 0:
+            if isOverride:
+                self.deleteAllQuestion()
             excel = ExcelManager(filePath)
+            # get import quesion list
             questionList = excel.getQuestionList()
 
-            # error handling.
-            errorString = "#######错误提示#######\n"
-            errorCount = 0
+            # checked import type.
+            checkedQuestionList = list()
+            error = self.mistakeFilter(questionList, checkedQuestionList)
 
-            # import questions.
-            for i in range(len(questionList)):
-                body = questionList[i][0]
-                choiceA = questionList[i][1]
-                choiceB = questionList[i][2]
-                choiceC = questionList[i][3]
-                choiceD = questionList[i][4]
-                type = questionList[i][5]
-                answer = questionList[i][6]
-                if type == 0:  # single choice.
-                    if (len(body) * len(choiceA) * len(choiceB) *
-                            len(choiceC) * len(choiceD)) == 0:
-                        errorCount += 1
-                        errorString += (str(errorCount) + ".第" + str(i + 2) +
-                                        "行，题干或选项ABCD不能为空！\n")
-                    elif answer not in (1, 2, 3, 4):
-                        errorCount += 1
-                        errorString += (str(errorCount) + ".第" + str(i + 2) +
-                                        "行，导入选择题答案只能是1、2、3或4！\n")
-                    else:
-                        self.importQuestion(body, choiceA, choiceB, choiceC,
-                                            choiceD, type, answer)
-                elif type == 1:
-                    if len(body) == 0:
-                        errorCount += 1
-                        errorString += (str(errorCount) + ".第" + str(i + 2) +
-                                        "行，题干不能为空！\n")
-                    elif answer not in (1, 2):
-                        errorCount += 1
-                        errorString += (str(errorCount) + ".第" + str(i + 2) +
-                                        "行，导入选择题答案只能是1或者2！\n")
-                    else:
-                        self.importQuestion(body, choiceA, choiceB, choiceC,
-                                            choiceD, type, answer)
-                else:
+            # upload to database
+            db = DataManager()
+            db.addQuestionFromList(checkedQuestionList)
+            db.closeConnect()
+
+            # reload bank and list
+            self.loadQuestion()
+
+            if error[0] != 0:
+                QMessageBox.warning(self, "CEESS-提醒", error[1])
+
+    def mistakeFilter(self, oldQuestionList: list, newQuestionList: list):
+        # error handling.
+        errorString = "#######错误提示#######\n"
+        errorCount = 0
+
+        # import check.
+        for i in range(len(oldQuestionList)):
+            body = oldQuestionList[i][0]
+            choiceA = oldQuestionList[i][1]
+            choiceB = oldQuestionList[i][2]
+            choiceC = oldQuestionList[i][3]
+            choiceD = oldQuestionList[i][4]
+            type = oldQuestionList[i][5]
+            answer = oldQuestionList[i][6]
+            if type == 0:  # single choice.
+                if (len(body) * len(choiceA) * len(choiceB) * len(choiceC) *
+                        len(choiceD)) == 0:
                     errorCount += 1
                     errorString += (str(errorCount) + ".第" + str(i + 2) +
-                                    "行，题目类型只能为0或1，分别为选择或判断！\n")
+                                    "行，题干或选项ABCD不能为空！\n")
+                elif answer not in (1, 2, 3, 4):
+                    errorCount += 1
+                    errorString += (str(errorCount) + ".第" + str(i + 2) +
+                                    "行，导入选择题答案只能是1、2、3或4！\n")
+                else:
+                    newQuestionList.append(oldQuestionList[i])
+            elif type == 1:
+                if len(body) == 0:
+                    errorCount += 1
+                    errorString += (str(errorCount) + ".第" + str(i + 2) +
+                                    "行，题干不能为空！\n")
+                elif answer not in (1, 2):
+                    errorCount += 1
+                    errorString += (str(errorCount) + ".第" + str(i + 2) +
+                                    "行，导入选择题答案只能是1或者2！\n")
+                else:
+                    newQuestionList.append(oldQuestionList[i])
+            else:
+                errorCount += 1
+                errorString += (str(errorCount) + ".第" + str(i + 2) +
+                                "行，题目类型只能为0或1，分别为选择或判断！\n")
 
-            # update the number of questions.
-            self.ui.choiceLCD.display(len(self.choiceBank))
-            self.ui.trueFalseLCD.display(len(self.trueFalseBank))
+        errorString += "其他无错误内容已成功导入。"
+        return (errorCount, errorString)
 
     @Slot()
     def on_choiceList_itemClicked(self):
@@ -208,15 +221,12 @@ class TestManage(QMainWindow):
 
     @Slot()
     def on_btnImport_clicked(self):
-        if self.ui.btnIsOverride.isChecked():
+        isOverride = True if self.ui.btnIsOverride.isChecked() else False
+        if isOverride:
             result = QMessageBox().warning(self, "CEESS-警告",
                                            "全量导入将会覆盖所有原有的题目，继续吗？",
                                            QMessageBox.Yes | QMessageBox.No)
             if result == QMessageBox.Yes:
-                # remove all question in database
-                self.deleteAllQuestion()
-                self.importQuestionsFromExcel()
-            else:
-                self.ui.btnIsOverride.setChecked(False)
+                self.importQuestionsFromExcel(isOverride)
         else:
-            self.importQuestionsFromExcel()
+            self.importQuestionsFromExcel(isOverride)

@@ -150,12 +150,12 @@
       </attribute>
       <column>
        <property name="text">
-        <string>姓名</string>
+        <string>账号</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>账号</string>
+        <string>姓名</string>
        </property>
       </column>
       <column>

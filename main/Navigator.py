@@ -7,14 +7,14 @@
 @version    : 0.0.1
 """
 
-from main.Learn import Learn
-from utility.styles import _ICON
 from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QMainWindow
 from ui.generate.Ui_Student import Ui_Student
 from ui.generate.Ui_Teacher import Ui_Teacher
+from utility.styles import _ICON
 
+from main.Learn import Learn
 from main.Setting import Setting
 from main.Simulator import Simulator
 from main.Test import Test
