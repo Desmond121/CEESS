@@ -31,9 +31,10 @@ class Learn(QMainWindow):
 
         self.path = os.path.join(os.path.abspath("."), "resources", "learn")
         self.filenames = os.listdir(self.path)
+        self.filenames.sort(key=lambda x: int(x.split(".")[0]))
         for filename in self.filenames:
-            fileWithoutSurfix = filename.removesuffix(".pdf")
-            self.ui.learningList.addItem(fileWithoutSurfix)
+            filenameNoSurfix = filename.removesuffix(".pdf")
+            self.ui.learningList.addItem(filenameNoSurfix)
 
     @Slot(int)
     def on_learningList_currentRowChanged(self, row: int):

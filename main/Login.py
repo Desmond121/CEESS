@@ -10,7 +10,7 @@ from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QLineEdit, QMainWindow, QMessageBox
 from ui.generate.Ui_Login import Ui_Login
-from utility.DataManager import DataManager
+from utility.DataManager import DataManager, _DATABASE_TYPE, _MYSQL
 
 _IMG_PATH = "./resources/img/"
 
@@ -34,6 +34,12 @@ class Login(QMainWindow):
         # set the title svg.
         self.ui.titleSvg.load(_IMG_PATH + "title.svg")
         self.ui.titleSvg.setStyleSheet("font-family: Courier New")
+        # set version.
+        self.ui.lblVersion.setStyleSheet("color:#F48771;")
+        if _DATABASE_TYPE == _MYSQL:
+            self.ui.lblVersion.setText("云端版  ")
+        else:
+            self.ui.lblVersion.setText("本地版  ")
 
     @Slot(bool)
     def test(self, isChecked):

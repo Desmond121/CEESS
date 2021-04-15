@@ -31,9 +31,7 @@ class WindowsManager():
         self.login.close()
 
         # signal for signing out.
-        # todo
         def signOut():
             self.navigator.close()
             self.start()
-
         self.navigator.signOutSignal.connect(signOut)

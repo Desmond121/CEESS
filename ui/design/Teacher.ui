@@ -48,7 +48,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnScoreAnalyse">
+       <widget class="QPushButton" name="btnGrade">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -152,7 +152,7 @@
  <tabstops>
   <tabstop>btnUserManage</tabstop>
   <tabstop>btnTestManage</tabstop>
-  <tabstop>btnScoreAnalyse</tabstop>
+  <tabstop>btnGrade</tabstop>
   <tabstop>btnSetting</tabstop>
  </tabstops>
  <resources/>

@@ -31,6 +31,33 @@
       <property name="spacing">
        <number>0</number>
       </property>
+      <item row="0" column="0">
+       <widget class="QSvgWidget" name="titleSvg" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>240</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>240</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Courier New</family>
+         </font>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label">
         <property name="sizePolicy">
@@ -60,30 +87,22 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QSvgWidget" name="titleSvg" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>240</width>
-          <height>60</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>240</width>
-          <height>60</height>
-         </size>
-        </property>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lblVersion">
         <property name="font">
          <font>
-          <family>Courier New</family>
+          <family>AcadEref</family>
+          <pointsize>8</pointsize>
+          <weight>75</weight>
+          <italic>true</italic>
+          <bold>true</bold>
          </font>
+        </property>
+        <property name="text">
+         <string>云端版/本地版</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
         </property>
        </widget>
       </item>

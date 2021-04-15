@@ -7,6 +7,7 @@
 @version    : 0.0.1
 """
 
+from main.Grade import Grade
 from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QMainWindow
@@ -54,8 +55,7 @@ class Navigator(QMainWindow):
 
         # Add icon for buttons
         self.ui.btnUserManage.setIcon(QIcon(_IMG_PATH + "btnUserManage.svg"))
-        self.ui.btnScoreAnalyse.setIcon(
-            QIcon(_IMG_PATH + "btnScoreAnalyse.svg"))
+        self.ui.btnGrade.setIcon(QIcon(_IMG_PATH + "btnScoreAnalyse.svg"))
         self.ui.btnSetting.setIcon(QIcon(_IMG_PATH + "btnSetting.svg"))
         self.ui.btnTestManage.setIcon(QIcon(_IMG_PATH + "btnTestManage.svg"))
 
@@ -63,6 +63,7 @@ class Navigator(QMainWindow):
         self.ui.btnUserManage.clicked.connect(self.openUserManage)
         self.ui.btnTestManage.clicked.connect(self.openTestManage)
         self.ui.btnSetting.clicked.connect(self.openSetting)
+        self.ui.btnGrade.clicked.connect(self.openGradeAnalyse)
 
     def setupStudent(self):
         self.ui = Ui_Student()
@@ -118,3 +119,8 @@ class Navigator(QMainWindow):
     def openLearn(self):
         self.learn = Learn(self)
         self.learn.show()
+
+    @Slot()
+    def openGradeAnalyse(self):
+        self.grade = Grade(self)
+        self.grade.show()

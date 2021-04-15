@@ -14,7 +14,7 @@ import pymysql
 # select a database type
 _SQLITE = 0
 _MYSQL = 1
-_DATABASE_TYPE = _SQLITE
+_DATABASE_TYPE = _MYSQL
 
 _SQLITE_DATABASE = "./data/db.sqlite3"
 _MYSQL_IP = "101.132.143.156"
@@ -116,6 +116,11 @@ class DataManager():
         # userInfoDict: {"userAccount":(name, type, id), "xxx":(...)}
         return userInfoDict
 
+    def getStudentNames(self):
+        sql = "select UID, USER_NAME from USER;"
+        self._cursor.execute(sql)
+        return self._cursor.fetchall()
+
     def addNewUserByList(self, userInfoList: list):
         """userInfoList = [(account, name, isAdmin), (...)]"""
 
@@ -206,3 +211,18 @@ class DataManager():
             sql = sql.replace("%s", "?")
         self._cursor.execute(sql, [newGrade, uid, tid])
         self._conn.commit()
+
+    def getAllGrade(self):
+        sql = "select * from GRADE;"
+        self._cursor.execute(sql)
+        return self._cursor.fetchall()
+
+    # operation on table "GRADE"
+    def getTestTypeDict(self):
+        sql = "select * from TEST_TYPE;"
+        self._cursor.execute(sql)
+        result = self._cursor.fetchall()
+        typeDict = dict()
+        for id, name in result:
+            typeDict.setdefault(id, name)
+        return typeDict
