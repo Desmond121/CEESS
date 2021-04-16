@@ -19,63 +19,44 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="gradeAnalyse">
-       <attribute name="title">
-        <string>完成度分析</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,2">
+      <item>
+       <widget class="QTableWidget" name="gradeTableWidget">
+        <column>
+         <property name="text">
+          <string>姓名</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0">
-          <item>
-           <widget class="QTableWidget" name="gradeTableWidget">
-            <column>
-             <property name="text">
-              <string>姓名</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QStackedWidget" name="stages">
-              <property name="currentIndex">
-               <number>1</number>
-              </property>
-              <widget class="QWidget" name="completion"/>
-              <widget class="QWidget" name="grade"/>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnCompletion">
-              <property name="text">
-               <string>完成度分布</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnGrade">
-              <property name="text">
-               <string>成绩分布可视化</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+         <widget class="QStackedWidget" name="stages">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="completion"/>
+          <widget class="QWidget" name="grade"/>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCompletion">
+          <property name="text">
+           <string>完成度分布</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnGrade">
+          <property name="text">
+           <string>成绩分布可视化</string>
+          </property>
+         </widget>
         </item>
        </layout>
-      </widget>
-      <widget class="QWidget" name="other">
-       <attribute name="title">
-        <string>其他功能</string>
-       </attribute>
-      </widget>
-     </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

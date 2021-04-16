@@ -32,9 +32,7 @@ class Grade(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_Grade()
         self.ui.setupUi(self)
-        self.ui.tabWidget.setCurrentIndex(0)
-        self.ui.horizontalLayout_2.setStretch(0, 1)
-        self.ui.horizontalLayout_2.setStretch(1, 2)
+        self.ui.stages.setCurrentIndex(0)
         self.showMaximized()
 
         # get data from database
@@ -57,6 +55,7 @@ class Grade(QMainWindow):
                 self.studentGradeDict[uid].setdefault(tid, grade)
 
         # setup QChartView
+        self.ui.completion.setStyleSheet("background-color:#1F2430;")
         self.chartView = QtCharts.QChartView(self.ui.completion)
         completionLayout = QVBoxLayout()
         completionLayout.setContentsMargins(QMargins(0, 0, 0, 0))
@@ -141,7 +140,6 @@ class Grade(QMainWindow):
                     index = 9
                 distribution[index] += 1
 
-        print(data)
         self.gradeVisualization = GradeVisualizationWidget(
             data, self.testTypeDict, self)
 

@@ -24,6 +24,9 @@ class CompletionPieChart(QtCharts.QChart):
         series.append("全部完成", slicesValue[count - 1])
         self.addSeries(series)
 
+        # setup theme
+        self.setTheme(QtCharts.QChart.ChartTheme.ChartThemeDark)
+
         # setup title
         self.setTitle("学生完成情况饼图")
         font = QFont()

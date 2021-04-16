@@ -11,6 +11,7 @@ import sys
 
 from PySide2.QtCore import QMargins, Qt
 from PySide2.QtDataVisualization import QtDataVisualization
+from PySide2.QtGui import QColor
 from PySide2.QtWidgets import (QApplication, QMainWindow, QSizePolicy,
                                QVBoxLayout, QWidget)
 
@@ -23,7 +24,7 @@ class GradeVisualizationWidget(QWidget):
         """
         super().__init__(parent)
         self.setupBars(data, testTypeDict)
-        self.setupBarsTheme()
+        self.setupBarsFormat()
 
         self.container = QWidget.createWindowContainer(self.bars)
 
@@ -32,11 +33,7 @@ class GradeVisualizationWidget(QWidget):
             sys.exit(-1)
 
         camera = self.bars.scene().activeCamera()
-        camera.setYRotation(22.5)
-
-        # geometry = QGuiApplication.primaryScreen().geometry()
-        # size = geometry.height() * 3 / 4
-        # self.container.setMinimumSize(size, size)
+        camera.setYRotation(45)
 
         self.container.setSizePolicy(QSizePolicy.Expanding,
                                      QSizePolicy.Expanding)
@@ -83,7 +80,7 @@ class GradeVisualizationWidget(QWidget):
         self.valueAxis = QtDataVisualization.QValue3DAxis()
         self.valueAxis.setTitle("人数(个)")
         self.valueAxis.setTitleVisible(True)
-        self.valueAxis.setSegmentCount(10)
+        self.valueAxis.setLabelFormat("%d")
 
         # set all axis
         self.bars.setRowAxis(self.rowAxis)
@@ -104,11 +101,44 @@ class GradeVisualizationWidget(QWidget):
         self.series.dataProxy().addRows(self.dataToBarDataArray(arrayData))
         self.bars.setPrimarySeries(self.series)
 
-    def setupBarsTheme(self):
-        self.bars.activeTheme().setType(
-            QtDataVisualization.Q3DTheme.Theme.ThemeStoneMoss)
+    def setupBarsFormat(self):
+        # behavior
         self.bars.setSelectionMode(
             QtDataVisualization.QAbstract3DGraph.SelectionItemAndRow)
+        # appearance
+        theme = self.bars.activeTheme()
+        theme.setType(QtDataVisualization.Q3DTheme.ThemeQt)
+        theme.setLabelBackgroundEnabled(False)
+        theme.setLabelTextColor(QColor(0x4B84CA))
+        theme.setWindowColor(QColor(0x1F2430))
+        theme.setGridLineColor(QColor(0xFD7300))
+        theme.setBackgroundEnabled(False)
+        theme.setColorStyle(
+            QtDataVisualization.Q3DTheme.ColorStyle.ColorStyleObjectGradient)
+        # theme.setBaseColors([
+        #     QColor(0x3b789a),
+        #     QColor(0x70afce),
+        #     QColor(0xa5def1),
+        #     QColor(0xffffff)
+        # ])
+        # theme.setAmbientLightStrength(0.3)
+        # theme.setBackgroundColor(QColor(0x8EDAF3))
+        # theme.setBackgroundEnabled(True)
+        # theme.setColorStyle(
+        #     QtDataVisualization.Q3DTheme.ColorStyle.ColorStyleObjectGradient)
+        # theme.setFont(QFont("Source Han Sans CN", 35))
+        # theme.setGridEnabled(True)
+        # theme.setGridLineColor(QColor(0x6bc3e1))
+        # theme.setHighlightLightStrength(3.0)
+        # theme.setLabelBackgroundColor(QColor(0x9EB5EC))
+        # theme.setLabelBackgroundEnabled(True)
+        # theme.setLabelBorderEnabled(True)
+        # theme.setLabelTextColor(QColor(0x404044))
+        # theme.setLightColor(Qt.white)
+        # theme.setLightStrength(6.0)
+        # theme.setMultiHighlightColor(QColor(0xFFFFFF))
+        # theme.setSingleHighlightColor(QColor(0xFFFFFF))
+        # theme.setWindowColor(QColor(0x34458B))
 
     def dataToBarDataRow(self, data):
         return list(QtDataVisualization.QBarDataItem(d) for d in data)
@@ -117,6 +147,7 @@ class GradeVisualizationWidget(QWidget):
         return list(self.dataToBarDataRow(row) for row in data)
 
 
+# ! for testing
 if __name__ == '__main__':
     testTypeDict = {1: "安全测试", 2: "气瓶管理"}
     data = {
