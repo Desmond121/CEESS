@@ -105,7 +105,7 @@ class Test(QMainWindow):
         exist = db.gradeDuplicateCheck(self.userId, _TEST_TYPE_ID)
 
         if exist == -1:
-            db.insertGrade(self.userId, _TEST_TYPE_ID, grade)
+            db.insertGrade([(self.userId, _TEST_TYPE_ID, grade)])
             QMessageBox().information(self, "CEESS-通知", "成绩上传成功！")
         else:
             info = "当前测试成绩已存在：\n" + str(round(exist, 2)) + " 分\n" + "是否更新成绩？"

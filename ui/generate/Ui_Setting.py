@@ -17,7 +17,7 @@ class Ui_Setting(object):
     def setupUi(self, Setting):
         if not Setting.objectName():
             Setting.setObjectName(u"Setting")
-        Setting.resize(439, 185)
+        Setting.resize(563, 203)
         self.centralwidget = QWidget(Setting)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_5 = QHBoxLayout(self.centralwidget)
@@ -129,6 +129,48 @@ class Ui_Setting(object):
         self.gridLayout_2.addWidget(self.switchDisplayMode, 0, 0, 1, 1)
 
         self.tabWidget.addTab(self.displayTab, "")
+        self.gradeTab = QWidget()
+        self.gradeTab.setObjectName(u"gradeTab")
+        self.horizontalLayout_6 = QHBoxLayout(self.gradeTab)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.gradeTabStack = QStackedWidget(self.gradeTab)
+        self.gradeTabStack.setObjectName(u"gradeTabStack")
+        self.teacherPage = QWidget()
+        self.teacherPage.setObjectName(u"teacherPage")
+        self.verticalLayout_3 = QVBoxLayout(self.teacherPage)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.textBrowser_2 = QTextBrowser(self.teacherPage)
+        self.textBrowser_2.setObjectName(u"textBrowser_2")
+
+        self.verticalLayout_3.addWidget(self.textBrowser_2)
+
+        self.btnImport = QPushButton(self.teacherPage)
+        self.btnImport.setObjectName(u"btnImport")
+
+        self.verticalLayout_3.addWidget(self.btnImport)
+
+        self.gradeTabStack.addWidget(self.teacherPage)
+        self.studentPage = QWidget()
+        self.studentPage.setObjectName(u"studentPage")
+        self.verticalLayout_2 = QVBoxLayout(self.studentPage)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.gradeInfoText = QTextBrowser(self.studentPage)
+        self.gradeInfoText.setObjectName(u"gradeInfoText")
+
+        self.verticalLayout_2.addWidget(self.gradeInfoText)
+
+        self.btnExport = QPushButton(self.studentPage)
+        self.btnExport.setObjectName(u"btnExport")
+
+        self.verticalLayout_2.addWidget(self.btnExport)
+
+        self.gradeTabStack.addWidget(self.studentPage)
+
+        self.horizontalLayout_6.addWidget(self.gradeTabStack)
+
+        self.tabWidget.addTab(self.gradeTab, "")
         self.aboutTab = QWidget()
         self.aboutTab.setObjectName(u"aboutTab")
         self.horizontalLayout_3 = QHBoxLayout(self.aboutTab)
@@ -146,7 +188,8 @@ class Ui_Setting(object):
 
         self.retranslateUi(Setting)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
+        self.gradeTabStack.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Setting)
@@ -159,15 +202,28 @@ class Ui_Setting(object):
         self.rename.setText(QCoreApplication.translate("Setting", u"\u4fee\u6539", None))
         self.btnSignOut.setText(QCoreApplication.translate("Setting", u"\u9000\u51fa\u8d26\u6237", None))
         self.btnChangePsw.setText(QCoreApplication.translate("Setting", u"\u4fee\u6539\u5bc6\u7801", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.accInfoTab), QCoreApplication.translate("Setting", u"\u8d26\u53f7", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.accInfoTab), QCoreApplication.translate("Setting", u"\u4e2a\u4eba\u8d26\u53f7", None))
         self.switchDisplayMode.setText(QCoreApplication.translate("Setting", u"\u5e38\u89c4\u6a21\u5f0f/\u591c\u95f4\u6a21\u5f0f\u5207\u6362", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.displayTab), QCoreApplication.translate("Setting", u"\u663e\u793a", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.displayTab), QCoreApplication.translate("Setting", u"\u663e\u793a\u8bbe\u7f6e", None))
+        self.textBrowser_2.setHtml(QCoreApplication.translate("Setting", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">\u5c06\u5b66\u751f\u5bfc\u51fa\u7684\u6210\u7ee9\u653e\u5165\u540c\u4e00\u4e2a\u6587\u4ef6\u5939\u4e2d\uff0c\u70b9\u51fb\u4e0b\u65b9\u6309\u94ae\u9009\u62e9\u6587\u4ef6\u5939\u5373\u53ef\u3002</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; color:#aa0000;\">\u8be5\u884c\u4e3a\u4f1a\u6e05\u7a7a\u6570\u636e\u5e93\u4e2d\u73b0\u5b58\u7684\u6210\u7ee9\u3002</span></p></body></html>", None))
+        self.btnImport.setText(QCoreApplication.translate("Setting", u"\u5bfc\u5165\u6210\u7ee9", None))
+        self.btnExport.setText(QCoreApplication.translate("Setting", u"\u5bfc\u51fa\u6210\u7ee9", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.gradeTab), "")
         self.textBrowser.setHtml(QCoreApplication.translate("Setting", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Power by Desmond.</p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">All right reserve.</p></body></html>", None))
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+                        "size:12pt; font-weight:600;\">Power by Desmond.</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">All right reserve.</span></p></body></html>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.aboutTab), QCoreApplication.translate("Setting", u"\u5173\u4e8e", None))
     # retranslateUi
 

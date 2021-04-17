@@ -14,7 +14,7 @@ import pymysql
 # select a database type
 _SQLITE = 0
 _MYSQL = 1
-_DATABASE_TYPE = _MYSQL
+_DATABASE_TYPE = _SQLITE
 
 _SQLITE_DATABASE = "./data/db.sqlite3"
 _MYSQL_IP = "101.132.143.156"
@@ -186,6 +186,14 @@ class DataManager():
         self._conn.commit()
 
     # operation on table "GRADE"
+    def deleteAllGrade(self):
+        if _DATABASE_TYPE == _SQLITE:
+            sql = "delete from GRADE;"
+        else:
+            sql = "truncate GRADE;"
+        self._cursor.execute(sql)
+        self._conn.commit()
+
     def gradeDuplicateCheck(self, uid, tid):
         sql = "select SCORE from GRADE where (UID, TID) = (%s, %s);"
         if _DATABASE_TYPE == _SQLITE:
@@ -197,12 +205,12 @@ class DataManager():
         else:
             return result[0]
 
-    def insertGrade(self, uid, tid, grade):
-        # check whether existing
+    # insert by list: [(uid, tid, grade), ...]
+    def insertGrade(self, gradelist: list):
         sql = "insert into GRADE (UID, TID, SCORE) values (%s, %s, %s);"
         if _DATABASE_TYPE == _SQLITE:
             sql = sql.replace("%s", "?")
-        self._cursor.execute(sql, [uid, tid, grade])
+        self._cursor.executemany(sql, gradelist)
         self._conn.commit()
 
     def updateGrade(self, uid, tid, newGrade):
@@ -217,7 +225,14 @@ class DataManager():
         self._cursor.execute(sql)
         return self._cursor.fetchall()
 
-    # operation on table "GRADE"
+    def getGradeByUid(self, uid):
+        sql = "select TID, SCORE from GRADE where UID = %s;"
+        if _DATABASE_TYPE == _SQLITE:
+            sql = sql.replace("%s", "?")
+        self._cursor.execute(sql, [uid])
+        return self._cursor.fetchall()
+
+    # operation on table "TEST_TYPE"
     def getTestTypeDict(self):
         sql = "select * from TEST_TYPE;"
         self._cursor.execute(sql)

@@ -28,6 +28,7 @@ _NAVIGATOR_STYLESHEET = "./resources/qss/navigator.qss"
 
 class Navigator(QMainWindow):
     userId = None  # record the user.
+    isTeacher = None
     app = None
     signOutSignal = Signal()
 
@@ -35,6 +36,7 @@ class Navigator(QMainWindow):
         super().__init__()
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.userId = userId  # record the user.
+        self.isTeacher = isTeacher
         self.app = app  # record the application.
         if isTeacher:
             self.setupTeacher()
@@ -92,8 +94,9 @@ class Navigator(QMainWindow):
 
     @Slot()
     def openSetting(self):
-        self.setting = Setting(self.userId, self)
+        self.setting = Setting(self.userId, self.isTeacher, self)
         self.setting.show()
+
         # signal for switch display mode.
         self.setting.switchDisplaySignal.connect(self.app.switchTheme)
 
