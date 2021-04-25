@@ -1,10 +1,12 @@
+from simulation.EnterTheLab import EnterTheLab
 import sys
 
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
+from PySide2.QtWidgets import QApplication, QMainWindow
 
 from main.Navigator import Navigator
-from utility.styles import StyleQApplication
+from utility.stylesManager import StyleQApplication
 
 _FONTPATH = "./resources/font/SourceHanSansCN-Regular.ttf"
 
@@ -39,5 +41,20 @@ def runTeacher():
     sys.exit(app.exec_())
 
 
+def runSimulation():
+    # global pre-setting
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+    app = StyleQApplication(sys.argv)
+    app.dark()
+
+    mainWin = QMainWindow()
+    widget = EnterTheLab()
+    mainWin.setCentralWidget(widget)
+    mainWin.setFixedSize(1000, 600)
+    mainWin.show()
+
+    sys.exit(app.exec_())
+
+
 if __name__ == "__main__":
-    runStudent()
+    runSimulation()

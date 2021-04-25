@@ -52,7 +52,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QWebEngineView" name="pdfViewer" native="true"/>
+       <widget class="QWebEngineView" name="webViewer" native="true"/>
       </item>
      </layout>
     </item>

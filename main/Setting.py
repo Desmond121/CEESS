@@ -6,11 +6,13 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
-import json
 import base64
+import json
 import os
-from PySide2.QtCore import QByteArray, QFile, Qt, Signal, Slot
-from PySide2.QtWidgets import QFileDialog, QInputDialog, QLineEdit, QMainWindow, QMessageBox
+
+from PySide2.QtCore import Qt, Signal, Slot
+from PySide2.QtWidgets import (QFileDialog, QInputDialog, QLineEdit,
+                               QMainWindow, QMessageBox)
 from ui.generate.Ui_Setting import Ui_Setting
 from utility.DataManager import _DATABASE_TYPE, _MYSQL, _SQLITE, DataManager
 

@@ -26,7 +26,7 @@ class Learn(QMainWindow):
         self.ui.setupUi(self)
         self.ui.btnDownload.setIcon(QIcon(_IMG_PATH + "book.svg"))
         self.showMaximized()
-        self.ui.pdfViewer.settings().setAttribute(
+        self.ui.webViewer.settings().setAttribute(
             QWebEngineSettings.PluginsEnabled, True)
 
         self.path = os.path.join(os.path.abspath("."), "resources", "learn")
@@ -39,7 +39,7 @@ class Learn(QMainWindow):
     @Slot(int)
     def on_learningList_currentRowChanged(self, row: int):
         file = os.path.join(self.path, self.filenames[row]).replace('\\', '/')
-        self.ui.pdfViewer.load(QUrl(file))
+        self.ui.webViewer.load(QUrl(file))
 
     @Slot()
     def on_btnDownload_clicked(self):

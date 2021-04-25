@@ -7,13 +7,14 @@
 @version    : 0.0.1
 """
 
+from utility.DataManager import DataManager
 from main.Grade import Grade
 from PySide2.QtCore import Qt, Signal, Slot
 from PySide2.QtGui import QIcon
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QInputDialog, QMainWindow
 from ui.generate.Ui_Student import Ui_Student
 from ui.generate.Ui_Teacher import Ui_Teacher
-from utility.styles import _ICON
+from utility.stylesManager import _ICON
 
 from main.Learn import Learn
 from main.Setting import Setting
@@ -105,7 +106,22 @@ class Navigator(QMainWindow):
 
     @Slot()
     def openSimulator(self):
-        self.simulator = Simulator(self)
+        db = DataManager()
+        simulationDict = db.getTestTypeDict()
+        db.closeConnect()
+
+        simulationDict.pop(1)
+        # reverse the key and value
+        simulationDict = {
+            value: key
+            for (key, value) in simulationDict.items()
+        }
+        nameList = simulationDict.keys()
+
+        simulationName = QInputDialog.getItem(self, "CEESS-模拟", "请选择模拟操作：",
+                                              nameList, 0, False)[0]
+        self.simulator = Simulator(self.userId,
+                                   simulationDict.get(simulationName), self)
         self.simulator.show()
 
     @Slot()

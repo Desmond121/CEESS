@@ -47,10 +47,10 @@ class Ui_Learn(object):
 
         self.horizontalLayout_2.addLayout(self.verticalLayout)
 
-        self.pdfViewer = QWebEngineView(self.centralwidget)
-        self.pdfViewer.setObjectName(u"pdfViewer")
+        self.webViewer = QWebEngineView(self.centralwidget)
+        self.webViewer.setObjectName(u"webViewer")
 
-        self.horizontalLayout_2.addWidget(self.pdfViewer)
+        self.horizontalLayout_2.addWidget(self.webViewer)
 
         self.horizontalLayout_2.setStretch(1, 3)
 
