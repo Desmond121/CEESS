@@ -12,27 +12,22 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from PySide2.QtWebEngineWidgets import QWebEngineView
-
 
 class Ui_Simulator(object):
     def setupUi(self, Simulator):
         if not Simulator.objectName():
             Simulator.setObjectName(u"Simulator")
-        Simulator.resize(511, 434)
+        Simulator.resize(741, 516)
         self.centralwidget = QWidget(Simulator)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.web = QWebEngineView(self.centralwidget)
-        self.web.setObjectName(u"web")
+        self.graphicsView = QGraphicsView(self.centralwidget)
+        self.graphicsView.setObjectName(u"graphicsView")
 
-        self.horizontalLayout.addWidget(self.web)
+        self.horizontalLayout.addWidget(self.graphicsView)
 
         Simulator.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(Simulator)
-        self.statusbar.setObjectName(u"statusbar")
-        Simulator.setStatusBar(self.statusbar)
 
         self.retranslateUi(Simulator)
 
@@ -40,6 +35,6 @@ class Ui_Simulator(object):
     # setupUi
 
     def retranslateUi(self, Simulator):
-        Simulator.setWindowTitle(QCoreApplication.translate("Simulator", u"MainWindow", None))
+        Simulator.setWindowTitle(QCoreApplication.translate("Simulator", u"CEESS-Simulator", None))
     # retranslateUi
 
