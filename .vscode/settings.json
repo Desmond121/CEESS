@@ -1,0 +1,22 @@
+{
+    "cSpell.words": [
+        "CEESS",
+        "Dont",
+        "Pyside",
+        "btns",
+        "hbox",
+        "isalnum",
+        "isnumeric",
+        "nrows",
+        "qtmodern",
+        "xlrd",
+        "xlwings"
+    ],
+    "python.pythonPath": "D:\\Dev\\Python39\\python.exe",
+    "cSpell.ignoreWords": [
+        "gmarull"
+    ],
+    "python.linting.flake8Args": [
+        "--exclude=*/Ui_*"
+    ]
+}
