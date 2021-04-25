@@ -259,6 +259,7 @@ class EnterTheLab(QWidget):
         if errorCount != 0:
             self.ui.textBrowser.append(errorStr)
 
+        self.ui.textBrowser.append("[提示信息]\n请完成进入实验室时所需的操作。")
         self.ui.stackedWidget.setCurrentIndex(1)
 
     @Slot()
