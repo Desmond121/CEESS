@@ -1,7 +1,7 @@
 """
 @file       : EnterTheLab.py
 @description: This is one of the simulation tests in simulation module.
-@date       : 2021/04/25 14:39:46
+@date       : 2021/02/25 14:39:46
 @author     : Desmond
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
@@ -31,10 +31,8 @@ _SWITCH = 2
 
 
 class EnterTheLab(QWidget):
-    # signal
     finishedSignal = Signal(int)
-
-    simulationIndex = 1
+    simulationIndex = 2
     score = 100
 
     def __init__(self, parent=None):

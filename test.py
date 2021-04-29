@@ -1,3 +1,4 @@
+from simulation.GasCylindersOperation import GasCylindersOperation
 from simulation.EnterTheLab import EnterTheLab
 import sys
 
@@ -48,7 +49,7 @@ def runSimulation():
     app.dark()
 
     mainWin = QMainWindow()
-    widget = EnterTheLab()
+    widget = GasCylindersOperation()
     mainWin.setCentralWidget(widget)
     mainWin.setFixedSize(1000, 600)
     mainWin.show()

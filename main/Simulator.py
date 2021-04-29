@@ -6,6 +6,8 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
+from simulation.AutoclaveSafety import AutoclaveSafety
+from simulation.GasCylindersOperation import GasCylindersOperation
 from utility.DataManager import DataManager
 from simulation.LeaveTheLab import LeaveTheLab
 from simulation.EnterTheLab import EnterTheLab
@@ -17,7 +19,12 @@ from ui.generate.Ui_Simulator import Ui_Simulator
 class Simulator(QMainWindow):
     # simulationClassDict = {Id: simulationWidgetClass, ...}
     # must be aligned with the database sheet "TEST_TYPE"
-    simulationsClassDict = {2: EnterTheLab, 3: LeaveTheLab}
+    simulationsClassDict = {
+        2: EnterTheLab,
+        3: LeaveTheLab,
+        4: GasCylindersOperation,
+        5: AutoclaveSafety
+    }
     isFinished = False  # 0 is unfinished
     score = -1  # no score yet
     userId = None
