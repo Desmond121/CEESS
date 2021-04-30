@@ -117,7 +117,7 @@ class Setting(QMainWindow):
 
         filename = self.ui.userName.text() + ".grade"
         filePath = QFileDialog.getSaveFileName(self, "CEESS-成绩导出", filename)[0]
-        if filePath != 0:
+        if len(filePath) != 0:
             with open(filePath, 'w') as file:
                 file.write(encodeStr)
                 QMessageBox.information(self, "CEESS-成绩导出", "导出成功！")
