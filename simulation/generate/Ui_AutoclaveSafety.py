@@ -46,30 +46,35 @@ class Ui_AutoclaveSafety(object):
 
         self.nameList = QListWidget(self.groupBox_3)
         self.nameList.setObjectName(u"nameList")
-        self.nameList.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(15)
+        self.nameList.setFont(font2)
         self.nameList.setFocusPolicy(Qt.NoFocus)
-        self.nameList.setFrameShape(QFrame.NoFrame)
-        self.nameList.setAutoScroll(False)
-        self.nameList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.nameList.setAlternatingRowColors(True)
-        self.nameList.setSelectionMode(QAbstractItemView.NoSelection)
-        self.nameList.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.nameList.setProperty("isWrapping", False)
-        self.nameList.setSpacing(5)
-        self.nameList.setUniformItemSizes(False)
-        self.nameList.setWordWrap(True)
-        self.nameList.setSelectionRectVisible(True)
+        self.nameList.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.nameList.setSpacing(8)
 
         self.verticalLayout_6.addWidget(self.nameList)
+
+        self.btnCheck = QPushButton(self.groupBox_3)
+        self.btnCheck.setObjectName(u"btnCheck")
+        self.btnCheck.setFont(font1)
+
+        self.verticalLayout_6.addWidget(self.btnCheck)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_6.addItem(self.verticalSpacer)
 
 
         self.verticalLayout_5.addWidget(self.groupBox_3)
 
-        self.btnNext_2 = QPushButton(self.page_3)
-        self.btnNext_2.setObjectName(u"btnNext_2")
-        self.btnNext_2.setFont(font1)
+        self.btnNext = QPushButton(self.page_3)
+        self.btnNext.setObjectName(u"btnNext")
+        self.btnNext.setEnabled(False)
+        self.btnNext.setFont(font1)
 
-        self.verticalLayout_5.addWidget(self.btnNext_2)
+        self.verticalLayout_5.addWidget(self.btnNext)
 
         self.stackedWidget.addWidget(self.page_3)
         self.page_4 = QWidget()
@@ -81,29 +86,48 @@ class Ui_AutoclaveSafety(object):
         self.groupBox_4.setFont(font)
         self.verticalLayout_8 = QVBoxLayout(self.groupBox_4)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.operationList_2 = QListWidget(self.groupBox_4)
-        self.operationList_2.setObjectName(u"operationList_2")
-        self.operationList_2.setFont(font1)
-        self.operationList_2.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.operationList_2.setDragEnabled(True)
-        self.operationList_2.setDragDropOverwriteMode(False)
-        self.operationList_2.setDragDropMode(QAbstractItemView.InternalMove)
-        self.operationList_2.setDefaultDropAction(Qt.MoveAction)
-        self.operationList_2.setAlternatingRowColors(True)
-        self.operationList_2.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.operationList_2.setSpacing(5)
-        self.operationList_2.setWordWrap(True)
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.label = QLabel(self.groupBox_4)
+        self.label.setObjectName(u"label")
 
-        self.verticalLayout_8.addWidget(self.operationList_2)
+        self.horizontalLayout_3.addWidget(self.label)
+
+        self.lcdNumber = QLCDNumber(self.groupBox_4)
+        self.lcdNumber.setObjectName(u"lcdNumber")
+        self.lcdNumber.setDigitCount(2)
+        self.lcdNumber.setProperty("intValue", 5)
+
+        self.horizontalLayout_3.addWidget(self.lcdNumber)
+
+
+        self.verticalLayout_8.addLayout(self.horizontalLayout_3)
+
+        self.operationList = QListWidget(self.groupBox_4)
+        self.operationList.setObjectName(u"operationList")
+        self.operationList.setFont(font1)
+        self.operationList.setFocusPolicy(Qt.NoFocus)
+        self.operationList.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.operationList.setDragEnabled(True)
+        self.operationList.setDragDropOverwriteMode(False)
+        self.operationList.setDragDropMode(QAbstractItemView.InternalMove)
+        self.operationList.setDefaultDropAction(Qt.MoveAction)
+        self.operationList.setAlternatingRowColors(True)
+        self.operationList.setSelectionMode(QAbstractItemView.NoSelection)
+        self.operationList.setSpacing(5)
+        self.operationList.setWordWrap(True)
+
+        self.verticalLayout_8.addWidget(self.operationList)
 
 
         self.verticalLayout_7.addWidget(self.groupBox_4)
 
-        self.pushButton = QPushButton(self.page_4)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setFont(font1)
+        self.btnFinished = QPushButton(self.page_4)
+        self.btnFinished.setObjectName(u"btnFinished")
+        self.btnFinished.setEnabled(False)
+        self.btnFinished.setFont(font1)
 
-        self.verticalLayout_7.addWidget(self.pushButton)
+        self.verticalLayout_7.addWidget(self.btnFinished)
 
         self.stackedWidget.addWidget(self.page_4)
 
@@ -128,7 +152,7 @@ class Ui_AutoclaveSafety(object):
 
         self.retranslateUi(AutoclaveSafety)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(AutoclaveSafety)
@@ -137,9 +161,11 @@ class Ui_AutoclaveSafety(object):
     def retranslateUi(self, AutoclaveSafety):
         AutoclaveSafety.setWindowTitle(QCoreApplication.translate("AutoclaveSafety", u"Form", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("AutoclaveSafety", u"\u8ba4\u8bc6\u9ad8\u538b\u91dc", None))
-        self.label_2.setText(QCoreApplication.translate("AutoclaveSafety", u"\u9009\u9879", None))
-        self.btnNext_2.setText(QCoreApplication.translate("AutoclaveSafety", u"\u4e0b\u4e00\u6b65", None))
-        self.groupBox_4.setTitle(QCoreApplication.translate("AutoclaveSafety", u"\u8ba4\u8bc6\u9ad8\u538b\u91dc", None))
-        self.pushButton.setText(QCoreApplication.translate("AutoclaveSafety", u"\u63d0\u4ea4", None))
+        self.label_2.setText(QCoreApplication.translate("AutoclaveSafety", u"\u9ad8\u538b\u91dc\u90e8\u4ef6\u540d\u79f0", None))
+        self.btnCheck.setText(QCoreApplication.translate("AutoclaveSafety", u"\u5b8c\u6210", None))
+        self.btnNext.setText(QCoreApplication.translate("AutoclaveSafety", u"\u4e0b\u4e00\u6b65", None))
+        self.groupBox_4.setTitle(QCoreApplication.translate("AutoclaveSafety", u"\u9ad8\u538b\u91dc\u64cd\u4f5c\u6d41\u7a0b", None))
+        self.label.setText(QCoreApplication.translate("AutoclaveSafety", u"\u5269\u4f59\u6b21\u6570", None))
+        self.btnFinished.setText(QCoreApplication.translate("AutoclaveSafety", u"\u63d0\u4ea4", None))
     # retranslateUi
 

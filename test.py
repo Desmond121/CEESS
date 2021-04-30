@@ -1,3 +1,4 @@
+from simulation.AutoclaveSafety import AutoclaveSafety
 from simulation.GasCylindersOperation import GasCylindersOperation
 from simulation.EnterTheLab import EnterTheLab
 import sys
@@ -49,7 +50,7 @@ def runSimulation():
     app.dark()
 
     mainWin = QMainWindow()
-    widget = GasCylindersOperation()
+    widget = AutoclaveSafety()
     mainWin.setCentralWidget(widget)
     mainWin.setFixedSize(1000, 600)
     mainWin.show()
