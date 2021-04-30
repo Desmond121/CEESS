@@ -119,9 +119,9 @@ class Navigator(QMainWindow):
         nameList = simulationDict.keys()
 
         result = QInputDialog.getItem(self, "CEESS-模拟", "请选择模拟操作：", nameList,
-                                      0, False)[0]
-        isCancelled = not result[1]
-        if isCancelled:
+                                      0, False)
+        isNotCancelled = result[1]
+        if isNotCancelled:
             simulationName = result[0]
             self.simulator = Simulator(self.userId,
                                        simulationDict.get(simulationName),

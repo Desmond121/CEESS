@@ -122,13 +122,6 @@ class Ui_AutoclaveSafety(object):
 
         self.verticalLayout_7.addWidget(self.groupBox_4)
 
-        self.btnFinished = QPushButton(self.page_4)
-        self.btnFinished.setObjectName(u"btnFinished")
-        self.btnFinished.setEnabled(False)
-        self.btnFinished.setFont(font1)
-
-        self.verticalLayout_7.addWidget(self.btnFinished)
-
         self.stackedWidget.addWidget(self.page_4)
 
         self.horizontalLayout.addWidget(self.stackedWidget)
@@ -166,6 +159,5 @@ class Ui_AutoclaveSafety(object):
         self.btnNext.setText(QCoreApplication.translate("AutoclaveSafety", u"\u4e0b\u4e00\u6b65", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("AutoclaveSafety", u"\u9ad8\u538b\u91dc\u64cd\u4f5c\u6d41\u7a0b", None))
         self.label.setText(QCoreApplication.translate("AutoclaveSafety", u"\u5269\u4f59\u6b21\u6570", None))
-        self.btnFinished.setText(QCoreApplication.translate("AutoclaveSafety", u"\u63d0\u4ea4", None))
     # retranslateUi
 

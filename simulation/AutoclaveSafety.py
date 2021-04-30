@@ -315,7 +315,6 @@ class AutoclaveSafety(QWidget):
 
     def setFinished(self):
         self.ui.graphicsView.setEnabled(False)
-        self.ui.btnFinished.setEnabled(True)
         count = self.ui.lcdNumber.intValue()
         self.ui.textBrowser.append("[完成信息]\n剩余机会：" + str(count) + "次，得分：" +
                                    str(count * 10) + "分\n")
