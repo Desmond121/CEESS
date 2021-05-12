@@ -22,7 +22,7 @@ class StyleQApplication(QApplication):
         self.setStyle("fusion")
         self.setWindowIcon(QIcon(_ICON))
         self.applyBaseTheme()
-        self.light()
+        self.dark()
 
     def applyBaseTheme(self):
         styleSheet = open(_STYLESHEET)
