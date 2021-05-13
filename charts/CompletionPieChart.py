@@ -39,23 +39,24 @@ class CompletionPieChart(QtCharts.QChart):
         font.setBold(False)
         self.legend().setFont(font)
         # todo
-        # self.legend().markers()[0].setLabel("全部未完成")
-        # for i in range(1, count - 1):
-        #     self.legend().markers()[1].setLabel("完成" + str(i) + "项")
-        # self.legend().markers()[count - 1].setLabel("全部完成")
+        self.legend().markers()[0].setLabel("全部未完成")
+        for i in range(1, count - 1):
+            self.legend().markers()[i].setLabel("完成" + str(i) + "项")
+        self.legend().markers()[count - 1].setLabel("全部完成")
         self.legend().setAlignment(Qt.AlignBottom)
 
         # setup slice labels
         # todo
         series.setLabelsPosition(QtCharts.QPieSlice.LabelPosition.LabelOutside)
-        # slices = series.slices()
-        # for slice in slices:
-        #     value = slice.value()
-        #     total = sum(slicesValue)
-        #     labelText = str(int(slice.value())) + "人(" + str(
-        #         round(value / total * 100, 1)) + "%)"
-        #     slice.setLabel(labelText)
-        #     slice.setLabelFont(font)
+        slices = series.slices()
+        for slice in slices:
+            value = slice.value()
+            total = sum(slicesValue)
+            labelText = slice.label() + "," + str(int(
+                slice.value())) + "人(" + str(round(value / total * 100,
+                                                   1)) + "%)"
+            slice.setLabel(labelText)
+            slice.setLabelFont(font)
 
         # signal
         series.hovered.connect(self.changeSliceExplored)

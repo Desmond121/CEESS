@@ -207,7 +207,7 @@ class TestManage(QMainWindow):
         file = QFile("./resources/download/testImportTemplate")
         if file.open(QFile.ReadOnly):
             filePath = QFileDialog.getSaveFileName(self, "CEESS-模板下载",
-                                                   "用户导入模板.xls",
+                                                   "题库导入模板.xls",
                                                    "Excel Files (*.xls)")
             if len(filePath[0]) != 0:
                 file.copy(filePath[0])

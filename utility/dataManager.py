@@ -117,7 +117,7 @@ class DataManager():
         return userInfoDict
 
     def getStudentNames(self):
-        sql = "select UID, USER_NAME from USER;"
+        sql = "select UID, USER_NAME from USER where USER_TYPE = 0;"
         self._cursor.execute(sql)
         return self._cursor.fetchall()
 
