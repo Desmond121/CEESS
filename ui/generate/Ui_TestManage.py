@@ -144,7 +144,7 @@ class Ui_TestManage(object):
     # setupUi
 
     def retranslateUi(self, TestManage):
-        TestManage.setWindowTitle(QCoreApplication.translate("TestManage", u"MainWindow", None))
+        TestManage.setWindowTitle(QCoreApplication.translate("TestManage", u"CEESS-\u9898\u5e93\u7ba1\u7406", None))
         self.label_2.setText(QCoreApplication.translate("TestManage", u"\u5224\u65ad\u9898", None))
         self.label.setText(QCoreApplication.translate("TestManage", u"\u9009\u62e9\u9898", None))
         self.btnDeleteChoice.setText(QCoreApplication.translate("TestManage", u"\u5220\u9664", None))

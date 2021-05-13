@@ -6,8 +6,6 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
-# todo: optimize import module to prevent window stuck
-# todo: when importing huge data flow.
 
 from PySide2.QtCore import QFile, Qt, Slot
 from PySide2.QtWidgets import (QFileDialog, QListWidget, QMainWindow,
@@ -40,7 +38,7 @@ class TestManage(QMainWindow):
         choiceSize = len(self.choiceBank)
         for i in range(choiceSize):
             # bank[i][1] is the number i question's body.
-            self.ui.choiceList.addItem(self.choiceBank[i][1][:10])
+            self.ui.choiceList.addItem(self.choiceBank[i][1])
 
         # then load all TF question.
         self.trueFalseBank = db.getAllQuestion(_TRUE_FALSE_TYPE)
@@ -53,7 +51,6 @@ class TestManage(QMainWindow):
         self.ui.choiceLCD.display(choiceSize)
         self.ui.trueFalseLCD.display(trueFalseSize)
 
-    # todo
     def deleteSelectedQuestion(self, questionList: QListWidget,
                                questionBank: list):
         # selected = questionList.selectedIndexes()
@@ -82,7 +79,6 @@ class TestManage(QMainWindow):
         db.deleteQuestionById(deleteIdList)
         db.closeConnect()  # disconnect to database
 
-    # todo
     def deleteAllQuestion(self):
         # delete questions in database
         db = DataManager()
@@ -95,7 +91,6 @@ class TestManage(QMainWindow):
         self.ui.trueFalseList.clear()
         self.ui.choiceList.clear()
 
-    # todo
     def importQuestionsFromExcel(self, isOverride: bool):
         file = QFileDialog().getOpenFileName(self, "上传文件", "./",
                                              "Excel Files (*.xls)")
