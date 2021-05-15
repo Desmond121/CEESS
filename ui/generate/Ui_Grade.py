@@ -47,15 +47,30 @@ class Ui_Grade(object):
 
         self.verticalLayout.addWidget(self.stages)
 
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.btnCompletion = QPushButton(self.centralwidget)
         self.btnCompletion.setObjectName(u"btnCompletion")
+        font = QFont()
+        font.setPointSize(13)
+        self.btnCompletion.setFont(font)
 
-        self.verticalLayout.addWidget(self.btnCompletion)
+        self.horizontalLayout_4.addWidget(self.btnCompletion)
 
         self.btnGrade = QPushButton(self.centralwidget)
         self.btnGrade.setObjectName(u"btnGrade")
+        self.btnGrade.setFont(font)
 
-        self.verticalLayout.addWidget(self.btnGrade)
+        self.horizontalLayout_4.addWidget(self.btnGrade)
+
+        self.btnHelp = QPushButton(self.centralwidget)
+        self.btnHelp.setObjectName(u"btnHelp")
+        self.btnHelp.setFont(font)
+
+        self.horizontalLayout_4.addWidget(self.btnHelp)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
 
 
         self.horizontalLayout_2.addLayout(self.verticalLayout)
@@ -76,10 +91,11 @@ class Ui_Grade(object):
     # setupUi
 
     def retranslateUi(self, Grade):
-        Grade.setWindowTitle(QCoreApplication.translate("Grade", u"MainWindow", None))
+        Grade.setWindowTitle(QCoreApplication.translate("Grade", u"CEESS-\u6210\u7ee9\u5206\u6790", None))
         ___qtablewidgetitem = self.gradeTableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("Grade", u"\u59d3\u540d", None));
         self.btnCompletion.setText(QCoreApplication.translate("Grade", u"\u5b8c\u6210\u5ea6\u5206\u5e03", None))
         self.btnGrade.setText(QCoreApplication.translate("Grade", u"\u6210\u7ee9\u5206\u5e03\u53ef\u89c6\u5316", None))
+        self.btnHelp.setText(QCoreApplication.translate("Grade", u"\u4f7f\u7528\u8bf4\u660e", None))
     # retranslateUi
 

@@ -12,8 +12,8 @@ from charts.GradeVisualizationWidget import GradeVisualizationWidget
 from PySide2.QtCharts import QtCharts
 from PySide2.QtCore import QMargins, Slot
 from PySide2.QtGui import QColor
-from PySide2.QtWidgets import (QLayout, QMainWindow, QTableWidgetItem,
-                               QVBoxLayout)
+from PySide2.QtWidgets import (QLayout, QMainWindow, QMessageBox,
+                               QTableWidgetItem, QVBoxLayout)
 from ui.generate.Ui_Grade import Ui_Grade
 from utility.DataManager import DataManager
 
@@ -84,7 +84,7 @@ class Grade(QMainWindow):
         for row in range(tableRow):
             for col in range(tableColumn):
                 item = QTableWidgetItem("未完成")
-                item.setBackgroundColor(QColor(0xFF8D6F))
+                item.setBackgroundColor(QColor(0xA23A40))
                 self.ui.gradeTableWidget.setItem(row, col, item)
 
         # setup table label
@@ -107,7 +107,7 @@ class Grade(QMainWindow):
                 for tid, grade in grades.items():
                     item = self.ui.gradeTableWidget.item(
                         row, self.tableColumnDict.get(tid))
-                    item.setBackgroundColor(QColor(0x84BC46))
+                    item.setBackgroundColor(QColor(0x154027))
                     item.setText(str(round(grade, 2)))
             row += 1
 
@@ -150,3 +150,9 @@ class Grade(QMainWindow):
     @Slot()
     def on_btnGrade_clicked(self):
         self.ui.stages.setCurrentIndex(1)
+
+    @Slot()
+    def on_btnHelp_clicked(self):
+        helpString = "【完成情况饼图】\n鼠标悬浮在相应的切片中，可以看到当前切片的人数和比例信息。\n"
+        helpString += "【成绩分布可视化】\n鼠标右键可对控件进行拖拽，放大。左键点击可以选中相应的柱状数据。\n"
+        QMessageBox.information(self, "CEESS-帮助", helpString)

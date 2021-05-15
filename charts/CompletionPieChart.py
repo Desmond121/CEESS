@@ -25,7 +25,7 @@ class CompletionPieChart(QtCharts.QChart):
         self.addSeries(series)
 
         # setup theme
-        self.setTheme(QtCharts.QChart.ChartTheme.ChartThemeDark)
+        self.setTheme(QtCharts.QChart.ChartTheme.ChartThemeBlueCerulean)
 
         # setup title
         self.setTitle("学生完成情况饼图")
