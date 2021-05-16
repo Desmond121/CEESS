@@ -35,6 +35,6 @@ class Ui_Simulator(object):
     # setupUi
 
     def retranslateUi(self, Simulator):
-        Simulator.setWindowTitle(QCoreApplication.translate("Simulator", u"CEESS-Simulator", None))
+        Simulator.setWindowTitle(QCoreApplication.translate("Simulator", u"CEESS-\u5b89\u5168\u6a21\u62df", None))
     # retranslateUi
 
