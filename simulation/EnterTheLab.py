@@ -32,7 +32,6 @@ _SWITCH = 2
 
 class EnterTheLab(QWidget):
     finishedSignal = Signal(int)
-    simulationIndex = 2
     score = 100
 
     def __init__(self, parent=None):

@@ -6,6 +6,7 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
+from simulation.fireExtinguisherUsing import fireExtingusherUsing
 from simulation.AutoclaveSafety import AutoclaveSafety
 from simulation.GasCylindersOperation import GasCylindersOperation
 from utility.DataManager import DataManager
@@ -23,8 +24,10 @@ class Simulator(QMainWindow):
         2: EnterTheLab,
         3: LeaveTheLab,
         4: GasCylindersOperation,
-        5: AutoclaveSafety
+        5: AutoclaveSafety,
+        6: fireExtingusherUsing
     }
+
     isFinished = False  # 0 is unfinished
     score = -1  # no score yet
     userId = None

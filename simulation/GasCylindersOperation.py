@@ -23,7 +23,6 @@ _RESOURCE_PATH = "./resources/img/simulation/gasCylinderOperation/"
 
 class GasCylindersOperation(QWidget):
     finishedSignal = Signal(int)
-    simulationIndex = 4
     score = 100
 
     def __init__(self, parent=None):

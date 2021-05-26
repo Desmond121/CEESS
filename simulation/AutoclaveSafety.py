@@ -8,8 +8,8 @@
 """
 
 import random
-from PySide2.QtCore import QObject, Qt, SIGNAL, Signal, Slot
-from PySide2.QtGui import QBrush, QColor, QFont, QMovie, QPixmap, QPyTextObject
+from PySide2.QtCore import QObject, Qt, Signal, Slot
+from PySide2.QtGui import QBrush, QColor, QFont, QMovie, QPixmap
 from PySide2.QtWidgets import (QGraphicsItem, QGraphicsPixmapItem,
                                QGraphicsScene, QGraphicsTextItem, QLabel,
                                QMessageBox, QPushButton, QWidget)
@@ -21,7 +21,6 @@ _RESOURCE_PATH = "./resources/img/simulation/autoclaveSafety/"
 
 class AutoclaveSafety(QWidget):
     finishedSignal = Signal(int)
-    simulationIndex = 5
     score = 100
 
     def __init__(self, parent=None):
@@ -240,10 +239,9 @@ class AutoclaveSafety(QWidget):
 
         self.movieLabel = QLabel()
         self.movieLabel.setAttribute(Qt.WA_NoSystemBackground)
-        openAutoClaveGifItem = self.ui.graphicsView.scene().addWidget(
-            self.movieLabel)
-        openAutoClaveGifItem.setScale(1)
-        openAutoClaveGifItem.setPos(35, 0)
+        movieItem = scene.addWidget(self.movieLabel)
+        movieItem.setScale(1)
+        movieItem.setPos(35, 0)
 
         self.infoList = [
             "等待开始",
@@ -276,7 +274,7 @@ class AutoclaveSafety(QWidget):
             for item in bottons:
                 item.setPos(20, i * 50 + 230)
                 item.show()
-                item.setScale(2)
+                item.setScale(1.8)
                 i += 1
 
             self.setConnect()

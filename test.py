@@ -1,11 +1,12 @@
 from simulation.AutoclaveSafety import AutoclaveSafety
 from simulation.GasCylindersOperation import GasCylindersOperation
 from simulation.EnterTheLab import EnterTheLab
+from simulation.fireExtinguisherUsing import fireExtingusherUsing
 import sys
 
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtWidgets import QMainWindow
 
 from main.Navigator import Navigator
 from utility.stylesManager import StyleQApplication
@@ -50,7 +51,7 @@ def runSimulation():
     app.dark()
 
     mainWin = QMainWindow()
-    widget = AutoclaveSafety()
+    widget = fireExtingusherUsing()
     mainWin.setCentralWidget(widget)
     mainWin.setFixedSize(1000, 600)
     mainWin.show()

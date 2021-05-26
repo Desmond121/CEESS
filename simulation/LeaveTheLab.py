@@ -14,7 +14,6 @@ from simulation.generate.Ui_LeaveTheLab import Ui_LeaveTheLab
 
 class LeaveTheLab(QWidget):
     finishedSignal = Signal(int)
-    simulationIndex = 3
     score = 100
 
     def __init__(self, parent=None):
