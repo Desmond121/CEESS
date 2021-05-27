@@ -30,6 +30,10 @@ class fireExtingusherUsing(QWidget):
         self.ui = Ui_fireExtinguisherUsing()
         self.ui.setupUi(self)
         self.setupScene()
+        self.setupText()
+
+    def setupText(self):
+        self.ui.textBrowser.append("【提示信息】\n在中间选择合适的动作熄灭火源。进行的操作会记录在左侧列表中。")
 
     def setupScene(self):
         # setup background
@@ -39,6 +43,12 @@ class fireExtingusherUsing(QWidget):
         # setup scene
         scene = QGraphicsScene(0, 0, 450, 500)
         self.ui.graphicsView.setScene(scene)
+
+        # logo
+        logoItem = QGraphicsPixmapItem(QPixmap("./resources/img/icon.svg"))
+        logoItem.setPos(380, 450)
+        logoItem.setScale(0.3)
+        scene.addItem(logoItem)
 
         # origin items
         # fire gif

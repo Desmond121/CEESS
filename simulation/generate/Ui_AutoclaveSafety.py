@@ -145,7 +145,7 @@ class Ui_AutoclaveSafety(object):
 
         self.retranslateUi(AutoclaveSafety)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(AutoclaveSafety)

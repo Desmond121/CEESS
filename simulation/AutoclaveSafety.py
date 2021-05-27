@@ -44,7 +44,7 @@ class AutoclaveSafety(QWidget):
         logoItem.setPos(380, 450)
         logoItem.setScale(0.3)
         scene.addItem(logoItem)
-        logoItem.setFlag(QGraphicsItem.ItemIsSelectable, True)
+        # logoItem.setFlag(QGraphicsItem.ItemIsSelectable, True)
 
         # autoclave overview
         autoclaveItem = QGraphicsPixmapItem(

@@ -61,11 +61,6 @@ class Ui_fireExtinguisherUsing(object):
 
         self.verticalLayout.addWidget(self.listWidget)
 
-        self.btnNext = QPushButton(self.groupBox)
-        self.btnNext.setObjectName(u"btnNext")
-
-        self.verticalLayout.addWidget(self.btnNext)
-
 
         self.horizontalLayout.addWidget(self.groupBox)
 
@@ -95,6 +90,5 @@ class Ui_fireExtinguisherUsing(object):
         fireExtinguisherUsing.setWindowTitle(QCoreApplication.translate("fireExtinguisherUsing", u"Form", None))
         self.groupBox.setTitle(QCoreApplication.translate("fireExtinguisherUsing", u"\u706d\u706b\u5668\u4f7f\u7528", None))
         self.label.setText(QCoreApplication.translate("fireExtinguisherUsing", u"\u5269\u4f59\u6b21\u6570", None))
-        self.btnNext.setText(QCoreApplication.translate("fireExtinguisherUsing", u"PushButton", None))
     # retranslateUi
 
