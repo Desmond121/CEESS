@@ -6,6 +6,7 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
+from simulation.CentrifugeOperation import CentrifugeOperation
 from simulation.SignRecognizing import SignRecognizing
 from simulation.fireExtinguisherUsing import fireExtingusherUsing
 from simulation.AutoclaveSafety import AutoclaveSafety
@@ -27,7 +28,8 @@ class Simulator(QMainWindow):
         4: GasCylindersOperation,
         5: AutoclaveSafety,
         6: fireExtingusherUsing,
-        7: SignRecognizing
+        7: SignRecognizing,
+        8: CentrifugeOperation
     }
 
     isFinished = False  # 0 is unfinished
