@@ -6,9 +6,10 @@
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
+from simulation.EyeWasherOperation import EyeWasherOperation
 from simulation.CentrifugeOperation import CentrifugeOperation
 from simulation.SignRecognizing import SignRecognizing
-from simulation.fireExtinguisherUsing import fireExtingusherUsing
+from simulation.FireExtinguisherUsing import FireExtingusherUsing
 from simulation.AutoclaveSafety import AutoclaveSafety
 from simulation.GasCylindersOperation import GasCylindersOperation
 from utility.DataManager import DataManager
@@ -27,9 +28,10 @@ class Simulator(QMainWindow):
         3: LeaveTheLab,
         4: GasCylindersOperation,
         5: AutoclaveSafety,
-        6: fireExtingusherUsing,
+        6: FireExtingusherUsing,
         7: SignRecognizing,
-        8: CentrifugeOperation
+        8: CentrifugeOperation,
+        9: EyeWasherOperation
     }
 
     isFinished = False  # 0 is unfinished

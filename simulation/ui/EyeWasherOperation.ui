@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CentrifugeOperation</class>
- <widget class="QWidget" name="CentrifugeOperation">
+ <class>EyeWasherOperation</class>
+ <widget class="QWidget" name="EyeWasherOperation">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>701</width>
-    <height>444</height>
+    <width>615</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <item>
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_5">
         <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -31,7 +31,7 @@
             </font>
            </property>
            <property name="title">
-            <string>认识离心机</string>
+            <string>洗眼器操作</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_10">
             <property name="leftMargin">
@@ -54,12 +54,12 @@
                </font>
               </property>
               <property name="text">
-               <string>离心机部件名称</string>
+               <string>洗眼器操作准则</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="nameList">
+             <widget class="QListWidget" name="textList">
               <property name="font">
                <font>
                 <pointsize>15</pointsize>
@@ -77,6 +77,9 @@
               <property name="spacing">
                <number>8</number>
               </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -90,22 +93,6 @@
                <string>完成</string>
               </property>
              </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>180</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
@@ -137,7 +124,7 @@
             </font>
            </property>
            <property name="title">
-            <string>离心机操作流程</string>
+            <string>洗眼器操作流程</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_12">
             <item>

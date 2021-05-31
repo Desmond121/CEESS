@@ -11,7 +11,7 @@ from PySide2.QtGui import QBrush, QColor, QFont, QMovie, QPixmap
 from PySide2.QtWidgets import (QGraphicsItem, QGraphicsPixmapItem,
                                QGraphicsScene, QLabel, QWidget)
 
-from simulation.generate.Ui_enterTheLab import Ui_EnterTheLab
+from simulation.generate.Ui_EnterTheLab import Ui_EnterTheLab
 
 _RESOURCE_PATH = "./resources/img/simulation/enterTheLab/"
 

@@ -1,12 +1,13 @@
 """
-@file       : CentrifugeOperation.py
+@file       : EyeWasherOperation.py
 @description: This is one of the simulation tests in simulation module.
-@date       : 2021/03/23 19:01:54
+@date       : 2021/05/10 18:39:46
 @author     : Desmond
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
 """
 import random
+from typing import Sized
 
 from PySide2.QtCore import QObject, Qt, Signal, Slot
 from PySide2.QtGui import QBrush, QColor, QFont, QMovie, QPixmap
@@ -14,23 +15,24 @@ from PySide2.QtWidgets import (QGraphicsItem, QGraphicsPixmapItem,
                                QGraphicsScene, QGraphicsTextItem, QLabel,
                                QMessageBox, QPushButton, QWidget)
 
-from simulation.generate.Ui_CentrifugeOperation import Ui_CentrifugeOperation
+from simulation.generate.Ui_EyeWasherOperation import Ui_EyeWasherOperation
 
-_RESOURCE_PATH = "./resources/img/simulation/centrifugeOperation/"
+_RESOURCE_PATH = "./resources/img/simulation/eyeWasherOperation/"
 
 
-class CentrifugeOperation(QWidget):
+class EyeWasherOperation(QWidget):
     finishedSignal = Signal(int)
     score = 100
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.ui = Ui_CentrifugeOperation()
+        self.ui = Ui_EyeWasherOperation()
         self.ui.setupUi(self)
         self.ui.stackedWidget.setCurrentIndex(0)
         self.setupScene()
 
     def setupScene(self):
+        self.ui.textBrowser.append("[提示信息]\n单击图中横线，再左侧点击按钮填写答案。\n")
         # setup background
         self.ui.graphicsView.setBackgroundBrush(
             QBrush(QColor(0x566280), Qt.SolidPattern))
@@ -45,55 +47,43 @@ class CentrifugeOperation(QWidget):
         logoItem.setScale(0.3)
         scene.addItem(logoItem)
 
-        # centrifuge overview
-        centrifugeItem = QGraphicsPixmapItem(
-            QPixmap(_RESOURCE_PATH + "centrifuge.png"))
-        centrifugeItem.setPos(90, 75)
-        centrifugeItem.setScale(0.5)
-        scene.addItem(centrifugeItem)
+        # infoBackground
+        infoBackgroundItem = QGraphicsPixmapItem(
+            QPixmap(_RESOURCE_PATH + "background.png"))
+        infoBackgroundItem.setPos(-32, 55)
+        infoBackgroundItem.setScale(1)
+        scene.addItem(infoBackgroundItem)
+        # infoBackgroundItem.setFlags(QGraphicsItem.ItemIsMovable
+        #                             | QGraphicsItem.ItemIsSelectable)
 
-        # textItem general setting
-        font = QFont()
-        font.setPixelSize(20)
-        defaultText = "(________)"
-
-        nameList = [
-            "上盖卡扣",  #
-            "离心机上盖",
-            "离心室",
-            "控制器",
-            "转子",
-            "离心样品",
-            "离心马达"
+        # textItems
+        textList = [
+            ("不要犹豫，尽快使用", 0),
+            ("尽快联系急救", 1),
+            ("不要使用洗眼器以外的水龙头冲洗眼睛", 2),
+            ("注意地滑，防止摔伤", 3),
+            ("可以使用洗眼器以外的水龙头冲洗眼镜", -1),
+            ("溅入眼后可以等待片刻再使用洗眼器", -1),
+            ("不可重复使用", -1),
+            ("如果需要，可以重复冲洗", 4),
         ]
-
-        posList = [
-            (16, 71),  #
-            (330, 79),
-            (20, 115),
-            (10, 170),
-            (337, 181),
-            (325, 307),
-            (-15, 281)
-        ]
-
         self.textItemList = []
-        for i in range(len(nameList)):
-            textItem = QGraphicsTextItem(defaultText)
-            textItem.setFont(font)
-            textItem.setPos(posList[i][0], posList[i][1])
-            textItem.setDefaultTextColor(Qt.red)
-            scene.addItem(textItem)
-            textItem.setFlag(QGraphicsItem.ItemIsSelectable, True)
-            textItem.setData(Qt.UserRole, "(" + nameList[i] + ")")
-            textItem.setFlag(QGraphicsItem.ItemIsMovable, True)
+        for i in range(5):
+            textItem = QGraphicsTextItem("___________________________")
             self.textItemList.append(textItem)
+            scene.addItem(textItem)
+            font = textItem.font()
+            font.setBold(True)
+            textItem.setFont(font)
+            textItem.setScale(1.5)
+            textItem.setPos(17, i * 40 + 130)
+            textItem.setDefaultTextColor(Qt.yellow)
+            textItem.setFlag(QGraphicsItem.ItemIsSelectable, True)
 
-        random.shuffle(nameList)
-        for item in nameList:
-            self.ui.nameList.addItem(item)
-
-        self.ui.textBrowser.append("[提示信息]\n单击图中括号，再左侧点击按钮填写组件名称。\n")
+        random.shuffle(textList)
+        for i in range(len(textList)):
+            self.ui.textList.addItem(textList[i][0])
+            self.ui.textList.item(i).setData(Qt.UserRole, textList[i][1])
 
     def setupScene2(self):
         items = self.ui.graphicsView.items()
@@ -106,11 +96,10 @@ class CentrifugeOperation(QWidget):
 
         # load all movie
         self.movieList = []
-        for i in range(10):
+        for i in range(7):
             movie = QMovie(_RESOURCE_PATH + "step" + str(i) + ".gif")
             self.movieList.append(movie)
 
-        # setup movieItem
         self.movieLabel = QLabel()
         self.movieLabel.setAttribute(Qt.WA_NoBackground)
         movieItem = scene.addWidget(self.movieLabel)
@@ -119,16 +108,16 @@ class CentrifugeOperation(QWidget):
 
         # before start
         self.movieLabel.setMovie(self.movieList[0])
-        btnStart = QPushButton("开始使用离心机")
-        startItem = scene.addWidget(btnStart)
+        btnStart = QPushButton("开始操作")
         btnStart.setAttribute(Qt.WA_NoSystemBackground)
-        startItem.setPos(125, 290)
+        startItem = scene.addWidget(btnStart)
+        startItem.setPos(145, 290)
         startItem.setScale(2)
         btnStart.clicked.connect(self.start)
 
-        startTextItem = QGraphicsTextItem("你需要使用离心机将一管样品进行离心。")
+        startTextItem = QGraphicsTextItem("化学品泄露并溅入眼中")
         scene.addItem(startTextItem)
-        startTextItem.setPos(10, 245)
+        startTextItem.setPos(100, 245)
         startTextItem.setScale(2)
 
         self.movieLabel.setMovie(self.movieList[0])
@@ -138,33 +127,27 @@ class CentrifugeOperation(QWidget):
 
         # setup all buttoms
         self.buttomTextList = [
-            "装样于离心专用试管,2/3左右",  # 0 step 0
-            "装样于离心专用试管,装满",
-            "装样于任意试管",
-            "标记编号，再放入离心机中",  # 3 step 1
-            "将样品直接放入离心机中",
-            "另一试管装入等量样品或水",  # 5 step 2
-            "关闭离心机上盖",  # 6 step 4
-            "在对称位置放入另一试管",  # 7 step 3
-            "在相邻位置放入另一试管",
-            "在任意位置放入另一试管",
-            "设定时间和转速，开始离心",  # 10 step 5
-            "等待离心机停止",  # 11 step 6
-            "中途打开离心机上盖",
-            "打开离心机上盖",  # 13 step 7
-            "取出试管，放置于试管架",  # 14 step 8
-            "取出试管，随意放置"
+            "迅速前往洗眼器处",  # 0 step 0
+            "用衣物擦拭眼睛再前往洗眼器处",
+            "开启洗眼器",  # 2 step 1
+            "用手撑开眼皮俯身冲洗",  # 3 step 2
+            "用手接水清洗眼睛",
+            "冲洗时保持眼珠旋转",  # 5 step 3
+            "冲洗时保持眼珠不动",
+            "冲洗时眼珠向上翻",
+            "冲洗至少15分钟",  # 8 step 4
+            "冲洗至少1分钟",
+            "冲洗至少5分钟",
+            "可冲洗多次，完成后关闭",  # 11 step 5
+            "只能冲洗一次，完成后关闭",
         ]
         self.operationList = [
-            "装样于离心专用试管,2/3左右",  # 0 step 0
-            "标记编号，再放入离心机中",  # 3 step 1
-            "另一试管装入等量样品或水",  # 5 step 2
-            "在对称位置放入另一试管",  # 7 step 3
-            "关闭离心机上盖",  # 6 step 4
-            "设定时间和转速，开始离心",  # 10 step 5
-            "等待离心机停止",  # 11 step 6
-            "打开离心机上盖",  # 13 step 7
-            "取出试管，放置于试管架",  # 14 step 8
+            "迅速前往洗眼器处",  # 0 step 0
+            "开启洗眼器",  # 2 step 1
+            "用手撑开眼皮俯身冲洗",  # 3 step 2
+            "冲洗时保持眼珠旋转",  # 5 step 3
+            "冲洗至少15分钟",  # 8 step 4
+            "可冲洗多次，完成后关闭",  # 11 step 5
         ]
 
         self.itemList = []
@@ -178,21 +161,13 @@ class CentrifugeOperation(QWidget):
             item.hide()
 
         self.stepButtonGroup = [
-            (self.itemList[0], self.itemList[1], self.itemList[2]),
+            (self.itemList[0], self.itemList[1]),
+            (self.itemList[2], ),
             (self.itemList[3], self.itemList[4]),
-            (self.itemList[5], ),
-            (self.itemList[7], self.itemList[8], self.itemList[9]),
-            (self.itemList[6], self.itemList[10]),
-            (self.itemList[10], ),
+            (self.itemList[5], self.itemList[6], self.itemList[7]),
+            (self.itemList[8], self.itemList[9], self.itemList[10]),
             (self.itemList[11], self.itemList[12]),
-            (self.itemList[13], ),
-            (self.itemList[14], self.itemList[15]),
         ]
-
-    def start(self):
-        for item in self.beforeStartItems:
-            item.hide()
-        self.setStep(0)
 
     @Slot()
     def setStep(self, index):
@@ -238,16 +213,6 @@ class CentrifugeOperation(QWidget):
         for i in range(1, len(bottonItems)):
             bottonItems[i].widget().clicked.connect(self.wrongAnswer)
 
-    @Slot()
-    def wrongAnswer(self):
-        if self.ui.lcdNumber.intValue() == 1:
-            self.ui.lcdNumber.display(self.ui.lcdNumber.intValue() - 1)
-            QMessageBox.warning(self, "CEESS-警告", "错误过程！无剩余次数！")
-            self.setFinished()
-        else:
-            QMessageBox.warning(self, "CEESS-警告", "错误过程")
-            self.ui.lcdNumber.display(self.ui.lcdNumber.intValue() - 1)
-
     def setFinished(self):
         self.ui.graphicsView.setEnabled(False)
         count = self.ui.lcdNumber.intValue()
@@ -259,36 +224,64 @@ class CentrifugeOperation(QWidget):
         self.finishedSignal.emit(self.score)
 
     @Slot()
-    def on_nameList_itemClicked(self):
+    def wrongAnswer(self):
+        if self.ui.lcdNumber.intValue() == 1:
+            self.ui.lcdNumber.display(self.ui.lcdNumber.intValue() - 1)
+            QMessageBox.warning(self, "CEESS-警告", "错误过程！无剩余次数！")
+            self.setFinished()
+        else:
+            QMessageBox.warning(self, "CEESS-警告", "错误过程")
+            self.ui.lcdNumber.display(self.ui.lcdNumber.intValue() - 1)
+
+    @Slot()
+    def start(self):
+        for item in self.beforeStartItems:
+            item.hide()
+        self.setStep(0)
+
+    @Slot()
+    def on_textList_itemClicked(self):
         items = self.ui.graphicsView.scene().selectedItems()
         if len(items) != 0:
             item = items[0]
-            answer = self.ui.nameList.selectedItems()[0].text()
-            item.setPlainText("(" + answer + ")")
+            answer = self.ui.textList.selectedItems()[0].text()
+            data = self.ui.textList.selectedItems()[0].data(Qt.UserRole)
+            item.setPlainText(answer)
+            item.setData(Qt.UserRole, data)
 
     @Slot()
     def on_btnCheck_clicked(self):
         errorCount = 0
         errorList = list()
+        answerSet = set()
+        correctSet = {0, 1, 2, 3, 4}
         for item in self.textItemList:
-            if item.data(Qt.UserRole) != item.toPlainText():
+            data = item.data(Qt.UserRole)
+            if data is None:  # empty
                 errorCount += 1
                 errorList.append(item)
+            elif data not in correctSet:  # wrong
+                errorCount += 1
+                errorList.append(item)
+            elif data in answerSet:  # duplicate
+                errorCount += 1
+                errorList.append(item)
+            else:  # correct
+                answerSet.add(data)
 
         for item in errorList:
-            item.setPlainText(item.data(Qt.UserRole))
-            item.setDefaultTextColor(Qt.green)
+            item.setDefaultTextColor(Qt.red)
 
         if errorCount == 0:
             self.ui.textBrowser.append("[完成信息]\n全部正确。\n")
         else:
-            self.ui.textBrowser.append("[错误信息]\n正确答案已在图中用绿色改正。共" +
-                                       str(errorCount) + "处\n")
+            self.ui.textBrowser.append("[错误信息]\n错误答案已标红。共" + str(errorCount) +
+                                       "处\n")
 
-        self.score -= errorCount * 7
+        self.score -= errorCount * 10
 
         self.ui.btnNext.setEnabled(True)
-        self.ui.nameList.setEnabled(False)
+        self.ui.textList.setEnabled(False)
         self.ui.btnCheck.setEnabled(False)
 
     @Slot()

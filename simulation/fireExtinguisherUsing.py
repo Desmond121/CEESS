@@ -15,19 +15,19 @@ from PySide2.QtWidgets import (QGraphicsPixmapItem, QGraphicsScene,
                                QGraphicsTextItem, QLabel, QMessageBox,
                                QPushButton, QWidget)
 
-from simulation.generate.Ui_fireExtinguisherUsing import \
-    Ui_fireExtinguisherUsing
+from simulation.generate.Ui_FireExtinguisherUsing import \
+    Ui_FireExtinguisherUsing
 
 _RESOURCE_PATH = "./resources/img/simulation/fireExtinguisherUsing/"
 
 
-class fireExtingusherUsing(QWidget):
+class FireExtingusherUsing(QWidget):
     finishedSignal = Signal(int)
     score = 100
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.ui = Ui_fireExtinguisherUsing()
+        self.ui = Ui_FireExtinguisherUsing()
         self.ui.setupUi(self)
         self.setupScene()
         self.setupText()

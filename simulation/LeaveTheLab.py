@@ -20,3 +20,4 @@ class LeaveTheLab(QWidget):
         super().__init__(parent)
         self.ui = Ui_LeaveTheLab()
         self.ui.setupUi(self)
+        

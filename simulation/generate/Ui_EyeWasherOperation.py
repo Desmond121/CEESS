@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'centrifugeOperation.ui'
+## Form generated from reading UI file 'EyeWasherOperation.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -13,16 +13,16 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_CentrifugeOperation(object):
-    def setupUi(self, CentrifugeOperation):
-        if not CentrifugeOperation.objectName():
-            CentrifugeOperation.setObjectName(u"CentrifugeOperation")
-        CentrifugeOperation.resize(701, 444)
-        self.horizontalLayout_2 = QHBoxLayout(CentrifugeOperation)
+class Ui_EyeWasherOperation(object):
+    def setupUi(self, EyeWasherOperation):
+        if not EyeWasherOperation.objectName():
+            EyeWasherOperation.setObjectName(u"EyeWasherOperation")
+        EyeWasherOperation.resize(615, 400)
+        self.horizontalLayout_2 = QHBoxLayout(EyeWasherOperation)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.stackedWidget = QStackedWidget(CentrifugeOperation)
+        self.stackedWidget = QStackedWidget(EyeWasherOperation)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.page_5 = QWidget()
         self.page_5.setObjectName(u"page_5")
@@ -44,27 +44,24 @@ class Ui_CentrifugeOperation(object):
 
         self.verticalLayout_10.addWidget(self.label_3)
 
-        self.nameList = QListWidget(self.groupBox_5)
-        self.nameList.setObjectName(u"nameList")
+        self.textList = QListWidget(self.groupBox_5)
+        self.textList.setObjectName(u"textList")
         font2 = QFont()
         font2.setPointSize(15)
-        self.nameList.setFont(font2)
-        self.nameList.setFocusPolicy(Qt.NoFocus)
-        self.nameList.setAlternatingRowColors(True)
-        self.nameList.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.nameList.setSpacing(8)
+        self.textList.setFont(font2)
+        self.textList.setFocusPolicy(Qt.NoFocus)
+        self.textList.setAlternatingRowColors(True)
+        self.textList.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.textList.setSpacing(8)
+        self.textList.setWordWrap(True)
 
-        self.verticalLayout_10.addWidget(self.nameList)
+        self.verticalLayout_10.addWidget(self.textList)
 
         self.btnCheck = QPushButton(self.groupBox_5)
         self.btnCheck.setObjectName(u"btnCheck")
         self.btnCheck.setFont(font1)
 
         self.verticalLayout_10.addWidget(self.btnCheck)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 180, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
-        self.verticalLayout_10.addItem(self.verticalSpacer_2)
 
 
         self.verticalLayout_9.addWidget(self.groupBox_5)
@@ -126,12 +123,12 @@ class Ui_CentrifugeOperation(object):
 
         self.horizontalLayout.addWidget(self.stackedWidget)
 
-        self.graphicsView = QGraphicsView(CentrifugeOperation)
+        self.graphicsView = QGraphicsView(EyeWasherOperation)
         self.graphicsView.setObjectName(u"graphicsView")
 
         self.horizontalLayout.addWidget(self.graphicsView)
 
-        self.textBrowser = QTextBrowser(CentrifugeOperation)
+        self.textBrowser = QTextBrowser(EyeWasherOperation)
         self.textBrowser.setObjectName(u"textBrowser")
 
         self.horizontalLayout.addWidget(self.textBrowser)
@@ -143,21 +140,21 @@ class Ui_CentrifugeOperation(object):
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
 
-        self.retranslateUi(CentrifugeOperation)
+        self.retranslateUi(EyeWasherOperation)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
-        QMetaObject.connectSlotsByName(CentrifugeOperation)
+        QMetaObject.connectSlotsByName(EyeWasherOperation)
     # setupUi
 
-    def retranslateUi(self, CentrifugeOperation):
-        CentrifugeOperation.setWindowTitle(QCoreApplication.translate("CentrifugeOperation", u"Form", None))
-        self.groupBox_5.setTitle(QCoreApplication.translate("CentrifugeOperation", u"\u8ba4\u8bc6\u79bb\u5fc3\u673a", None))
-        self.label_3.setText(QCoreApplication.translate("CentrifugeOperation", u"\u79bb\u5fc3\u673a\u90e8\u4ef6\u540d\u79f0", None))
-        self.btnCheck.setText(QCoreApplication.translate("CentrifugeOperation", u"\u5b8c\u6210", None))
-        self.btnNext.setText(QCoreApplication.translate("CentrifugeOperation", u"\u4e0b\u4e00\u6b65", None))
-        self.groupBox_6.setTitle(QCoreApplication.translate("CentrifugeOperation", u"\u79bb\u5fc3\u673a\u64cd\u4f5c\u6d41\u7a0b", None))
-        self.label_4.setText(QCoreApplication.translate("CentrifugeOperation", u"\u5269\u4f59\u6b21\u6570", None))
+    def retranslateUi(self, EyeWasherOperation):
+        EyeWasherOperation.setWindowTitle(QCoreApplication.translate("EyeWasherOperation", u"Form", None))
+        self.groupBox_5.setTitle(QCoreApplication.translate("EyeWasherOperation", u"\u6d17\u773c\u5668\u64cd\u4f5c", None))
+        self.label_3.setText(QCoreApplication.translate("EyeWasherOperation", u"\u6d17\u773c\u5668\u64cd\u4f5c\u51c6\u5219", None))
+        self.btnCheck.setText(QCoreApplication.translate("EyeWasherOperation", u"\u5b8c\u6210", None))
+        self.btnNext.setText(QCoreApplication.translate("EyeWasherOperation", u"\u4e0b\u4e00\u6b65", None))
+        self.groupBox_6.setTitle(QCoreApplication.translate("EyeWasherOperation", u"\u6d17\u773c\u5668\u64cd\u4f5c\u6d41\u7a0b", None))
+        self.label_4.setText(QCoreApplication.translate("EyeWasherOperation", u"\u5269\u4f59\u6b21\u6570", None))
     # retranslateUi
 

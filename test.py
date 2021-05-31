@@ -1,8 +1,9 @@
+from simulation.EyeWasherOperation import EyeWasherOperation
 from simulation.SignRecognizing import SignRecognizing
 from simulation.AutoclaveSafety import AutoclaveSafety
 from simulation.GasCylindersOperation import GasCylindersOperation
 from simulation.EnterTheLab import EnterTheLab
-from simulation.fireExtinguisherUsing import fireExtingusherUsing
+from simulation.FireExtinguisherUsing import FireExtingusherUsing
 from simulation.CentrifugeOperation import CentrifugeOperation
 import sys
 
@@ -53,7 +54,7 @@ def runSimulation():
     app.dark()
 
     mainWin = QMainWindow()
-    widget = CentrifugeOperation()
+    widget = EyeWasherOperation()
     mainWin.setCentralWidget(widget)
     mainWin.setFixedSize(1000, 600)
     mainWin.show()

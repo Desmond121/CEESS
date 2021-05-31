@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fireExtinguisherUsing</class>
- <widget class="QWidget" name="fireExtinguisherUsing">
+ <class>FireExtinguisherUsing</class>
+ <widget class="QWidget" name="FireExtinguisherUsing">
   <property name="geometry">
    <rect>
     <x>0</x>
