@@ -2,9 +2,9 @@
 A Chemical Engineering Experiments Safety Simulator, which provides 2 client apps for both teachers and students to enhance the process of chemical engineering safety education.
 
 <p float="left">
-  <img src="https://github.com/Desmond121/CEESS/blob/main/resources/img/screenshot/loginWindow.png" height="300" />
-  <img src="https://github.com/Desmond121/CEESS/blob/main/resources/img/screenshot/autoclave.png" height="300" /> 
-  <img src="https://github.com/Desmond121/CEESS/blob/main/resources/img/screenshot/grade.png" height="300" />
+  <img src="https://github.com/Desmond121/CEESS/blob/main/resources/img/screenshot/loginWindow.png" height="200" />
+  <img src="https://github.com/Desmond121/CEESS/blob/main/resources/img/screenshot/autoclave.png" height="200" /> 
+  <img src="https://github.com/Desmond121/CEESS/blob/main/resources/img/screenshot/grade.png" height="200" />
 </p>
 
 ## Dependency:
