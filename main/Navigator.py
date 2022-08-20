@@ -14,7 +14,7 @@ from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QInputDialog, QMainWindow
 from ui.generate.Ui_Student import Ui_Student
 from ui.generate.Ui_Teacher import Ui_Teacher
-from utility.stylesManager import _ICON
+from utility.StylesManager import _ICON
 
 from main.Learn import Learn
 from main.Setting import Setting

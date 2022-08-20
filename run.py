@@ -12,7 +12,7 @@ import sys
 from PySide2 import QtCore
 from PySide2.QtGui import QFontDatabase
 
-from utility.stylesManager import StyleQApplication
+from utility.StylesManager import StyleQApplication
 from utility.WindowsManager import WindowsManager
 
 _FONTPATH = "./resources/font/SourceHanSansCN-Regular.ttf"
