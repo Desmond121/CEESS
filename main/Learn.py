@@ -43,10 +43,10 @@ class Learn(QMainWindow):
 
     @Slot()
     def on_btnDownload_clicked(self):
-        file = QFile("./resources/download/handbookForLaboratorySafety")
+        file = QFile("./resources/download/downloadLearningMaterial")
         if file.open(QFile.ReadOnly):
             filePath = QFileDialog.getSaveFileName(self, "CEESS-安全手册下载",
-                                                   "华南理工大学实验室安全手册.pdf",
+                                                   "学习内容.pdf",
                                                    "PDF Files (*.pdf)")
             if len(filePath[0]) != 0:
                 file.copy(filePath[0])

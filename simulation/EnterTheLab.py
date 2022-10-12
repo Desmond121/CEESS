@@ -1,7 +1,7 @@
 """
 @file       : EnterTheLab.py
 @description: This is one of the simulation tests in simulation module.
-@date       : 2021/04/25 14:39:46
+@date       : 2021/02/25 14:39:46
 @author     : Desmond
 @email      : dmz990121@outlook.com
 @version    : 0.0.1
@@ -11,7 +11,7 @@ from PySide2.QtGui import QBrush, QColor, QFont, QMovie, QPixmap
 from PySide2.QtWidgets import (QGraphicsItem, QGraphicsPixmapItem,
                                QGraphicsScene, QLabel, QWidget)
 
-from simulation.generate.Ui_enterTheLab import Ui_EnterTheLab
+from simulation.generate.Ui_EnterTheLab import Ui_EnterTheLab
 
 _RESOURCE_PATH = "./resources/img/simulation/enterTheLab/"
 
@@ -31,10 +31,7 @@ _SWITCH = 2
 
 
 class EnterTheLab(QWidget):
-    # signal
     finishedSignal = Signal(int)
-
-    simulationIndex = 1
     score = 100
 
     def __init__(self, parent=None):

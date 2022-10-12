@@ -64,7 +64,7 @@ class Ui_Learn(object):
     # setupUi
 
     def retranslateUi(self, Learn):
-        Learn.setWindowTitle(QCoreApplication.translate("Learn", u"MainWindow", None))
+        Learn.setWindowTitle(QCoreApplication.translate("Learn", u"CEESS-\u5b89\u5168\u5b66\u4e60", None))
         self.btnDownload.setText(QCoreApplication.translate("Learn", u"\u4e0b\u8f7d\u5b8c\u6574\u5b89\u5168\u624b\u518c", None))
     # retranslateUi
 

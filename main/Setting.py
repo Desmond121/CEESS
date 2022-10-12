@@ -42,7 +42,7 @@ class Setting(QMainWindow):
                 self.ui.tabWidget.setTabText(2, "成绩导入")
                 self.ui.gradeTabStack.setCurrentIndex(0)
             else:
-                self.ui.gradeTab.hide()
+                self.ui.tabWidget.removeTab(2)
         else:
             self.ui.tabWidget.setTabText(2, "成绩查询")
             self.ui.gradeTabStack.setCurrentIndex(1)
@@ -57,7 +57,7 @@ class Setting(QMainWindow):
                 testTypeId = gradeInfo[0]
                 score = gradeInfo[1]
                 gradeText += "--" + testTypeDict.get(testTypeId) + "  " + str(
-                    score) + "分\n"
+                    round(score, 2)) + "分\n"
             if len(self.gradeInfoList) < len(testTypeDict):
                 gradeText += "还未完成所有内容！请注意！\n"
             self.ui.gradeInfoText.setText(gradeText)
@@ -117,7 +117,7 @@ class Setting(QMainWindow):
 
         filename = self.ui.userName.text() + ".grade"
         filePath = QFileDialog.getSaveFileName(self, "CEESS-成绩导出", filename)[0]
-        if filePath != 0:
+        if len(filePath) != 0:
             with open(filePath, 'w') as file:
                 file.write(encodeStr)
                 QMessageBox.information(self, "CEESS-成绩导出", "导出成功！")
@@ -126,7 +126,7 @@ class Setting(QMainWindow):
     def on_btnImport_clicked(self):
         importGradesList = list()
         directory = QFileDialog.getExistingDirectory(
-            self, "CEESS-上传成绩", "/",
+            self, "CEESS-导入成绩", "/",
             QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if len(directory) != 0:
             for filename in os.listdir(directory):
@@ -149,7 +149,7 @@ class Setting(QMainWindow):
                 db.deleteAllGrade()
                 db.insertGrade(importGradesList)
                 db.closeConnect()
-                QMessageBox.information(self, "CEESS-成绩导出", "导入成功！")
+                QMessageBox.information(self, "CEESS-成绩导入", "导入成功！")
 
     def encode(self, str: str):
         return base64.standard_b64encode(str.encode("utf8")).decode()

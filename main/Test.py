@@ -255,5 +255,5 @@ class Test(QMainWindow):
         if self.ui.pages.currentIndex() == 2:
             self.uploadGrade()
 
-            # only update grade when finished.
+        # only update grade when finished.
         return super().closeEvent(event)

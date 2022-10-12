@@ -16,6 +16,7 @@ _SQLITE = 0
 _MYSQL = 1
 _DATABASE_TYPE = _SQLITE
 
+# database setting
 _SQLITE_DATABASE = "./data/db.sqlite3"
 _MYSQL_IP = "101.132.143.156"
 _MYSQL_PORT = 33060
@@ -117,7 +118,7 @@ class DataManager():
         return userInfoDict
 
     def getStudentNames(self):
-        sql = "select UID, USER_NAME from USER;"
+        sql = "select UID, USER_NAME from USER where USER_TYPE = 0;"
         self._cursor.execute(sql)
         return self._cursor.fetchall()
 

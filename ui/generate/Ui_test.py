@@ -318,7 +318,7 @@ class Ui_Test(object):
     # setupUi
 
     def retranslateUi(self, Test):
-        Test.setWindowTitle(QCoreApplication.translate("Test", u"MainWindow", None))
+        Test.setWindowTitle(QCoreApplication.translate("Test", u"CEESS-\u5b89\u5168\u6d4b\u8bd5", None))
         self.btnStart.setText(QCoreApplication.translate("Test", u"\u5f00\u59cb\u8003\u8bd5", None))
         self.lblNameStart.setText("")
         self.lblTime.setText(QCoreApplication.translate("Test", u"00:00", None))

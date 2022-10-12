@@ -118,11 +118,15 @@ class Navigator(QMainWindow):
         }
         nameList = simulationDict.keys()
 
-        simulationName = QInputDialog.getItem(self, "CEESS-模拟", "请选择模拟操作：",
-                                              nameList, 0, False)[0]
-        self.simulator = Simulator(self.userId,
-                                   simulationDict.get(simulationName), self)
-        self.simulator.show()
+        result = QInputDialog.getItem(self, "CEESS-模拟", "请选择模拟操作：", nameList,
+                                      0, False)
+        isNotCancelled = result[1]
+        if isNotCancelled:
+            simulationName = result[0]
+            self.simulator = Simulator(self.userId,
+                                       simulationDict.get(simulationName),
+                                       self)
+            self.simulator.show()
 
     @Slot()
     def openUserManage(self):

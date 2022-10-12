@@ -38,28 +38,28 @@ class Ui_Setting(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.label = QLabel(self.accInfoTab)
         self.label.setObjectName(u"label")
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
-        self.label.setMinimumSize(QSize(100, 0))
         font = QFont()
-        font.setPointSize(12)
+        font.setPointSize(14)
         self.label.setFont(font)
 
         self.horizontalLayout.addWidget(self.label)
 
         self.userAccount = QLineEdit(self.accInfoTab)
         self.userAccount.setObjectName(u"userAccount")
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.userAccount.sizePolicy().hasHeightForWidth())
         self.userAccount.setSizePolicy(sizePolicy)
-        self.userAccount.setMinimumSize(QSize(180, 0))
+        self.userAccount.setMaximumSize(QSize(16777215, 16777215))
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.userAccount.setFont(font1)
         self.userAccount.setReadOnly(True)
 
         self.horizontalLayout.addWidget(self.userAccount)
 
-        self.horizontalSpacer = QSpacerItem(80, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
@@ -70,9 +70,6 @@ class Ui_Setting(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.label_2 = QLabel(self.accInfoTab)
         self.label_2.setObjectName(u"label_2")
-        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy)
-        self.label_2.setMinimumSize(QSize(100, 0))
         self.label_2.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.label_2)
@@ -81,18 +78,20 @@ class Ui_Setting(object):
         self.userName.setObjectName(u"userName")
         sizePolicy.setHeightForWidth(self.userName.sizePolicy().hasHeightForWidth())
         self.userName.setSizePolicy(sizePolicy)
-        self.userName.setMinimumSize(QSize(180, 0))
+        self.userName.setFont(font1)
         self.userName.setReadOnly(True)
 
         self.horizontalLayout_2.addWidget(self.userName)
 
         self.rename = QPushButton(self.accInfoTab)
         self.rename.setObjectName(u"rename")
-        sizePolicy.setHeightForWidth(self.rename.sizePolicy().hasHeightForWidth())
-        self.rename.setSizePolicy(sizePolicy)
-        self.rename.setMinimumSize(QSize(80, 0))
+        self.rename.setFont(font1)
 
         self.horizontalLayout_2.addWidget(self.rename)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -101,13 +100,13 @@ class Ui_Setting(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.btnSignOut = QPushButton(self.accInfoTab)
         self.btnSignOut.setObjectName(u"btnSignOut")
-        self.btnSignOut.setFont(font)
+        self.btnSignOut.setFont(font1)
 
         self.horizontalLayout_4.addWidget(self.btnSignOut)
 
         self.btnChangePsw = QPushButton(self.accInfoTab)
         self.btnChangePsw.setObjectName(u"btnChangePsw")
-        self.btnChangePsw.setFont(font)
+        self.btnChangePsw.setFont(font1)
 
         self.horizontalLayout_4.addWidget(self.btnChangePsw)
 
@@ -125,6 +124,7 @@ class Ui_Setting(object):
 
         self.switchDisplayMode = QPushButton(self.displayTab)
         self.switchDisplayMode.setObjectName(u"switchDisplayMode")
+        self.switchDisplayMode.setFont(font1)
 
         self.gridLayout_2.addWidget(self.switchDisplayMode, 0, 0, 1, 1)
 
@@ -196,7 +196,7 @@ class Ui_Setting(object):
     # setupUi
 
     def retranslateUi(self, Setting):
-        Setting.setWindowTitle(QCoreApplication.translate("Setting", u"MainWindow", None))
+        Setting.setWindowTitle(QCoreApplication.translate("Setting", u"CEESS-\u7cfb\u7edf\u8bbe\u7f6e", None))
         self.label.setText(QCoreApplication.translate("Setting", u"\u8d26\u53f7\uff1a", None))
         self.label_2.setText(QCoreApplication.translate("Setting", u"\u59d3\u540d\uff1a", None))
         self.rename.setText(QCoreApplication.translate("Setting", u"\u4fee\u6539", None))
@@ -213,7 +213,7 @@ class Ui_Setting(object):
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; color:#aa0000;\">\u8be5\u884c\u4e3a\u4f1a\u6e05\u7a7a\u6570\u636e\u5e93\u4e2d\u73b0\u5b58\u7684\u6210\u7ee9\u3002</span></p></body></html>", None))
         self.btnImport.setText(QCoreApplication.translate("Setting", u"\u5bfc\u5165\u6210\u7ee9", None))
         self.btnExport.setText(QCoreApplication.translate("Setting", u"\u5bfc\u51fa\u6210\u7ee9", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.gradeTab), "")
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.gradeTab), QCoreApplication.translate("Setting", u"hide", None))
         self.textBrowser.setHtml(QCoreApplication.translate("Setting", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -222,8 +222,8 @@ class Ui_Setting(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-                        "size:12pt; font-weight:600;\">Power by Desmond.</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">All right reserve.</span></p></body></html>", None))
+                        "size:12pt; font-weight:600;\">Powered by Desmond.</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">All right reserved.</span></p></body></html>", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.aboutTab), QCoreApplication.translate("Setting", u"\u5173\u4e8e", None))
     # retranslateUi
 

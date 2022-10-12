@@ -1,1 +1,7 @@
 **/__pycache__/
+/.virtualenvs/
+/dist/
+/build/
+/run.spec
+/.idea/
+/doc/
